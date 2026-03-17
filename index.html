@@ -1,308 +1,267 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portal Card Scanner – Scan & Value Your Trading Cards</title>
-  <meta name="description" content="Portal Card Scanner is a mobile app that instantly identifies and values Pokémon, One Piece, and other trading cards using AI. Available on Android."/>
-  <meta name="keywords" content="card scanner, pokemon card scanner, trading card app, card value, tcgplayer, one piece cards"/>
-  <meta name='Impact-site-verification' value='4ce42002-7635-40b9-8229-fc2182a0b9ce'>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #0a0a1a; color: #fff; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Card Scanner - Official</title>
 
-    /* HEADER */
-    header {
-      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 100%);
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #2a2a5a;
-    }
-    .logo { display: flex; align-items: center; gap: 12px; }
-    .logo-icon {
-      width: 48px; height: 48px;
-      background: linear-gradient(135deg, #6c63ff, #3ecfcf);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px;
-    }
-    .logo-text { font-size: 22px; font-weight: 700; color: #fff; }
-    .logo-text span { color: #6c63ff; }
-    nav a {
-      color: #aaa; text-decoration: none; margin-left: 24px;
-      font-size: 15px; transition: color 0.2s;
-    }
-    nav a:hover { color: #6c63ff; }
+    <!-- Security Meta Tags -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';">
 
-    /* HERO */
-    .hero {
-      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 60%, #0d2a3a 100%);
-      padding: 100px 40px 80px;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: 52px; font-weight: 800;
-      background: linear-gradient(90deg, #6c63ff, #3ecfcf);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      margin-bottom: 20px; line-height: 1.2;
-    }
-    .hero p {
-      font-size: 20px; color: #bbb; max-width: 600px;
-      margin: 0 auto 40px; line-height: 1.6;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #6c63ff, #3ecfcf);
-      color: #fff; padding: 16px 40px; border-radius: 50px;
-      text-decoration: none; font-size: 18px; font-weight: 700;
-      display: inline-block; transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(108,99,255,0.4);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108,99,255,0.6); }
-    .hero-badge {
-      display: inline-block; background: rgba(108,99,255,0.15);
-      border: 1px solid #6c63ff; color: #6c63ff;
-      padding: 6px 18px; border-radius: 20px; font-size: 13px;
-      margin-bottom: 24px; letter-spacing: 1px; text-transform: uppercase;
-    }
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Portal Card Scanner - AI-powered Pokémon and TCG card scanner. Scan cards, get real-time prices from TCGPlayer, eBay and Amazon. Free Android app.">
+    <meta name="keywords" content="pokemon card scanner, TCG card scanner, card price checker, TCGPlayer, eBay cards, portal card scanner">
+    <meta name="author" content="Portal Card Scanner">
+    <meta name="robots" content="index, follow">
 
-    /* FEATURES */
-    .features {
-      padding: 80px 40px;
-      background: #0d0d20;
-    }
-    .section-title {
-      text-align: center; font-size: 36px; font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .section-sub {
-      text-align: center; color: #888; font-size: 17px;
-      margin-bottom: 60px;
-    }
-    .features-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px; max-width: 1100px; margin: 0 auto;
-    }
-    .feature-card {
-      background: linear-gradient(135deg, #1a1a3e, #0d1a2e);
-      border: 1px solid #2a2a5a; border-radius: 16px;
-      padding: 36px 28px; transition: transform 0.2s, border-color 0.2s;
-    }
-    .feature-card:hover { transform: translateY(-4px); border-color: #6c63ff; }
-    .feature-icon { font-size: 40px; margin-bottom: 16px; }
-    .feature-card h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
-    .feature-card p { color: #888; font-size: 15px; line-height: 1.6; }
+    <!-- Open Graph -->
+    <meta property="og:title" content="Portal Card Scanner - Official">
+    <meta property="og:description" content="AI-powered TCG card scanner. Get real-time prices from TCGPlayer, eBay and Amazon.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://peppecastaldo4-nap.github.io/portal-card-scanner/">
+    <meta property="og:image" content="https://peppecastaldo4-nap.github.io/portal-card-scanner/logo.png">
 
-    /* HOW IT WORKS */
-    .how {
-      padding: 80px 40px;
-      background: linear-gradient(135deg, #0a0a1a, #1a1a3e);
-    }
-    .steps {
-      display: flex; justify-content: center; gap: 40px;
-      flex-wrap: wrap; max-width: 900px; margin: 0 auto;
-    }
-    .step {
-      text-align: center; flex: 1; min-width: 180px;
-    }
-    .step-num {
-      width: 60px; height: 60px;
-      background: linear-gradient(135deg, #6c63ff, #3ecfcf);
-      border-radius: 50%; display: flex; align-items: center;
-      justify-content: center; font-size: 24px; font-weight: 800;
-      margin: 0 auto 16px;
-    }
-    .step h3 { font-size: 18px; margin-bottom: 8px; }
-    .step p { color: #888; font-size: 14px; line-height: 1.5; }
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #050a18;
+            --portal-purple: #7e22ce;
+            --portal-blue: #3b82f6;
+            --gold-accent: #f59e0b;
+            --silver-glossy: linear-gradient(145deg, #ffffff 0%, #a1a1aa 50%, #f4f4f5 100%);
+            --text-main: #f1f5f9;
+        }
 
-    /* CARDS SUPPORTED */
-    .cards-section {
-      padding: 80px 40px;
-      background: #0d0d20;
-      text-align: center;
-    }
-    .cards-grid {
-      display: flex; justify-content: center; gap: 20px;
-      flex-wrap: wrap; margin-top: 40px;
-    }
-    .card-badge {
-      background: linear-gradient(135deg, #1a1a3e, #0d1a2e);
-      border: 1px solid #2a2a5a; border-radius: 12px;
-      padding: 20px 30px; font-size: 16px; font-weight: 600;
-      transition: border-color 0.2s;
-    }
-    .card-badge:hover { border-color: #6c63ff; }
-    .card-badge span { display: block; font-size: 30px; margin-bottom: 8px; }
+        body, html {
+            margin: 0; padding: 0; min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            display: flex; justify-content: center; align-items: center;
+            overflow-x: hidden;
+        }
 
-    /* AFFILIATE DISCLOSURE */
-    .affiliate {
-      padding: 60px 40px;
-      background: linear-gradient(135deg, #0a0a1a, #1a1a3e);
-      text-align: center;
-    }
-    .affiliate-box {
-      max-width: 700px; margin: 0 auto;
-      background: rgba(108,99,255,0.08);
-      border: 1px solid #6c63ff; border-radius: 16px;
-      padding: 36px;
-    }
-    .affiliate-box h2 { font-size: 24px; margin-bottom: 16px; color: #6c63ff; }
-    .affiliate-box p { color: #aaa; font-size: 15px; line-height: 1.7; }
+        /* SFONDO COSMICO */
+        .cosmic-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: linear-gradient(125deg, #050a18, #1e1b4b, #4c1d95, #1e1b4b, #050a18);
+            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-    /* CTA */
-    .cta {
-      padding: 80px 40px;
-      background: linear-gradient(135deg, #1a1a3e, #0d2a3a);
-      text-align: center;
-    }
-    .cta h2 { font-size: 40px; font-weight: 800; margin-bottom: 16px; }
-    .cta p { color: #aaa; font-size: 18px; margin-bottom: 40px; }
+        /* EFFETTO STELLE */
+        .stars {
+            position: absolute; width: 100%; height: 100%;
+            background-image: radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 2px);
+            background-size: 250px 250px; opacity: 0.3;
+        }
 
-    /* FOOTER */
-    footer {
-      background: #0a0a1a;
-      border-top: 1px solid #1a1a3e;
-      padding: 40px;
-      text-align: center;
-      color: #555; font-size: 14px;
-    }
-    footer a { color: #6c63ff; text-decoration: none; margin: 0 12px; }
-    footer a:hover { text-decoration: underline; }
-    .footer-links { margin-bottom: 16px; }
+        .main-container {
+            max-width: 1100px; width: 90%; text-align: center;
+            padding: 60px 0; z-index: 10;
+        }
 
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 32px; }
-      header { flex-direction: column; gap: 16px; }
-      nav a { margin: 0 10px; }
-    }
-  </style>
+        .logo-welcome {
+            width: 260px; filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.4));
+            animation: floating 4s ease-in-out infinite;
+        }
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* PULSANTE PLAY STORE CLICCABILE */
+        .playstore-button {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin: 20px 0 50px 0;
+            padding: 12px 30px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Icona Play Store */
+        .playstore-icon {
+            width: 30px;
+            height: 30px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+        }
+
+        /* Testo Argento Lucido */
+        .silver-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            background: var(--silver-glossy);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            filter: drop-shadow(0 2px 8px rgba(255,255,255,0.2));
+        }
+
+        /* Effetti Hover */
+        .playstore-button:hover {
+            transform: scale(1.05);
+            border-color: var(--portal-blue);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5), inset 0 0 10px rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .playstore-button:hover .silver-text {
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.6));
+        }
+
+        /* CARD GRID */
+        .info-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px; padding: 30px;
+            transition: all 0.4s ease; text-align: left;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-accent);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+        }
+
+        .lang-tag { color: var(--gold-accent); font-weight: 700; font-size: 0.8rem; margin-bottom: 10px; display: block; }
+        h2 { font-size: 1.4rem; margin: 5px 0 15px 0; color: #fff; }
+
+        .feature-list { list-style: none; padding: 0; margin: 0; opacity: 0.9; font-size: 0.95rem; line-height: 1.6; }
+        .feature-list li { margin-bottom: 8px; position: relative; padding-left: 20px; }
+        .feature-list li::before { content: "✦"; position: absolute; left: 0; color: var(--gold-accent); }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            opacity: 0.6;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer a {
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--gold-accent);
+        }
+
+        /* Affiliate Disclosure */
+        .disclosure {
+            margin-top: 40px;
+            padding: 20px 25px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            font-size: 0.82rem;
+            opacity: 0.7;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .silver-text { font-size: 1.2rem; }
+            .playstore-icon { width: 25px; height: 25px; }
+            .playstore-button { padding: 10px 20px; gap: 10px; }
+            .logo-welcome { width: 180px; }
+        }
+
+    </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="logo">
-    <div class="logo-icon">🃏</div>
-    <div class="logo-text">Portal <span>Card</span> Scanner</div>
-  </div>
-  <nav>
-    <a href="#features">Features</a>
-    <a href="#how">How It Works</a>
-    <a href="#cards">Cards</a>
-    <a href="#download">Download</a>
-  </nav>
-</header>
+    <div class="cosmic-bg"><div class="stars"></div></div>
 
-<!-- HERO -->
-<section class="hero" id="download">
-  <div class="hero-badge">AI-Powered Card Recognition</div>
-  <h1>Scan, Identify &amp; Value<br/>Your Trading Cards</h1>
-  <p>Instantly identify Pokémon, One Piece, and other trading cards with AI. Get real-time market prices from TCGPlayer, eBay, and Amazon.</p>
-  <a href="#download" class="btn-primary">📱 Download on Android</a>
-</section>
+    <div class="main-container">
 
-<!-- FEATURES -->
-<section class="features" id="features">
-  <h2 class="section-title">Everything You Need</h2>
-  <p class="section-sub">Powerful features for collectors and traders</p>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">🤖</div>
-      <h3>AI Card Recognition</h3>
-      <p>Advanced AI instantly identifies your trading cards from a photo — no manual searching required.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💰</div>
-      <h3>Real-Time Prices</h3>
-      <p>Get up-to-date market prices from TCGPlayer, eBay, and Amazon with a single scan.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📚</div>
-      <h3>Collection Manager</h3>
-      <p>Build and manage your card collection digitally. Track total value and individual card worth.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🌍</div>
-      <h3>All Languages</h3>
-      <p>Supports cards in all languages — English, Japanese, Italian, French, German, and more.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3>Lightning Fast</h3>
-      <p>Get results in seconds. Our AI processes your card image and returns full details instantly.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🆓</div>
-      <h3>Free to Use</h3>
-      <p>13 free scans every day. Watch a short video to unlock 3 extra scans. Premium plans available.</p>
-    </div>
-  </div>
-</section>
+        <img src="logo.png" alt="Portal Card Scanner Logo" class="logo-welcome">
 
-<!-- HOW IT WORKS -->
-<section class="how" id="how">
-  <h2 class="section-title">How It Works</h2>
-  <p class="section-sub">Three simple steps to know your card's value</p>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>Point &amp; Scan</h3>
-      <p>Open the app and point your camera at any trading card.</p>
+        <!-- Pulsante Play Store - link da aggiungere quando disponibile -->
+        <a href="#" class="playstore-button" title="Coming soon on Google Play Store">
+            <svg class="playstore-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 3.82c-.46.46-.72 1.14-.72 1.98v36.4c0 .84.26 1.52.72 1.98L6.14 44.3 26.6 23.85 6 3.3l.14.12.14.4zm29.8 15.6l-5.6-3.2L6.14 3.3s.06-.06.14-.12c.32-.22.7-.34 1.1-.34.4 0 .78.12 1.1.34l27.32 16.24zm8.68 4.43l-8.08 4.65-5.6-3.2 5.6-3.2 8.08 4.65c.62.36 1.02 1.02 1.02 1.75 0 .73-.4 1.39-1.02 1.75zM8.48 44.86c-.32.22-.7.34-1.1.34-.4 0-.78-.12-1.1-.34s-.06-.06-.14-.12l24.06-12.92 5.6 3.2-27.32 16.24z" fill="#fff"/>
+                <path d="M6 3.82l-.14-.4L6.14 3.3zm29.8 15.6L8.48 3.18 6.14 3.3zm-5.6 4.43l5.6 3.2 8.08-4.65c.62-.36 1.02-1.02 1.02-1.75 0-.73-.4-1.39-1.02-1.75z" fill-opacity=".2"/>
+                <path d="M6 44.3l-.14.4 24.2-12.98 5.6 3.2z" fill-opacity=".2"/>
+            </svg>
+            <span class="silver-text">DISPONIBILE SU PLAY STORE</span>
+        </a>
+
+        <div class="info-grid">
+
+            <div class="info-card">
+                <span class="lang-tag">ITALIANO</span>
+                <h2>Scanner AI di Carte</h2>
+                <ul class="feature-list">
+                    <li>Scannerizza carte TCG con potenza OpenAI e JustGC.</li>
+                    <li>Ottieni valore di mercato e dettagli completi.</li>
+                    <li>Bottoni diretti per Compra/Vendi su eBay.</li>
+                    <li>Acquista protezioni su Amazon o carte su TCGPlayer.</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <span class="lang-tag">ENGLISH</span>
+                <h2>AI Card Scanner</h2>
+                <ul class="feature-list">
+                    <li>Scan TCG cards powered by OpenAI and JustGC.</li>
+                    <li>Get real-time market value and full stats.</li>
+                    <li>Direct Buy/Sell buttons for eBay.</li>
+                    <li>Buy protection on Amazon or cards on TCGPlayer.</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <span class="lang-tag">日本語 (Japanese)</span>
+                <h2>AI カードスキャナー</h2>
+                <ul class="feature-list">
+                    <li>OpenAIとJustGC搭載のスキャナー。</li>
+                    <li>市場価格と詳細な統計を即座に取得。</li>
+                    <li>eBayでの売買ボタンを直接表示。</li>
+                    <li>Amazonで保護具、TCGPlayerでカードを購入。</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Affiliate Disclosure -->
+        <div class="disclosure">
+            <strong>Affiliate Disclosure:</strong> Portal Card Scanner participates in affiliate programs including the TCGPlayer Affiliate Program, Amazon Associates, and the eBay Partner Network. When you click on a price link and make a purchase, we may earn a small commission at no extra cost to you. This helps us keep the app free and continuously improving.
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="mailto:peppecasta82@libero.it">Contact Us</a>
+            <span>&copy; 2026 Portal Card Scanner. All rights reserved.</span>
+        </div>
+
     </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>AI Identifies</h3>
-      <p>Our AI instantly recognizes the card name, set, and edition.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>Get Prices</h3>
-      <p>See real-time prices from TCGPlayer, eBay, and Amazon.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CARDS SUPPORTED -->
-<section class="cards-section" id="cards">
-  <h2 class="section-title">Supported Card Games</h2>
-  <p class="section-sub">All sets, all languages, all editions</p>
-  <div class="cards-grid">
-    <div class="card-badge"><span>⚡</span>Pokémon TCG</div>
-    <div class="card-badge"><span>☠️</span>One Piece TCG</div>
-    <div class="card-badge"><span>⚽</span>Panini Stickers</div>
-    <div class="card-badge"><span>🃏</span>More Coming Soon</div>
-  </div>
-</section>
-
-<!-- AFFILIATE DISCLOSURE -->
-<section class="affiliate">
-  <div class="affiliate-box">
-    <h2>Affiliate Disclosure</h2>
-    <p>Portal Card Scanner participates in affiliate programs including the <strong>TCGPlayer Affiliate Program</strong>, <strong>Amazon Associates</strong>, and the <strong>eBay Partner Network</strong>. When you click on a price link and make a purchase, we may earn a small commission at no extra cost to you. This helps us keep the app free and continuously improving.</p>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta">
-  <h2>Ready to Scan Your Cards?</h2>
-  <p>Download Portal Card Scanner for free on Android today.</p>
-  <a href="#download" class="btn-primary">📱 Get the App — It's Free</a>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-links">
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Service</a>
-    <a href="mailto:peppecastaldo4@gmail.com">Contact Us</a>
-  </div>
-  <p>&copy; 2026 Portal Card Scanner. All rights reserved.</p>
-  <p style="margin-top:8px; font-size:12px; color:#444;">
-    Portal Card Scanner is not affiliated with Nintendo, The Pokémon Company, Bandai, Panini, or TCGPlayer.
-    Pokémon is a trademark of Nintendo/Creatures Inc./GAME FREAK inc.
-  </p>
-</footer>
 
 </body>
 </html>
