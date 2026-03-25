@@ -54,16 +54,96 @@
         }
         @keyframes gradientBG { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-        /* EFFETTO STELLE */
+        /* STELLE LAYER 1 - piccole */
         .stars {
             position: absolute; width: 100%; height: 100%;
             background-image: radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 2px);
-            background-size: 250px 250px; opacity: 0.3;
+            background-size: 150px 150px; opacity: 0.5;
+            animation: twinkle 6s ease-in-out infinite alternate;
         }
+        /* STELLE LAYER 2 - medie */
+        .stars2 {
+            position: absolute; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.9), rgba(255,255,255,.1) 1px, transparent 2px);
+            background-size: 220px 220px; background-position: 80px 80px;
+            opacity: 0.35; animation: twinkle 9s ease-in-out infinite alternate-reverse;
+        }
+        /* STELLE LAYER 3 - grandi luminose */
+        .stars3 {
+            position: absolute; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(180,200,255,0.95), rgba(180,200,255,.2) 2px, transparent 3px);
+            background-size: 350px 350px; background-position: 40px 120px;
+            opacity: 0.4; animation: twinkle 12s ease-in-out infinite alternate;
+        }
+        @keyframes twinkle { 0% { opacity: 0.2; } 100% { opacity: 0.6; } }
+
+        /* FASCI DI LUCE */
+        .light-beam {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .beam-1 {
+            top: -20%; left: 10%;
+            width: 3px; height: 80vh;
+            background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.6), rgba(139, 92, 246, 0.3), transparent);
+            transform: rotate(20deg);
+            animation: beamPulse 8s ease-in-out infinite;
+            filter: blur(4px);
+        }
+        .beam-2 {
+            top: -10%; right: 15%;
+            width: 2px; height: 70vh;
+            background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.7), rgba(96, 165, 250, 0.3), transparent);
+            transform: rotate(-15deg);
+            animation: beamPulse 11s ease-in-out infinite 2s;
+            filter: blur(3px);
+        }
+        .beam-3 {
+            top: 20%; left: 50%;
+            width: 4px; height: 60vh;
+            background: linear-gradient(to bottom, transparent, rgba(245, 158, 11, 0.4), rgba(251, 191, 36, 0.2), transparent);
+            transform: rotate(5deg);
+            animation: beamPulse 14s ease-in-out infinite 4s;
+            filter: blur(5px);
+        }
+        .beam-4 {
+            top: -5%; left: 75%;
+            width: 2px; height: 75vh;
+            background: linear-gradient(to bottom, transparent, rgba(167, 139, 250, 0.6), rgba(196, 181, 253, 0.2), transparent);
+            transform: rotate(-25deg);
+            animation: beamPulse 10s ease-in-out infinite 6s;
+            filter: blur(3px);
+        }
+        .beam-5 {
+            bottom: -10%; left: 30%;
+            width: 3px; height: 50vh;
+            background: linear-gradient(to top, transparent, rgba(34, 211, 238, 0.5), rgba(103, 232, 249, 0.2), transparent);
+            transform: rotate(-10deg);
+            animation: beamPulse 9s ease-in-out infinite 1s;
+            filter: blur(4px);
+        }
+        @keyframes beamPulse {
+            0%, 100% { opacity: 0.2; transform: scaleX(1) rotate(var(--r, 20deg)); }
+            50% { opacity: 1; transform: scaleX(2.5) rotate(var(--r, 20deg)); }
+        }
+
+        /* BAGLIORE CENTRALE */
+        .center-glow {
+            position: fixed;
+            top: 30%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.08) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: glowPulse 7s ease-in-out infinite;
+        }
+        @keyframes glowPulse { 0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); } }
 
         .main-container {
             max-width: 1100px; width: 90%; text-align: center;
-            padding: 60px 0; z-index: 10;
+            padding: 60px 0; z-index: 10; position: relative;
         }
 
         .logo-welcome {
@@ -72,7 +152,7 @@
         }
         @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        /* PULSANTE PLAY STORE CLICCABILE */
+        /* PULSANTE PLAY STORE */
         .playstore-button {
             text-decoration: none;
             display: inline-flex;
@@ -91,14 +171,11 @@
             overflow: hidden;
         }
 
-        /* Icona Play Store */
         .playstore-icon {
-            width: 30px;
-            height: 30px;
+            width: 30px; height: 30px;
             filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
         }
 
-        /* Testo Argento Lucido */
         .silver-text {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.6rem;
@@ -110,7 +187,6 @@
             filter: drop-shadow(0 2px 8px rgba(255,255,255,0.2));
         }
 
-        /* Effetti Hover */
         .playstore-button:hover {
             transform: scale(1.05);
             border-color: var(--portal-blue);
@@ -161,14 +237,8 @@
             flex-wrap: wrap;
         }
 
-        .footer a {
-            color: var(--text-main);
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            color: var(--gold-accent);
-        }
+        .footer a { color: var(--text-main); text-decoration: none; }
+        .footer a:hover { color: var(--gold-accent); }
 
         /* Affiliate Disclosure */
         .disclosure {
@@ -189,26 +259,42 @@
             .playstore-icon { width: 25px; height: 25px; }
             .playstore-button { padding: 10px 20px; gap: 10px; }
             .logo-welcome { width: 180px; }
+            .center-glow { width: 300px; height: 300px; }
         }
 
     </style>
 </head>
 <body>
 
-    <div class="cosmic-bg"><div class="stars"></div></div>
+    <!-- Sfondo cosmico con stelle e fasci di luce -->
+    <div class="cosmic-bg">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+    </div>
+
+    <!-- Fasci di luce -->
+    <div class="light-beam beam-1"></div>
+    <div class="light-beam beam-2"></div>
+    <div class="light-beam beam-3"></div>
+    <div class="light-beam beam-4"></div>
+    <div class="light-beam beam-5"></div>
+
+    <!-- Bagliore centrale -->
+    <div class="center-glow"></div>
 
     <div class="main-container">
 
         <img src="logo.png" alt="Portal Card Scanner Logo" class="logo-welcome">
 
-        <!-- Pulsante Play Store - link da aggiungere quando disponibile -->
-        <a href="#" class="playstore-button" title="Coming soon on Google Play Store">
+        <!-- Pulsante Download Now -->
+        <a href="https://play.google.com/store/apps/details?id=com.peppecastaldo4nap.portalcardscanner" class="playstore-button" title="Download on Google Play Store">
             <svg class="playstore-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 3.82c-.46.46-.72 1.14-.72 1.98v36.4c0 .84.26 1.52.72 1.98L6.14 44.3 26.6 23.85 6 3.3l.14.12.14.4zm29.8 15.6l-5.6-3.2L6.14 3.3s.06-.06.14-.12c.32-.22.7-.34 1.1-.34.4 0 .78.12 1.1.34l27.32 16.24zm8.68 4.43l-8.08 4.65-5.6-3.2 5.6-3.2 8.08 4.65c.62.36 1.02 1.02 1.02 1.75 0 .73-.4 1.39-1.02 1.75zM8.48 44.86c-.32.22-.7.34-1.1.34-.4 0-.78-.12-1.1-.34s-.06-.06-.14-.12l24.06-12.92 5.6 3.2-27.32 16.24z" fill="#fff"/>
                 <path d="M6 3.82l-.14-.4L6.14 3.3zm29.8 15.6L8.48 3.18 6.14 3.3zm-5.6 4.43l5.6 3.2 8.08-4.65c.62-.36 1.02-1.02 1.02-1.75 0-.73-.4-1.39-1.02-1.75z" fill-opacity=".2"/>
                 <path d="M6 44.3l-.14.4 24.2-12.98 5.6 3.2z" fill-opacity=".2"/>
             </svg>
-            <span class="silver-text">DISPONIBILE SU PLAY STORE</span>
+            <span class="silver-text">DOWNLOAD NOW</span>
         </a>
 
         <div class="info-grid">
@@ -217,7 +303,7 @@
                 <span class="lang-tag">ITALIANO</span>
                 <h2>Scanner AI di Carte</h2>
                 <ul class="feature-list">
-                    <li>Scannerizza carte TCG con potenza OpenAI e JustGC.</li>
+                    <li>Scannerizza carte TCG con tecnologia AI di ultima generazione.</li>
                     <li>Ottieni valore di mercato e dettagli completi.</li>
                     <li>Bottoni diretti per Compra/Vendi su eBay.</li>
                     <li>Acquista protezioni su Amazon o carte su TCGPlayer.</li>
@@ -228,7 +314,7 @@
                 <span class="lang-tag">ENGLISH</span>
                 <h2>AI Card Scanner</h2>
                 <ul class="feature-list">
-                    <li>Scan TCG cards powered by OpenAI and JustGC.</li>
+                    <li>Scan TCG cards powered by cutting-edge AI technology.</li>
                     <li>Get real-time market value and full stats.</li>
                     <li>Direct Buy/Sell buttons for eBay.</li>
                     <li>Buy protection on Amazon or cards on TCGPlayer.</li>
@@ -239,7 +325,7 @@
                 <span class="lang-tag">日本語 (Japanese)</span>
                 <h2>AI カードスキャナー</h2>
                 <ul class="feature-list">
-                    <li>OpenAIとJustGC搭載のスキャナー。</li>
+                    <li>最先端のAI技術を搭載したTCGカードスキャナー。</li>
                     <li>市場価格と詳細な統計を即座に取得。</li>
                     <li>eBayでの売買ボタンを直接表示。</li>
                     <li>Amazonで保護具、TCGPlayerでカードを購入。</li>
@@ -257,7 +343,7 @@
         <div class="footer">
             <a href="privacy.html">Privacy Policy</a>
             <a href="terms.html">Terms of Service</a>
-            <a href="mailto:peppecasta82@libero.it">Contact Us</a>
+            <a href="mailto:portalcardscanner@gmail.com">Contact Us</a>
             <span>&copy; 2026 Portal Card Scanner. All rights reserved.</span>
         </div>
 
