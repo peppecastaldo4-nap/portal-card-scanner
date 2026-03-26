@@ -54,18 +54,18 @@
         }
         @keyframes gradientBG { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-        /* STELLE ANIMATE */
+        /* STELLE ANIMATE POTENZIATE */
         .stars-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: -1;
         }
         .star {
             position: absolute; background: #fff; border-radius: 50%;
-            box-shadow: 0 0 5px #fff;
+            box-shadow: 0 0 8px #fff, 0 0 12px rgba(255,255,255,0.5);
             animation: moveStar linear infinite;
         }
         @keyframes moveStar {
-            from { transform: translateY(100vh); }
+            from { transform: translateY(110vh); }
             to { transform: translateY(-10vh); }
         }
 
@@ -137,7 +137,7 @@
         }
 
         .playstore-icon-svg {
-            width: 32px; height: 32px; filter: drop-shadow(0 0 8px rgba(255,255,255,0.6));
+            width: 32px; height: 32px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.4));
             display: block;
         }
 
@@ -220,15 +220,12 @@
 
         <div>
             <a href="https://play.google.com/store/apps/details?id=com.portal.cardscanner" class="playstore-button">
-                <!-- SVG Icon Play Store con colori migliorati -->
+                <!-- SVG Icon Play Store Multicolore Ufficiale -->
                 <svg class="playstore-icon-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="playGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 36l225.1 220L47 475.9v-440zM325.3 277.7l60.1 60.1L104.6 499l220.7-221.3zm52.4-75.3l80.8 46.4c13.2 7.6 13.2 26.6 0 34.2l-80.8 46.4-65.7-65.7 65.7-61.3z" fill="url(#playGradient)"/>
+                    <path fill="#00A0E9" d="M30.7 18.2C28.4 20.5 27 23.9 27 28v456c0 4.1 1.4 7.5 3.7 9.8L32.4 496 272 256.4V255.6L32.4 16l-1.7 2.2z"/>
+                    <path fill="#EA4335" d="M352.1 336.1L272 256v-0.4l80.1-80.1 1.7 1c18.8 10.7 31.6 30.6 31.6 53.5s-12.8 42.8-31.6 53.5l-1.7 2.6z"/>
+                    <path fill="#FFD900" d="M30.7 493.8c2.4 2.4 6.2 3.2 10.4 0.8l311-158.5-80.1-80.1-272 277.8z"/>
+                    <path fill="#4DB748" d="M30.7 18.2l272 277.8 80.1-80.1L41.1 17.4C36.9 15 33.1 15.8 30.7 18.2z"/>
                 </svg>
                 <span class="silver-text">Download App</span>
             </a>
@@ -285,21 +282,21 @@
     </div>
 
     <script>
-        // Funzione per creare stelle animate con visibilità migliorata
+        // Funzione per creare stelle animate con visibilità e contrasto massimi
         function createStars() {
             const container = document.getElementById('stars-container');
-            const count = 150; // Aumentato numero stelle
+            const count = 180; 
             for (let i = 0; i < count; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                const size = Math.random() * 3 + 1; // Leggermente più grandi
+                const size = Math.random() * 3 + 1.5; 
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
-                star.style.opacity = Math.random() * 0.7 + 0.3;
-                star.style.animationDuration = `${Math.random() * 20 + 10}s`; // Più veloci
-                star.style.animationDelay = `-${Math.random() * 20}s`;
+                star.style.opacity = Math.random() * 0.6 + 0.4;
+                star.style.animationDuration = `${Math.random() * 15 + 8}s`; 
+                star.style.animationDelay = `-${Math.random() * 15}s`;
                 container.appendChild(star);
             }
         }
@@ -307,7 +304,7 @@
         // Funzione per creare sfere di luce animate
         function createSpheres() {
             const container = document.getElementById('spheres-container');
-            const count = 10;
+            const count = 8;
             for (let i = 0; i < count; i++) {
                 const sphere = document.createElement('div');
                 sphere.className = 'sphere';
