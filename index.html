@@ -60,12 +60,13 @@
             pointer-events: none; z-index: -1;
         }
         .star {
-            position: absolute; background: white; border-radius: 50%;
-            opacity: 0.5; animation: moveStar linear infinite;
+            position: absolute; background: #fff; border-radius: 50%;
+            box-shadow: 0 0 5px #fff;
+            animation: moveStar linear infinite;
         }
         @keyframes moveStar {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100vh); }
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-10vh); }
         }
 
         /* SFORE DI LUCE ANIMATE */
@@ -136,7 +137,8 @@
         }
 
         .playstore-icon-svg {
-            width: 32px; height: 32px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+            width: 32px; height: 32px; filter: drop-shadow(0 0 8px rgba(255,255,255,0.6));
+            display: block;
         }
 
         .silver-text {
@@ -218,9 +220,15 @@
 
         <div>
             <a href="https://play.google.com/store/apps/details?id=com.portal.cardscanner" class="playstore-button">
-                <!-- SVG Icon Play Store -->
+                <!-- SVG Icon Play Store con colori migliorati -->
                 <svg class="playstore-icon-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 36l225.1 220L47 475.9v-440zM325.3 277.7l60.1 60.1L104.6 499l220.7-221.3zm52.4-75.3l80.8 46.4c13.2 7.6 13.2 26.6 0 34.2l-80.8 46.4-65.7-65.7 65.7-61.3z" fill="#3b82f6"/>
+                    <defs>
+                        <linearGradient id="playGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 36l225.1 220L47 475.9v-440zM325.3 277.7l60.1 60.1L104.6 499l220.7-221.3zm52.4-75.3l80.8 46.4c13.2 7.6 13.2 26.6 0 34.2l-80.8 46.4-65.7-65.7 65.7-61.3z" fill="url(#playGradient)"/>
                 </svg>
                 <span class="silver-text">Download App</span>
             </a>
@@ -259,7 +267,7 @@
                 <ul class="feature-list">
                     <li>AIによる高速カード認識 e 自動スキャン。</li>
                     <li>TCGPlayer、eBay、Amazonのリアルタイム価格。</li>
-                    <li>エキスパンションとレアリティを自動判別。</li>
+                    <li>エキスパンション e レアリティを自動判別。</li>
                     <li>Amazonで保護具、TCGPlayerでカードを購入。</li>
                 </ul>
             </div>
@@ -277,20 +285,21 @@
     </div>
 
     <script>
-        // Funzione per creare stelle animate
+        // Funzione per creare stelle animate con visibilità migliorata
         function createStars() {
             const container = document.getElementById('stars-container');
-            const count = 100;
+            const count = 150; // Aumentato numero stelle
             for (let i = 0; i < count; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                const size = Math.random() * 2 + 1;
+                const size = Math.random() * 3 + 1; // Leggermente più grandi
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
-                star.style.animationDuration = `${Math.random() * 50 + 50}s`;
-                star.style.animationDelay = `-${Math.random() * 50}s`;
+                star.style.opacity = Math.random() * 0.7 + 0.3;
+                star.style.animationDuration = `${Math.random() * 20 + 10}s`; // Più veloci
+                star.style.animationDelay = `-${Math.random() * 20}s`;
                 container.appendChild(star);
             }
         }
@@ -298,7 +307,7 @@
         // Funzione per creare sfere di luce animate
         function createSpheres() {
             const container = document.getElementById('spheres-container');
-            const count = 12;
+            const count = 10;
             for (let i = 0; i < count; i++) {
                 const sphere = document.createElement('div');
                 sphere.className = 'sphere';
