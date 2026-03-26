@@ -46,28 +46,32 @@
             overflow-x: hidden;
         }
 
-        /* SFONDO COSMICO */
+        /* SFONDO CON STELLE FISSE (Immagine garantita per smartphone) */
         .cosmic-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background-image: url('starfield.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+        }
+
+        /* GRADIENTE ANIMATO DI BASE */
+        .gradient-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: linear-gradient(125deg, #050a18, #1e1b4b, #4c1d95, #1e1b4b, #050a18);
+            background: linear-gradient(125deg, rgba(5,10,24,0.9), rgba(30,27,75,0.7), rgba(76,29,149,0.5), rgba(30,27,75,0.7), rgba(5,10,24,0.9));
             background-size: 400% 400%; animation: gradientBG 15s ease infinite;
         }
         @keyframes gradientBG { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-        /* STELLE SCINTILLANTI (Twinkle) - Metodo Ultra-Visibile */
-        .stars-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: -1;
+        /* SCIE DI LUCE SEMPLIFICATE PER MOBILE */
+        .light-beam {
+            position: fixed; pointer-events: none; z-index: 0;
+            background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.4), transparent);
+            filter: blur(5px);
         }
-        .star {
-            position: absolute; background: #fff; border-radius: 50%;
-            box-shadow: 0 0 10px #fff, 0 0 15px rgba(255,255,255,0.8);
-            animation: twinkle var(--duration) ease-in-out infinite alternate;
-        }
-        @keyframes twinkle {
-            0% { opacity: 0.3; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1.2); }
-        }
+        .beam-1 { top: -10%; left: 20%; width: 2px; height: 100vh; transform: rotate(25deg); animation: pulse 8s infinite; }
+        .beam-2 { top: -10%; right: 20%; width: 2px; height: 100vh; transform: rotate(-20deg); animation: pulse 10s infinite 2s; }
+        @keyframes pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
 
         /* SFORE DI LUCE ANIMATE */
         .light-spheres {
@@ -76,7 +80,7 @@
         }
         .sphere {
             position: absolute; border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(59,130,246,0.1) 60%, transparent 100%);
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(59,130,246,0.1) 60%, transparent 100%);
             filter: blur(20px);
             animation: moveSphere linear infinite;
         }
@@ -87,114 +91,92 @@
             100% { transform: translate(var(--tx), var(--ty)) scale(1.5); opacity: 0; }
         }
 
-        /* BAGLIORE CENTRALE */
-        .center-glow {
-            position: fixed; top: 30%; left: 50%; transform: translate(-50%, -50%);
-            width: 600px; height: 600px;
-            background: radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.08) 40%, transparent 70%);
-            pointer-events: none; z-index: 0; animation: glowPulse 7s ease-in-out infinite;
-        }
-        @keyframes glowPulse { 0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); } }
-
         .main-container {
             max-width: 1100px; width: 90%; text-align: center;
-            padding: 60px 0; z-index: 10; position: relative;
+            padding: 40px 0; z-index: 10; position: relative;
         }
 
         .logo-welcome {
-            width: 260px; filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.4));
+            width: 240px; filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.4));
             animation: floating 4s ease-in-out infinite;
         }
-        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        /* PULSANTE PLAY STORE */
+        /* PULSANTE PLAY STORE CON IMMAGINE FISSA */
         .playstore-button {
             text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
-            gap: 15px; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin: 20px 0 50px 0; padding: 12px 30px;
-            border: 2px solid rgba(255,255,255,0.1); border-radius: 50px;
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(5px);
-            position: relative;
+            gap: 12px; cursor: pointer; transition: all 0.3s ease;
+            margin: 20px 0 40px 0; padding: 12px 25px;
+            border: 2px solid rgba(255,255,255,0.2); border-radius: 50px;
+            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        .playstore-icon-wrapper {
-            width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: visible;
-        }
-
-        .playstore-icon-svg {
-            width: 100%; height: 100%; filter: drop-shadow(0 0 5px rgba(255,255,255,0.4));
-            display: block; overflow: visible;
+        .playstore-icon-img {
+            width: 28px; height: auto; display: block;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
         }
 
         .silver-text {
-            font-family: 'Orbitron', sans-serif; font-size: 1.6rem;
+            font-family: 'Orbitron', sans-serif; font-size: 1.4rem;
             background: var(--silver-glossy); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase; letter-spacing: 2px;
-            filter: drop-shadow(0 2px 8px rgba(255,255,255,0.2));
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
         .playstore-button:hover {
             transform: scale(1.05); border-color: var(--portal-blue);
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5), inset 0 0 10px rgba(255,255,255,0.1);
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         /* CARD GRID */
         .info-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
         }
 
         .info-card {
-            background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 30px;
-            transition: all 0.4s ease; text-align: left;
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 25px;
+            text-align: left;
         }
 
-        .info-card:hover {
-            transform: translateY(-8px); border-color: var(--gold-accent);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-        }
+        .lang-tag { color: var(--gold-accent); font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; display: block; }
+        h2 { font-size: 1.3rem; margin: 0 0 12px 0; color: #fff; }
 
-        .lang-tag { color: var(--gold-accent); font-weight: 700; font-size: 0.8rem; margin-bottom: 10px; display: block; }
-        h2 { font-size: 1.4rem; margin: 5px 0 15px 0; color: #fff; }
-
-        .feature-list { list-style: none; padding: 0; margin: 0; opacity: 0.9; font-size: 0.95rem; line-height: 1.6; }
-        .feature-list li { margin-bottom: 8px; position: relative; padding-left: 20px; }
+        .feature-list { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; line-height: 1.5; }
+        .feature-list li { margin-bottom: 6px; position: relative; padding-left: 18px; }
         .feature-list li::before { content: "✦"; position: absolute; left: 0; color: var(--gold-accent); }
 
         /* FOOTER */
         .footer {
-            margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.85rem; opacity: 0.6; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+            margin-top: 50px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem; opacity: 0.6; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
         }
 
         .footer a { color: var(--text-main); text-decoration: none; }
-        .footer a:hover { color: var(--gold-accent); }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .silver-text { font-size: 1.2rem; }
-            .playstore-icon-wrapper { width: 28px; height: 28px; }
-            .playstore-button { padding: 10px 20px; gap: 10px; }
+            .silver-text { font-size: 1.1rem; }
+            .playstore-icon-img { width: 22px; }
             .logo-welcome { width: 180px; }
-            .center-glow { width: 300px; height: 300px; }
+            .main-container { padding: 20px 0; }
         }
 
     </style>
 </head>
 <body>
 
-    <!-- Sfondo cosmico -->
+    <!-- Sfondo con stelle reali (Immagine) -->
     <div class="cosmic-bg"></div>
-
-    <!-- Stelle Scintillanti Overlay -->
-    <div class="stars-overlay" id="stars-overlay"></div>
+    <div class="gradient-overlay"></div>
 
     <!-- Sfere di luce animate -->
     <div class="light-spheres" id="spheres-container"></div>
 
-    <div class="center-glow"></div>
+    <!-- Scie di luce -->
+    <div class="light-beam beam-1"></div>
+    <div class="light-beam beam-2"></div>
 
     <div class="main-container">
         
@@ -202,22 +184,14 @@
 
         <div>
             <a href="https://play.google.com/store/apps/details?id=com.portal.cardscanner" class="playstore-button">
-                <div class="playstore-icon-wrapper">
-                    <!-- SVG Icon Play Store con punta garantita e viewbox estesa -->
-                    <svg class="playstore-icon-svg" viewBox="-10 -10 532 532" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#00A0E9" d="M30.7 18.2C28.4 20.5 27 23.9 27 28v456c0 4.1 1.4 7.5 3.7 9.8L32.4 496 272 256.4V255.6L32.4 16l-1.7 2.2z"/>
-                        <path fill="#EA4335" d="M352.1 336.1L272 256v-0.4l80.1-80.1 1.7 1c18.8 10.7 31.6 30.6 31.6 53.5s-12.8 42.8-31.6 53.5l-1.7 2.6z"/>
-                        <path fill="#FFD900" d="M30.7 493.8c2.4 2.4 6.2 3.2 10.4 0.8l311-158.5-80.1-80.1-272 277.8z"/>
-                        <path fill="#4DB748" d="M30.7 18.2l272 277.8 80.1-80.1L41.1 17.4C36.9 15 33.1 15.8 30.7 18.2z"/>
-                    </svg>
-                </div>
+                <!-- Immagine PNG ufficiale per l'icona Play Store -->
+                <img src="playstore_icon.png" alt="Play Store Icon" class="playstore-icon-img">
                 <span class="silver-text">Download App</span>
             </a>
         </div>
 
         <div class="info-grid">
             
-            <!-- ITALIANO -->
             <div class="info-card">
                 <span class="lang-tag">ITALIANO</span>
                 <h2>Scanner Carte Pokémon AI</h2>
@@ -229,7 +203,6 @@
                 </ul>
             </div>
 
-            <!-- ENGLISH -->
             <div class="info-card">
                 <span class="lang-tag">ENGLISH</span>
                 <h2>AI Pokémon Card Scanner</h2>
@@ -241,7 +214,6 @@
                 </ul>
             </div>
 
-            <!-- JAPANESE -->
             <div class="info-card">
                 <span class="lang-tag">日本語</span>
                 <h2>AI ポケモンカードスキャナー</h2>
@@ -255,7 +227,6 @@
 
         </div>
 
-        <!-- Footer -->
         <div class="footer">
             <a href="privacy.html">Privacy Policy</a>
             <a href="terms.html">Terms of Service</a>
@@ -266,36 +237,17 @@
     </div>
 
     <script>
-        // Funzione per creare stelle scintillanti ultra-visibili
-        function createStars() {
-            const container = document.getElementById('stars-overlay');
-            const count = 150; 
-            for (let i = 0; i < count; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                const size = Math.random() * 3 + 1; 
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.setProperty('--duration', `${Math.random() * 3 + 1}s`);
-                star.style.animationDelay = `${Math.random() * 5}s`;
-                container.appendChild(star);
-            }
-        }
-
-        // Funzione per creare sfere di luce animate
         function createSpheres() {
             const container = document.getElementById('spheres-container');
-            const count = 8;
+            const count = 6;
             for (let i = 0; i < count; i++) {
                 const sphere = document.createElement('div');
                 sphere.className = 'sphere';
-                const size = Math.random() * 100 + 50;
+                const size = Math.random() * 80 + 40;
                 const startX = Math.random() * 100;
                 const startY = Math.random() * 100;
-                const tx = (Math.random() - 0.5) * 400;
-                const ty = (Math.random() - 0.5) * 400;
+                const tx = (Math.random() - 0.5) * 300;
+                const ty = (Math.random() - 0.5) * 300;
                 const duration = Math.random() * 10 + 15;
                 const delay = Math.random() * 10;
 
@@ -310,8 +262,6 @@
                 container.appendChild(sphere);
             }
         }
-
-        createStars();
         createSpheres();
     </script>
 </body>
