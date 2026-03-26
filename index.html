@@ -54,19 +54,19 @@
         }
         @keyframes gradientBG { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-        /* STELLE ANIMATE POTENZIATE */
-        .stars-container {
+        /* STELLE SCINTILLANTI (Twinkle) - Metodo Ultra-Visibile */
+        .stars-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: -1;
         }
         .star {
             position: absolute; background: #fff; border-radius: 50%;
-            box-shadow: 0 0 8px #fff, 0 0 12px rgba(255,255,255,0.5);
-            animation: moveStar linear infinite;
+            box-shadow: 0 0 10px #fff, 0 0 15px rgba(255,255,255,0.8);
+            animation: twinkle var(--duration) ease-in-out infinite alternate;
         }
-        @keyframes moveStar {
-            from { transform: translateY(110vh); }
-            to { transform: translateY(-10vh); }
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
         }
 
         /* SFORE DI LUCE ANIMATE */
@@ -85,25 +85,6 @@
             10% { opacity: 0.5; }
             90% { opacity: 0.5; }
             100% { transform: translate(var(--tx), var(--ty)) scale(1.5); opacity: 0; }
-        }
-
-        /* FASCI DI LUCE */
-        .light-beam {
-            position: fixed; pointer-events: none; z-index: 0;
-        }
-        .beam-1 {
-            top: -20%; left: 10%; width: 3px; height: 80vh;
-            background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.6), rgba(139, 92, 246, 0.3), transparent);
-            transform: rotate(20deg); animation: beamPulse 8s ease-in-out infinite; filter: blur(4px);
-        }
-        .beam-2 {
-            top: -10%; right: 15%; width: 2px; height: 70vh;
-            background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.7), rgba(96, 165, 250, 0.3), transparent);
-            transform: rotate(-15deg); animation: beamPulse 11s ease-in-out infinite 2s; filter: blur(3px);
-        }
-        @keyframes beamPulse {
-            0%, 100% { opacity: 0.2; transform: scaleX(1) rotate(var(--r, 20deg)); }
-            50% { opacity: 1; transform: scaleX(2.5) rotate(var(--r, 20deg)); }
         }
 
         /* BAGLIORE CENTRALE */
@@ -133,11 +114,16 @@
             margin: 20px 0 50px 0; padding: 12px 30px;
             border: 2px solid rgba(255,255,255,0.1); border-radius: 50px;
             background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(5px);
+            position: relative;
+        }
+
+        .playstore-icon-wrapper {
+            width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
             position: relative; overflow: visible;
         }
 
         .playstore-icon-svg {
-            width: 32px; height: 32px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.4));
+            width: 100%; height: 100%; filter: drop-shadow(0 0 5px rgba(255,255,255,0.4));
             display: block; overflow: visible;
         }
 
@@ -189,7 +175,7 @@
         /* Responsive */
         @media (max-width: 768px) {
             .silver-text { font-size: 1.2rem; }
-            .playstore-icon-svg { width: 24px; height: 24px; }
+            .playstore-icon-wrapper { width: 28px; height: 28px; }
             .playstore-button { padding: 10px 20px; gap: 10px; }
             .logo-welcome { width: 180px; }
             .center-glow { width: 300px; height: 300px; }
@@ -202,15 +188,11 @@
     <!-- Sfondo cosmico -->
     <div class="cosmic-bg"></div>
 
-    <!-- Stelle animate -->
-    <div class="stars-container" id="stars-container"></div>
+    <!-- Stelle Scintillanti Overlay -->
+    <div class="stars-overlay" id="stars-overlay"></div>
 
     <!-- Sfere di luce animate -->
     <div class="light-spheres" id="spheres-container"></div>
-
-    <!-- Fasci di luce -->
-    <div class="light-beam beam-1"></div>
-    <div class="light-beam beam-2"></div>
 
     <div class="center-glow"></div>
 
@@ -220,15 +202,15 @@
 
         <div>
             <a href="https://play.google.com/store/apps/details?id=com.portal.cardscanner" class="playstore-button">
-                <!-- SVG Icon Play Store Multicolore Ufficiale con punta corretta -->
-                <svg class="playstore-icon-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#00A0E9" d="M30.7 18.2C28.4 20.5 27 23.9 27 28v456c0 4.1 1.4 7.5 3.7 9.8L32.4 496 272 256.4V255.6L32.4 16l-1.7 2.2z"/>
-                    <path fill="#EA4335" d="M352.1 336.1L272 256v-0.4l80.1-80.1 1.7 1c18.8 10.7 31.6 30.6 31.6 53.5s-12.8 42.8-31.6 53.5l-1.7 2.6z"/>
-                    <path fill="#FFD900" d="M30.7 493.8c2.4 2.4 6.2 3.2 10.4 0.8l311-158.5-80.1-80.1-272 277.8z"/>
-                    <path fill="#4DB748" d="M30.7 18.2l272 277.8 80.1-80.1L41.1 17.4C36.9 15 33.1 15.8 30.7 18.2z"/>
-                    <!-- Aggiunta della punta esplicita per assicurarmi che non venga tagliata -->
-                    <polygon fill="#EA4335" points="352.1,336.1 411.5,282.6 411.5,229.4 352.1,175.9" />
-                </svg>
+                <div class="playstore-icon-wrapper">
+                    <!-- SVG Icon Play Store con punta garantita e viewbox estesa -->
+                    <svg class="playstore-icon-svg" viewBox="-10 -10 532 532" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#00A0E9" d="M30.7 18.2C28.4 20.5 27 23.9 27 28v456c0 4.1 1.4 7.5 3.7 9.8L32.4 496 272 256.4V255.6L32.4 16l-1.7 2.2z"/>
+                        <path fill="#EA4335" d="M352.1 336.1L272 256v-0.4l80.1-80.1 1.7 1c18.8 10.7 31.6 30.6 31.6 53.5s-12.8 42.8-31.6 53.5l-1.7 2.6z"/>
+                        <path fill="#FFD900" d="M30.7 493.8c2.4 2.4 6.2 3.2 10.4 0.8l311-158.5-80.1-80.1-272 277.8z"/>
+                        <path fill="#4DB748" d="M30.7 18.2l272 277.8 80.1-80.1L41.1 17.4C36.9 15 33.1 15.8 30.7 18.2z"/>
+                    </svg>
+                </div>
                 <span class="silver-text">Download App</span>
             </a>
         </div>
@@ -284,21 +266,20 @@
     </div>
 
     <script>
-        // Funzione per creare stelle animate con visibilità e contrasto massimi
+        // Funzione per creare stelle scintillanti ultra-visibili
         function createStars() {
-            const container = document.getElementById('stars-container');
-            const count = 180; 
+            const container = document.getElementById('stars-overlay');
+            const count = 150; 
             for (let i = 0; i < count; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                const size = Math.random() * 3 + 1.5; 
+                const size = Math.random() * 3 + 1; 
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
-                star.style.opacity = Math.random() * 0.6 + 0.4;
-                star.style.animationDuration = `${Math.random() * 15 + 8}s`; 
-                star.style.animationDelay = `-${Math.random() * 15}s`;
+                star.style.setProperty('--duration', `${Math.random() * 3 + 1}s`);
+                star.style.animationDelay = `${Math.random() * 5}s`;
                 container.appendChild(star);
             }
         }
