@@ -133,12 +133,12 @@
             margin: 20px 0 50px 0; padding: 12px 30px;
             border: 2px solid rgba(255,255,255,0.1); border-radius: 50px;
             background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(5px);
-            position: relative; overflow: hidden;
+            position: relative; overflow: visible;
         }
 
         .playstore-icon-svg {
             width: 32px; height: 32px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.4));
-            display: block;
+            display: block; overflow: visible;
         }
 
         .silver-text {
@@ -220,12 +220,14 @@
 
         <div>
             <a href="https://play.google.com/store/apps/details?id=com.portal.cardscanner" class="playstore-button">
-                <!-- SVG Icon Play Store Multicolore Ufficiale -->
+                <!-- SVG Icon Play Store Multicolore Ufficiale con punta corretta -->
                 <svg class="playstore-icon-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#00A0E9" d="M30.7 18.2C28.4 20.5 27 23.9 27 28v456c0 4.1 1.4 7.5 3.7 9.8L32.4 496 272 256.4V255.6L32.4 16l-1.7 2.2z"/>
                     <path fill="#EA4335" d="M352.1 336.1L272 256v-0.4l80.1-80.1 1.7 1c18.8 10.7 31.6 30.6 31.6 53.5s-12.8 42.8-31.6 53.5l-1.7 2.6z"/>
                     <path fill="#FFD900" d="M30.7 493.8c2.4 2.4 6.2 3.2 10.4 0.8l311-158.5-80.1-80.1-272 277.8z"/>
                     <path fill="#4DB748" d="M30.7 18.2l272 277.8 80.1-80.1L41.1 17.4C36.9 15 33.1 15.8 30.7 18.2z"/>
+                    <!-- Aggiunta della punta esplicita per assicurarmi che non venga tagliata -->
+                    <polygon fill="#EA4335" points="352.1,336.1 411.5,282.6 411.5,229.4 352.1,175.9" />
                 </svg>
                 <span class="silver-text">Download App</span>
             </a>
