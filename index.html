@@ -222,19 +222,47 @@ footer a:hover{color:#a78bfa}
         <div class="foil"></div>
         <div class="icon-w">
           <svg viewBox="0 0 58 58" fill="none">
-  <defs><radialGradient id="dbG" cx="35%" cy="28%" r="72%"><stop offset="0%" stop-color="#fde68a"/><stop offset="35%" stop-color="#f97316"/><stop offset="75%" stop-color="#c2410c"/><stop offset="100%" stop-color="#7c2d12"/></radialGradient></defs>
-  <circle cx="29" cy="29" r="26" fill="rgba(251,146,60,.08)" stroke="rgba(251,146,60,.2)" stroke-width=".9"/>
-  <circle cx="29" cy="29" r="23" fill="url(#dbG)" stroke="rgba(194,65,12,.3)" stroke-width="1"/>
-  <path d="M6.5 29 Q29 35 51.5 29" stroke="rgba(124,45,18,.3)" stroke-width="1" fill="none"/>
-  <g fill="#dc2626"><polygon points="16,16 17.2,19.7 21,19.7 18.1,22 19.3,25.7 16,23.4 12.7,25.7 13.9,22 11,19.7 14.8,19.7"/></g>
-  <g fill="#f97316">
-    <polygon points="29,8 30.2,11.7 34,11.7 31.1,14 32.3,17.7 29,15.4 25.7,17.7 26.9,14 24,11.7 27.8,11.7"/>
-    <polygon points="42,16 43.2,19.7 47,19.7 44.1,22 45.3,25.7 42,23.4 38.7,25.7 39.9,22 37,19.7 40.8,19.7"/>
-    <polygon points="38,36 39.2,39.7 43,39.7 40.1,42 41.3,45.7 38,43.4 34.7,45.7 35.9,42 33,39.7 36.8,39.7"/>
-    <polygon points="20,36 21.2,39.7 25,39.7 22.1,42 23.3,45.7 20,43.4 16.7,45.7 17.9,42 15,39.7 18.8,39.7"/>
+  <defs>
+    <radialGradient id="dbChr" cx="32%" cy="26%" r="75%">
+      <stop offset="0%"  stop-color="#ffffff"/>
+      <stop offset="18%" stop-color="#e8eef5"/>
+      <stop offset="50%" stop-color="#8fa0b8"/>
+      <stop offset="80%" stop-color="#3a4a60"/>
+      <stop offset="100%" stop-color="#1a2235"/>
+    </radialGradient>
+    <radialGradient id="dbRim" cx="15%" cy="78%" r="55%">
+      <stop offset="0%"  stop-color="rgba(120,160,220,.35)"/>
+      <stop offset="100%" stop-color="rgba(120,160,220,0)"/>
+    </radialGradient>
+  </defs>
+  <!-- soft blue outer glow -->
+  <circle cx="29" cy="29" r="27" fill="rgba(148,180,255,.09)" stroke="rgba(148,180,255,.22)" stroke-width=".8"/>
+  <!-- chrome sphere body -->
+  <circle cx="29" cy="29" r="23" fill="url(#dbChr)" stroke="rgba(80,100,140,.3)" stroke-width=".8"/>
+  <!-- equator reflection arc -->
+  <path d="M7 29 Q29 38 51 29" stroke="rgba(200,220,255,.18)" stroke-width="1.2" fill="none"/>
+  <!-- secondary rim glow -->
+  <circle cx="29" cy="29" r="23" fill="url(#dbRim)"/>
+  <!-- 7 glinting light points scattered around the sphere -->
+  <!-- main specular: large bright -->
+  <ellipse cx="18" cy="15" rx="8" ry="5" fill="rgba(255,255,255,.78)" transform="rotate(-28,18,15)"/>
+  <ellipse cx="13" cy="11" rx="4" ry="2.2" fill="rgba(255,255,255,.92)" transform="rotate(-22,13,11)"/>
+  <!-- scattered glints -->
+  <circle cx="38" cy="12" r="2.2" fill="rgba(255,255,255,.7)"/>
+  <circle cx="44" cy="22" r="1.5" fill="rgba(255,255,255,.55)"/>
+  <circle cx="42" cy="38" r="1.8" fill="rgba(255,255,255,.45)"/>
+  <circle cx="20" cy="42" r="2"   fill="rgba(255,255,255,.38)"/>
+  <circle cx="10" cy="30" r="1.4" fill="rgba(255,255,255,.42)"/>
+  <circle cx="32" cy="46" r="1.2" fill="rgba(255,255,255,.35)"/>
+  <!-- star glints (4-pointed light burst) -->
+  <g fill="rgba(255,255,255,.82)">
+    <path d="M38 12 L38.8 10 L39.6 12 L38 12Z M38 12 L40 12.8 L38 13.6 L38 12Z M38 12 L37.2 14 L36.4 12 L38 12Z M38 12 L36 11.2 L38 10.4 L38 12Z"/>
   </g>
-  <ellipse cx="20" cy="17" rx="7" ry="4" fill="rgba(255,255,220,.35)" transform="rotate(-28,20,17)"/>
-  <ellipse cx="15" cy="13" rx="3.2" ry="1.8" fill="rgba(255,255,220,.52)" transform="rotate(-22,15,13)"/>
+  <g fill="rgba(255,255,255,.65)">
+    <path d="M44 22 L44.6 20.5 L45.2 22 L44 22Z M44 22 L45.5 22.6 L44 23.2 L44 22Z M44 22 L43.4 23.5 L42.8 22 L44 22Z M44 22 L42.5 21.4 L44 20.8 L44 22Z"/>
+  </g>
+  <!-- dark side shadow gradient -->
+  <path d="M49 38 Q51 29 46 20" stroke="rgba(20,35,70,.22)" stroke-width="4" fill="none" stroke-linecap="round"/>
 </svg>
         </div>
         <div class="cname">Dragon Ball</div>
@@ -277,15 +305,42 @@ footer a:hover{color:#a78bfa}
         <div class="foil"></div>
         <div class="icon-ww">
           <svg viewBox="0 0 58 58" fill="none">
+  <defs>
+    <clipPath id="ballClip"><circle cx="29" cy="29" r="23"/></clipPath>
+    <radialGradient id="ballG" cx="35%" cy="28%" r="72%">
+      <stop offset="0%"  stop-color="#f8fafc"/>
+      <stop offset="60%" stop-color="#dde4ed"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </radialGradient>
+  </defs>
+  <!-- outer glow ring -->
   <circle cx="29" cy="29" r="26" fill="rgba(6,182,212,.06)" stroke="rgba(6,182,212,.18)" stroke-width=".8"/>
-  <circle cx="29" cy="29" r="23" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
-  <!-- single diagonal rounded stripe -->
-  <path d="M12 10 Q30 22 46 48" stroke="#1e293b" stroke-width="10" stroke-linecap="round" fill="none"/>
-  <!-- ball outline clip mask via circle border redraw on top -->
-  <circle cx="29" cy="29" r="23" fill="none" stroke="#f1f5f9" stroke-width="2.5"/>
+  <!-- ball base -->
+  <circle cx="29" cy="29" r="23" fill="url(#ballG)" stroke="#94a3b8" stroke-width="1"/>
+  <!-- black curved panels (classic soccer) clipped to ball -->
+  <g fill="#1e293b" clip-path="url(#ballClip)">
+    <!-- top-center pentagon -->
+    <path d="M21 6 Q29 4 37 6 Q35 14 29 16 Q23 14 21 6Z"/>
+    <!-- upper-right -->
+    <path d="M38 9 Q47 16 49 26 Q43 28 38 25 Q36 18 38 9Z"/>
+    <!-- upper-left -->
+    <path d="M20 9 Q11 16 9 26 Q15 28 20 25 Q22 18 20 9Z"/>
+    <!-- lower-right -->
+    <path d="M41 36 Q49 42 45 51 Q37 52 34 46 Q38 41 41 36Z"/>
+    <!-- lower-left -->
+    <path d="M17 36 Q9 42 13 51 Q21 52 24 46 Q20 41 17 36Z"/>
+    <!-- bottom -->
+    <path d="M21 52 Q29 54 37 52 Q35 44 29 42 Q23 44 21 52Z"/>
+  </g>
+  <!-- BLACK horizontal band across equator -->
+  <rect x="6" y="25.5" width="46" height="8" fill="#1a2535" clip-path="url(#ballClip)"/>
+  <!-- BLUE stripe just below black band -->
+  <rect x="6" y="33.5" width="46" height="3.5" fill="#2563eb" clip-path="url(#ballClip)"/>
+  <!-- redraw circle border on top to clean edges -->
+  <circle cx="29" cy="29" r="23" fill="none" stroke="#94a3b8" stroke-width="1.2"/>
   <!-- shine -->
-  <ellipse cx="20" cy="18" rx="6.5" ry="3.8" fill="rgba(255,255,255,.65)" transform="rotate(-28,20,18)"/>
-  <ellipse cx="15" cy="13.5" rx="2.8" ry="1.6" fill="rgba(255,255,255,.8)" transform="rotate(-22,15,13.5)"/>
+  <ellipse cx="20" cy="18" rx="6.5" ry="3.8" fill="rgba(255,255,255,.62)" transform="rotate(-28,20,18)"/>
+  <ellipse cx="15" cy="13.5" rx="2.8" ry="1.6" fill="rgba(255,255,255,.78)" transform="rotate(-22,15,13.5)"/>
 </svg>
         </div>
         <div class="cname">Football Cards</div>
