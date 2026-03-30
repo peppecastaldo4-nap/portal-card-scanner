@@ -139,19 +139,15 @@ footer a:hover{color:#a78bfa}
   @keyframes iconGlowFc{0%,100%{box-shadow:0 0 10px rgba(16,185,129,.25),0 0 28px rgba(16,185,129,.08);border-color:rgba(16,185,129,.35)}50%{box-shadow:0 0 22px rgba(16,185,129,.7),0 0 55px rgba(16,185,129,.28),0 0 90px rgba(110,231,183,.12);border-color:rgba(52,211,153,.85)}}
 
     /* ── SPORT OVERLAY IMAGES ── */
-    .sport-ov{position:fixed;z-index:2;pointer-events:none;width:min(340px,45vw);height:min(340px,45vw);object-fit:contain;opacity:0;transition:opacity .7s ease,transform .7s ease;filter:drop-shadow(0 0 30px rgba(255,255,255,.18))}
-    .sport-ov.sl{top:-10px;left:-10px;transform:translate(-30%,-30%) scale(.7);transform-origin:top left}
-    .sport-ov.sr{top:-10px;right:-10px;transform:translate(30%,-30%) scale(.7);transform-origin:top right}
-    .sport-ov.sl.vis{opacity:.6;transform:translate(0,0) scale(1)}
-    .sport-ov.sr.vis{opacity:.6;transform:translate(0,0) scale(1)}
+    .sport-ov{position:fixed;z-index:2;pointer-events:none;width:min(320px,42vw);height:min(320px,42vw);object-fit:contain;opacity:0;transition:opacity 2.2s ease;filter:drop-shadow(0 0 22px rgba(255,255,255,.12))}
     </style>
 </head>
 <body>
 <canvas id="bg"></canvas>
-<img class="sport-ov sl" id="sp0" src="sport-soccer-final.png" alt="">
-  <img class="sport-ov sr" id="sp1" src="sport-basketball-final.png" alt="">
-  <img class="sport-ov sl" id="sp2" src="sport-boxing-final.png" alt="">
-  <img class="sport-ov sr" id="sp3" src="sport-runner-final.png" alt="">
+<img class="sport-ov" id="sp0" src="sport-soccer-final.png" alt="">
+  <img class="sport-ov" id="sp1" src="sport-basketball-final.png" alt="">
+  <img class="sport-ov" id="sp2" src="sport-boxing-final.png" alt="">
+  <img class="sport-ov" id="sp3" src="sport-runner-final.png" alt="">
 <div class="page">
 
 <!-- HERO -->
@@ -474,20 +470,70 @@ document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 
 
   /* ═══════════════════════════════════════════
-     SPORT IMAGE OVERLAY — sequential animation
+     SPORT IMAGE OVERLAY — float & fade
   ═══════════════════════════════════════════ */
   (function(){
     var els=[document.getElementById('sp0'),document.getElementById('sp1'),document.getElementById('sp2'),document.getElementById('sp3')];
     var cur=0;
-    function next(){
-      var prev=(cur+3)%4;
-      els[prev].classList.remove('vis');
-      var el=els[cur];
-      el.classList.add('vis');
-      cur=(cur+1)%4;
-      setTimeout(next,4500);
+    var floatRAFs=[];
+
+    function rnd(min,max){return min+Math.random()*(max-min);}
+
+    function floatEl(el){
+      // start position: random area, avoid center
+      var side=Math.random()<.5;
+      var startX = side ? rnd(2,20) : rnd(72,90);
+      var startY = rnd(8,65);
+      el.style.left = startX + 'vw';
+      el.style.top  = startY + 'vh';
+      el.style.right='auto';
+      el.style.transform='scale(1)';
+
+      // drift direction: very slow
+      var dx = rnd(-0.003, 0.003); // vw per frame
+      var dy = rnd(-0.002, 0.002); // vh per frame
+      var x = startX, y = startY;
+      var raf;
+      function move(){
+        x += dx; y += dy;
+        el.style.left = x + 'vw';
+        el.style.top  = y + 'vh';
+        raf = requestAnimationFrame(move);
+      }
+      raf = requestAnimationFrame(move);
+      return function(){ cancelAnimationFrame(raf); };
     }
-    setTimeout(next,1000);
+
+    var stopFloat = null;
+
+    function show(){
+      var idx = cur;
+      cur = (cur+1)%4;
+      var el = els[idx];
+
+      // stop previous drift if any
+      if(stopFloat) stopFloat();
+
+      // fade out all
+      els.forEach(function(e){ e.style.opacity='0'; });
+
+      // position and start drifting
+      stopFloat = floatEl(el);
+
+      // fade in slowly
+      setTimeout(function(){
+        el.style.opacity='0.28';
+      }, 80);
+
+      // after 6 sec start fade out
+      setTimeout(function(){
+        el.style.opacity='0';
+        // show next after fade out completes
+        setTimeout(show, 2400);
+      }, 6000);
+    }
+
+    setTimeout(show, 1800);
   })();
   })();
 </script>
