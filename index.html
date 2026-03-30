@@ -484,21 +484,21 @@ document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
       var startX, startY;
 
       if(r < 0.4){
-        // fully centered — well inside the screen
-        startX = rnd(22, 52);
+        // completamente al centro
+        startX = rnd(20, 50);
         startY = rnd(15, 55);
-      } else if(r < 0.6){
-        // half-cut from left edge
-        startX = rnd(-14, -4);
-        startY = rnd(10, 60);
-      } else if(r < 0.8){
-        // half-cut from right edge
-        startX = rnd(72, 84);
+      } else if(r < 0.7){
+        // bordo sinistro o destro — completamente fuori poi entra
+        if(Math.random()<0.5){
+          startX = rnd(-38, -32);   // dal bordo sinistro
+        } else {
+          startX = rnd(110, 116);   // dal bordo destro
+        }
         startY = rnd(10, 60);
       } else {
-        // half-cut from top edge, centered horizontally
+        // dall'alto — completamente fuori poi entra
         startX = rnd(20, 55);
-        startY = rnd(-14, -4);
+        startY = rnd(-40, -32);
       }
 
       el.style.left = startX + 'vw';
@@ -506,10 +506,10 @@ document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
       el.style.right='auto';
       el.style.transform='scale(1)';
 
-      // very slow drift toward center
-      var cx=50, cy=40;
-      var dx = (cx - startX) * 0.000018;
-      var dy = (cy - startY) * 0.000018;
+      // deriva lenta verso il centro
+      var cx=50, cy=42;
+      var dx = (cx - startX) * 0.000022;
+      var dy = (cy - startY) * 0.000022;
       var x = startX, y = startY;
       var raf;
       function move(){
