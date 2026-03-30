@@ -488,7 +488,7 @@ var SPEED=0.8;
   ['sport-soccer-final.png','sport-basketball-final.png','sport-boxing-final.png','sport-runner-final.png'].forEach(function(src){
     var im=new Image(),sz=120+Math.random()*80;im.src=src;
     SPORTIMGS.push({img:im,x:Math.random()*W,y:Math.random()*H,w:sz,h:sz,
-      ang:0,da:(Math.random()-.5)*.0018,
+      ang:0,da:0,
       vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,
       al:.19+Math.random()*.08,ph:Math.random()*Math.PI*2});
   });
