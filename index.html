@@ -1,66 +1,5 @@
-/* ═══════════════════════════════════════════
-     SPORT IMAGE OVERLAY — float & fade
-  ═══════════════════════════════════════════ */
-  (function(){
-    var els=[document.getElementById('sp0'),document.getElementById('sp1'),document.getElementById('sp2'),document.getElementById('sp3')];
-    var cur=0;
-    var stopFloat=null;
 
-    function rnd(min,max){return min+Math.random()*(max-min);}
-
-    function floatEl(el){
-      var r=Math.random();
-      var startX,startY,tx,ty;
-
-      if(r<0.4){
-        /* centro schermo */
-        startX=rnd(18,48); startY=rnd(12,52);
-        tx=startX+rnd(-3,3); ty=startY+rnd(-3,3);
-      } else if(r<0.7){
-        /* dal bordo sinistro o destro — visibile a metà */
-        if(Math.random()<0.5){
-          startX=rnd(-12,-6); startY=rnd(10,58);  /* sinistra */
-          tx=rnd(10,28);      ty=startY+rnd(-4,4);
-        } else {
-          startX=rnd(76,82);  startY=rnd(10,58);  /* destra */
-          tx=rnd(48,68);      ty=startY+rnd(-4,4);
-        }
-      } else {
-        /* dall'alto — visibile a metà */
-        startX=rnd(18,52); startY=rnd(-12,-6);
-        tx=startX+rnd(-4,4); ty=rnd(8,40);
-      }
-
-      el.style.left=startX+'vw';
-      el.style.top =startY+'vh';
-      el.style.right='auto';
-
-      /* velocità costante verso target — circa 7s per traversata */
-      var spd=0.006;
-      var dx=(tx-startX)*spd, dy=(ty-startY)*spd;
-      var x=startX, y=startY, raf;
-      function move(){x+=dx;y+=dy;el.style.left=x+'vw';el.style.top=y+'vh';raf=requestAnimationFrame(move);}
-      raf=requestAnimationFrame(move);
-      return function(){cancelAnimationFrame(raf);};
-    }
-
-    function show(){
-      var idx=cur; cur=(cur+1)%4;
-      var el=els[idx];
-      if(stopFloat) stopFloat();
-      els.forEach(function(e){e.style.opacity='0';});
-      stopFloat=floatEl(el);
-      /* fade in */
-      setTimeout(function(){el.style.opacity='0.3';},100);
-      /* dopo 7s fade out, poi prossima */
-      setTimeout(function(){
-        el.style.opacity='0';
-        setTimeout(show,2000);
-      },7000);
-    }
-
-    setTimeout(show,1500);
-  })();<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -198,19 +137,11 @@ footer a:hover{color:#a78bfa}
   @keyframes iconGlowOp{0%,100%{box-shadow:0 0 10px rgba(245,158,11,.25),0 0 28px rgba(245,158,11,.08);border-color:rgba(245,158,11,.35)}50%{box-shadow:0 0 22px rgba(245,158,11,.7),0 0 55px rgba(245,158,11,.28),0 0 90px rgba(253,211,77,.12);border-color:rgba(251,191,36,.85)}}
   @keyframes iconGlowDb{0%,100%{box-shadow:0 0 10px rgba(249,115,22,.25),0 0 28px rgba(249,115,22,.08);border-color:rgba(249,115,22,.35)}50%{box-shadow:0 0 22px rgba(249,115,22,.7),0 0 55px rgba(249,115,22,.28),0 0 90px rgba(253,186,116,.12);border-color:rgba(251,146,60,.85)}}
   @keyframes iconGlowYg{0%,100%{box-shadow:0 0 10px rgba(168,85,247,.28),0 0 28px rgba(168,85,247,.09);border-color:rgba(168,85,247,.38)}50%{box-shadow:0 0 22px rgba(168,85,247,.75),0 0 55px rgba(168,85,247,.3),0 0 90px rgba(216,180,254,.14);border-color:rgba(192,132,252,.88)}}
-  @keyframes iconGlowFc{0%,100%{box-shadow:0 0 10px rgba(16,185,129,.25),0 0 28px rgba(16,185,129,.08);border-color:rgba(16,185,129,.35)}50%{box-shadow:0 0 22px rgba(16,185,129,.7),0 0 55px rgba(16,185,129,.28),0 0 90px rgba(110,231,183,.12);border-color:rgba(52,211,153,.85)}}
-
-    /* ── SPORT OVERLAY IMAGES ── */
-    .sport-ov{position:fixed;z-index:2;pointer-events:none;width:min(320px,42vw);height:min(320px,42vw);object-fit:contain;opacity:0;transition:opacity 2.2s ease;filter:drop-shadow(0 0 22px rgba(255,255,255,.12))}
-    </style>
+  @keyframes iconGlowFc{0%,100%{box-shadow:0 0 10px rgba(16,185,129,.25),0 0 28px rgba(16,185,129,.08);border-color:rgba(16,185,129,.35)}50%{box-shadow:0 0 22px rgba(16,185,129,.7),0 0 55px rgba(16,185,129,.28),0 0 90px rgba(110,231,183,.12);border-color:rgba(52,211,153,.85)}}</style>
 </head>
 <body>
 <canvas id="bg"></canvas>
-<img class="sport-ov" id="sp0" src="sport-soccer-final.png" alt="">
-  <img class="sport-ov" id="sp1" src="sport-basketball-final.png" alt="">
-  <img class="sport-ov" id="sp2" src="sport-boxing-final.png" alt="">
-  <img class="sport-ov" id="sp3" src="sport-runner-final.png" alt="">
-<div class="page">
+      <div class="page">
 
 <!-- HERO -->
 <section class="hero">
@@ -421,6 +352,16 @@ function dCorno(o,t){
   X.restore();
 }
 var SPEED=0.8;
+  /* Sport images — floating on canvas like cards */
+  var SPORTIMGS=[];
+  ['sport-soccer-final.png','sport-basketball-final.png','sport-boxing-final.png','sport-runner-final.png'].forEach(function(src){
+    var im=new Image(),sz=110+Math.random()*90;im.src=src;
+    SPORTIMGS.push({img:im,x:Math.random()*W,y:Math.random()*H,w:sz,h:sz,
+      ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.0018,
+      vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,
+      al:.05+Math.random()*.05,ph:Math.random()*Math.PI*2});
+  });
+  
 var CORNO={x:0,y:0,s:34,ang:-0.32,vx:.15,vy:.10,al:.48,ph:1.4,swx:2.1,swy:.8,init:false};
 var F=0;
 function draw(){
@@ -480,7 +421,10 @@ function draw(){
     X.beginPath();X.arc(o.x,o.y,o.r*.3,0,Math.PI*2);X.fillStyle=ogc;X.fill();
   }
 
-  /* floating cards */
+  /* sport images — canvas float */
+    for(var si2=0;si2<SPORTIMGS.length;si2++){var so=SPORTIMGS[si2];so.x+=so.vx;so.y+=so.vy;so.ang+=so.da;if(so.x<-so.w)so.x=W+so.w;if(so.x>W+so.w)so.x=-so.w;if(so.y<-so.h)so.y=H+so.h;if(so.y>H+so.h)so.y=-so.h;if(so.img.complete&&so.img.naturalWidth>0){var sa=so.al*(Math.sin(F*.013+so.ph)*.2+.85);X.save();X.translate(so.x,so.y);X.rotate(so.ang);X.globalAlpha=sa;X.drawImage(so.img,-so.w/2,-so.h/2,so.w,so.h);X.globalAlpha=1;X.restore();}}
+
+    /* floating cards */
   for(var ci2=0;ci2<FCARDS.length;ci2++){var c=FCARDS[ci2];c.x+=c.vx;c.y+=c.vy;c.ang+=c.da;if(c.x<-80)c.x=W+80;if(c.x>W+80)c.x=-80;if(c.y<-80)c.y=H+80;if(c.y>H+80)c.y=-80;dCard(c,F);}
   /* Cornicello */
   CORNO.x+=CORNO.vx;CORNO.y+=CORNO.vy;
@@ -824,11 +768,7 @@ footer a:hover{color:#a78bfa}
 </head>
 <body>
 <canvas id="bg"></canvas>
-<img class="sport-ov" id="sp0" src="sport-soccer-final.png" alt="">
-  <img class="sport-ov" id="sp1" src="sport-basketball-final.png" alt="">
-  <img class="sport-ov" id="sp2" src="sport-boxing-final.png" alt="">
-  <img class="sport-ov" id="sp3" src="sport-runner-final.png" alt="">
-<div class="page">
+      <div class="page">
 
 <!-- HERO -->
 <section class="hero">
@@ -1441,11 +1381,7 @@ footer a:hover{color:#a78bfa}
 </head>
 <body>
 <canvas id="bg"></canvas>
-<img class="sport-ov" id="sp0" src="sport-soccer-final.png" alt="">
-  <img class="sport-ov" id="sp1" src="sport-basketball-final.png" alt="">
-  <img class="sport-ov" id="sp2" src="sport-boxing-final.png" alt="">
-  <img class="sport-ov" id="sp3" src="sport-runner-final.png" alt="">
-<div class="page">
+      <div class="page">
 
 <!-- HERO -->
 <section class="hero">
@@ -2059,11 +1995,7 @@ footer a:hover{color:#a78bfa}
 </head>
 <body>
 <canvas id="bg"></canvas>
-<img class="sport-ov" id="sp0" src="sport-soccer-final.png" alt="">
-  <img class="sport-ov" id="sp1" src="sport-basketball-final.png" alt="">
-  <img class="sport-ov" id="sp2" src="sport-boxing-final.png" alt="">
-  <img class="sport-ov" id="sp3" src="sport-runner-final.png" alt="">
-<div class="page">
+      <div class="page">
 
 <!-- HERO -->
 <section class="hero">
