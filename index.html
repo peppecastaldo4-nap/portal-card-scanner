@@ -1,4 +1,66 @@
-<!DOCTYPE html>
+/* ═══════════════════════════════════════════
+     SPORT IMAGE OVERLAY — float & fade
+  ═══════════════════════════════════════════ */
+  (function(){
+    var els=[document.getElementById('sp0'),document.getElementById('sp1'),document.getElementById('sp2'),document.getElementById('sp3')];
+    var cur=0;
+    var stopFloat=null;
+
+    function rnd(min,max){return min+Math.random()*(max-min);}
+
+    function floatEl(el){
+      var r=Math.random();
+      var startX,startY,tx,ty;
+
+      if(r<0.4){
+        /* centro schermo */
+        startX=rnd(18,48); startY=rnd(12,52);
+        tx=startX+rnd(-3,3); ty=startY+rnd(-3,3);
+      } else if(r<0.7){
+        /* dal bordo sinistro o destro — visibile a metà */
+        if(Math.random()<0.5){
+          startX=rnd(-12,-6); startY=rnd(10,58);  /* sinistra */
+          tx=rnd(10,28);      ty=startY+rnd(-4,4);
+        } else {
+          startX=rnd(76,82);  startY=rnd(10,58);  /* destra */
+          tx=rnd(48,68);      ty=startY+rnd(-4,4);
+        }
+      } else {
+        /* dall'alto — visibile a metà */
+        startX=rnd(18,52); startY=rnd(-12,-6);
+        tx=startX+rnd(-4,4); ty=rnd(8,40);
+      }
+
+      el.style.left=startX+'vw';
+      el.style.top =startY+'vh';
+      el.style.right='auto';
+
+      /* velocità costante verso target — circa 7s per traversata */
+      var spd=0.006;
+      var dx=(tx-startX)*spd, dy=(ty-startY)*spd;
+      var x=startX, y=startY, raf;
+      function move(){x+=dx;y+=dy;el.style.left=x+'vw';el.style.top=y+'vh';raf=requestAnimationFrame(move);}
+      raf=requestAnimationFrame(move);
+      return function(){cancelAnimationFrame(raf);};
+    }
+
+    function show(){
+      var idx=cur; cur=(cur+1)%4;
+      var el=els[idx];
+      if(stopFloat) stopFloat();
+      els.forEach(function(e){e.style.opacity='0';});
+      stopFloat=floatEl(el);
+      /* fade in */
+      setTimeout(function(){el.style.opacity='0.3';},100);
+      /* dopo 7s fade out, poi prossima */
+      setTimeout(function(){
+        el.style.opacity='0';
+        setTimeout(show,2000);
+      },7000);
+    }
+
+    setTimeout(show,1500);
+  })();<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
