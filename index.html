@@ -34,15 +34,15 @@
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.5rem}
     .coll{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:.875rem;padding:1rem .75rem .875rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center;position:relative;overflow:hidden;transition:transform .2s,box-shadow .3s}
     .coll:hover{transform:translateY(-3px)}
-    .coll.pk{border-color:rgba(250,204,21,.35)}.coll.pk:hover{box-shadow:0 8px 30px rgba(250,204,21,.18)}
-    .coll.op{border-color:rgba(239,68,68,.35)}.coll.op:hover{box-shadow:0 8px 30px rgba(239,68,68,.18)}
-    .coll.db{border-color:rgba(251,146,60,.4);background:rgba(251,146,60,.05)}.coll.db:hover{box-shadow:0 8px 30px rgba(251,146,60,.22)}
+    .coll.pk{border-color:rgba(250,204,21,.35)}.coll.pk:hover{box-shadow:0 8px 30px rgba(250,204,21,.2)}
+    .coll.op{border-color:rgba(239,68,68,.35)}.coll.op:hover{box-shadow:0 8px 30px rgba(239,68,68,.2)}
+    .coll.db{border-color:rgba(180,180,220,.35);background:rgba(180,180,220,.04)}.coll.db:hover{box-shadow:0 8px 30px rgba(180,180,220,.2)}
     .coll.yg{border-color:rgba(168,85,247,.4);background:rgba(168,85,247,.05)}.coll.yg:hover{box-shadow:0 8px 30px rgba(168,85,247,.22)}
     .coll.fc{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.05)}.coll.fc:hover{box-shadow:0 8px 30px rgba(34,197,94,.22)}
     .icon-box{width:80px;height:80px;display:flex;align-items:center;justify-content:center}
     .icon-box svg{width:72px;height:72px}
     .icon-box-wide{width:100%;height:72px;display:flex;align-items:center;justify-content:center}
-    .icon-box-wide svg{height:68px;width:auto;max-width:240px}
+    .icon-box-wide svg{height:68px;width:auto;max-width:120px}
     .coll-name{font-family:'Orbitron',sans-serif;font-size:.65rem;font-weight:700;color:#e2e8f0;letter-spacing:.06em;text-transform:uppercase}
     .coll-status{font-size:.65rem;color:#94a3b8}
     .coll.pk .coll-status,.coll.op .coll-status{color:#4ade80}
@@ -69,9 +69,7 @@
   <div class="logo-wrap">
     <img src="logo.png" alt="Portal Card Scanner Logo" width="130" height="130">
   </div>
-
   <h1>Portal Card Scanner</h1>
-
   <a class="playstore-link" href="https://play.google.com/store/apps/details?id=com.portal.cardscanner" target="_blank" rel="noopener noreferrer">
     <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" width="240" height="65">
   </a>
@@ -94,142 +92,132 @@
     <div class="v2-title">New Collections &amp; Features</div>
     <div class="grid">
 
-      <!-- POKEMON -->
+      <!-- POKEMON — lightning bolt -->
       <div class="coll pk">
         <div class="icon-box">
-          <!-- Pokeball SVG -->
           <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <radialGradient id="pkTop" cx="40%" cy="35%" r="65%">
-                <stop offset="0%" stop-color="#ff6b6b"/>
-                <stop offset="100%" stop-color="#cc0000"/>
-              </radialGradient>
-              <radialGradient id="pkBot" cx="40%" cy="35%" r="65%">
-                <stop offset="0%" stop-color="#f5f5f5"/>
-                <stop offset="100%" stop-color="#cccccc"/>
-              </radialGradient>
-              <filter id="pkGlow">
-                <feGaussianBlur stdDeviation="2" result="blur"/>
+              <linearGradient id="boltG" x1="0" y1="0" x2="0.3" y2="1">
+                <stop offset="0%" stop-color="#fff176"/>
+                <stop offset="40%" stop-color="#facc15"/>
+                <stop offset="100%" stop-color="#d97706"/>
+              </linearGradient>
+              <filter id="boltGlow">
+                <feGaussianBlur stdDeviation="3.5" result="blur"/>
                 <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
               </filter>
             </defs>
-            <!-- Top half red -->
-            <path d="M36 4A32 32 0 0 1 68 36H4A32 32 0 0 1 36 4Z" fill="url(#pkTop)"/>
-            <!-- Bottom half white -->
-            <path d="M4 36A32 32 0 0 0 68 36Z" fill="url(#pkBot)"/>
-            <path d="M4 36A32 32 0 0 0 68 36H4Z" fill="url(#pkBot)"/>
-            <circle cx="36" cy="36" r="32" fill="none" stroke="#222" stroke-width="3"/>
-            <!-- Center stripe -->
-            <rect x="4" y="33" width="64" height="6" fill="#1a1a1a"/>
-            <!-- Center button outer -->
-            <circle cx="36" cy="36" r="11" fill="#1a1a1a"/>
-            <circle cx="36" cy="36" r="8" fill="#ffffff"/>
-            <circle cx="36" cy="36" r="5" fill="#eeeeee"/>
-            <!-- Shine -->
-            <ellipse cx="27" cy="20" rx="6" ry="3.5" fill="rgba(255,255,255,0.35)" transform="rotate(-20,27,20)"/>
+            <!-- outer glow -->
+            <polygon points="42,4 22,38 34,38 28,68 52,28 38,28" fill="#facc15" opacity="0.18" filter="url(#boltGlow)" transform="scale(1.15) translate(-4,-4)"/>
+            <!-- bolt body -->
+            <polygon points="42,4 22,38 34,38 28,68 52,28 38,28" fill="url(#boltG)" stroke="#b45309" stroke-width="1.2" stroke-linejoin="round"/>
+            <!-- inner highlight -->
+            <polygon points="40,10 26,36 36,36 32,58 46,32 36,32" fill="rgba(255,255,220,0.35)"/>
           </svg>
         </div>
         <div class="coll-name">Pokemon</div>
         <div class="coll-status">&#10003; Available now</div>
       </div>
 
-      <!-- ONE PIECE -->
+      <!-- ONE PIECE — skull -->
       <div class="coll op">
         <div class="icon-box">
-          <!-- Wanted poster / treasure map scroll SVG -->
           <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <radialGradient id="scrollG" cx="50%" cy="40%" r="70%">
-                <stop offset="0%" stop-color="#f5d97e"/>
-                <stop offset="100%" stop-color="#c8960c"/>
+              <radialGradient id="skullG" cx="45%" cy="38%" r="65%">
+                <stop offset="0%" stop-color="#f5f5f5"/>
+                <stop offset="100%" stop-color="#b0b0b0"/>
               </radialGradient>
-              <filter id="scrollGlow">
+              <filter id="skullGlow">
                 <feGaussianBlur stdDeviation="2.5" result="blur"/>
                 <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
               </filter>
             </defs>
-            <!-- Scroll body -->
-            <rect x="12" y="14" width="48" height="44" rx="4" fill="url(#scrollG)" filter="url(#scrollGlow)"/>
-            <!-- Top roll -->
-            <ellipse cx="36" cy="14" rx="24" ry="6" fill="#e8c050"/>
-            <ellipse cx="36" cy="14" rx="20" ry="4" fill="#f5d97e"/>
-            <!-- Bottom roll -->
-            <ellipse cx="36" cy="58" rx="24" ry="6" fill="#e8c050"/>
-            <ellipse cx="36" cy="58" rx="20" ry="4" fill="#f5d97e"/>
-            <!-- X mark (One Piece treasure X) -->
-            <line x1="24" y1="26" x2="48" y2="50" stroke="#cc3300" stroke-width="5" stroke-linecap="round"/>
-            <line x1="48" y1="26" x2="24" y2="50" stroke="#cc3300" stroke-width="5" stroke-linecap="round"/>
-            <!-- Torn edge lines -->
-            <line x1="14" y1="22" x2="58" y2="22" stroke="#c8960c" stroke-width="1" stroke-dasharray="4,3" opacity=".5"/>
-            <line x1="14" y1="50" x2="58" y2="50" stroke="#c8960c" stroke-width="1" stroke-dasharray="4,3" opacity=".5"/>
-            <!-- Shine -->
-            <ellipse cx="22" cy="18" rx="7" ry="3" fill="rgba(255,255,255,0.3)" transform="rotate(-10,22,18)"/>
+            <!-- skull glow -->
+            <ellipse cx="36" cy="30" rx="24" ry="22" fill="rgba(255,255,255,0.1)" filter="url(#skullGlow)"/>
+            <!-- skull head -->
+            <ellipse cx="36" cy="28" rx="22" ry="20" fill="url(#skullG)"/>
+            <!-- jaw -->
+            <rect x="26" y="44" width="20" height="10" rx="3" fill="url(#skullG)"/>
+            <!-- teeth gaps -->
+            <rect x="29" y="44" width="3" height="6" rx="1" fill="#1a1a2e"/>
+            <rect x="34.5" y="44" width="3" height="6" rx="1" fill="#1a1a2e"/>
+            <rect x="40" y="44" width="3" height="6" rx="1" fill="#1a1a2e"/>
+            <!-- left eye -->
+            <ellipse cx="27" cy="27" rx="7" ry="7" fill="#1a1a2e"/>
+            <ellipse cx="27" cy="27" rx="4" ry="4" fill="#0d0d1a"/>
+            <!-- right eye -->
+            <ellipse cx="45" cy="27" rx="7" ry="7" fill="#1a1a2e"/>
+            <ellipse cx="45" cy="27" rx="4" ry="4" fill="#0d0d1a"/>
+            <!-- nose -->
+            <path d="M33 36 L36 32 L39 36 Z" fill="#1a1a2e"/>
+            <!-- crossbones -->
+            <line x1="10" y1="60" x2="62" y2="60" stroke="#d0d0d0" stroke-width="5" stroke-linecap="round"/>
+            <line x1="10" y1="60" x2="62" y2="60" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+            <circle cx="10" cy="60" r="5" fill="#c0c0c0" stroke="#909090" stroke-width="1"/>
+            <circle cx="62" cy="60" r="5" fill="#c0c0c0" stroke="#909090" stroke-width="1"/>
+            <!-- shine -->
+            <ellipse cx="27" cy="16" rx="9" ry="4" fill="rgba(255,255,255,0.38)" transform="rotate(-15,27,16)"/>
           </svg>
         </div>
         <div class="coll-name">One Piece</div>
         <div class="coll-status">&#10003; Available now</div>
       </div>
 
-      <!-- DRAGON BALL -->
+      <!-- DRAGON BALL — silver sphere -->
       <div class="coll db">
         <span class="new-tag">NEW</span>
         <div class="icon-box">
-          <!-- Dragon Ball 4-star ball SVG -->
           <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <radialGradient id="dbG" cx="38%" cy="33%" r="65%">
-                <stop offset="0%" stop-color="#ffcc44"/>
-                <stop offset="45%" stop-color="#ff8800"/>
-                <stop offset="100%" stop-color="#cc4400"/>
+              <radialGradient id="silvG" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#f0f0f8"/>
+                <stop offset="30%" stop-color="#c8ccd8"/>
+                <stop offset="65%" stop-color="#8890a8"/>
+                <stop offset="100%" stop-color="#4a5068"/>
               </radialGradient>
-              <filter id="dbGlow">
+              <radialGradient id="silvGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(180,190,255,0.3)"/>
+                <stop offset="100%" stop-color="rgba(180,190,255,0)"/>
+              </radialGradient>
+              <filter id="sfGlow">
                 <feGaussianBlur stdDeviation="3" result="blur"/>
                 <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
               </filter>
             </defs>
-            <!-- Glow halo -->
-            <circle cx="36" cy="36" r="35" fill="rgba(255,140,0,0.18)" filter="url(#dbGlow)"/>
-            <!-- Ball body -->
-            <circle cx="36" cy="36" r="30" fill="url(#dbG)"/>
-            <!-- Sphere shade -->
-            <circle cx="36" cy="36" r="30" fill="rgba(0,0,0,0)" stroke="#cc5500" stroke-width="1.5" opacity=".6"/>
-            <!-- Stars (4-star ball pattern) -->
-            <!-- Center star -->
-            <g transform="translate(36,36)" fill="#cc0000">
-              <polygon points="0,-6 1.8,-1.8 6,-1.8 2.7,1.2 4.2,6 0,3.2 -4.2,6 -2.7,1.2 -6,-1.8 -1.8,-1.8" opacity=".9"/>
-            </g>
-            <!-- Top-left star -->
-            <g transform="translate(22,24)" fill="#cc0000" opacity=".85">
-              <polygon points="0,-4 1.2,-1.2 4,-1.2 1.8,.8 2.8,4 0,2.2 -2.8,4 -1.8,.8 -4,-1.2 -1.2,-1.2"/>
-            </g>
-            <!-- Top-right star -->
-            <g transform="translate(50,24)" fill="#cc0000" opacity=".85">
-              <polygon points="0,-4 1.2,-1.2 4,-1.2 1.8,.8 2.8,4 0,2.2 -2.8,4 -1.8,.8 -4,-1.2 -1.2,-1.2"/>
-            </g>
-            <!-- Bottom-left star -->
-            <g transform="translate(22,50)" fill="#cc0000" opacity=".85">
-              <polygon points="0,-4 1.2,-1.2 4,-1.2 1.8,.8 2.8,4 0,2.2 -2.8,4 -1.8,.8 -4,-1.2 -1.2,-1.2"/>
-            </g>
-            <!-- Shine -->
-            <ellipse cx="26" cy="22" rx="9" ry="5" fill="rgba(255,255,255,0.38)" transform="rotate(-25,26,22)"/>
+            <!-- outer glow ring -->
+            <circle cx="36" cy="36" r="34" fill="url(#silvGlow)" filter="url(#sfGlow)"/>
+            <!-- sphere body -->
+            <circle cx="36" cy="36" r="30" fill="url(#silvG)"/>
+            <!-- equator line -->
+            <ellipse cx="36" cy="36" rx="30" ry="8" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <!-- vertical line -->
+            <ellipse cx="36" cy="36" rx="8" ry="30" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <!-- dark shade bottom-right -->
+            <circle cx="36" cy="36" r="30" fill="radial-gradient" opacity="0"/>
+            <!-- specular highlight 1 (main) -->
+            <ellipse cx="24" cy="20" rx="10" ry="6" fill="rgba(255,255,255,0.55)" transform="rotate(-30,24,20)"/>
+            <!-- specular highlight 2 (small) -->
+            <ellipse cx="18" cy="15" rx="4" ry="2.5" fill="rgba(255,255,255,0.7)" transform="rotate(-25,18,15)"/>
+            <!-- rim light -->
+            <path d="M8 48 Q6 36 14 26" stroke="rgba(180,200,255,0.3)" stroke-width="4" fill="none" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="coll-name">Dragon Ball</div>
         <div class="coll-status">Coming soon</div>
       </div>
 
-      <!-- YU-GI-OH -->
+      <!-- YU-GI-OH — eye of horus card -->
       <div class="coll yg">
         <span class="new-tag">NEW</span>
         <div class="icon-box">
-          <!-- Yu-Gi-Oh eye of horus on a card SVG -->
           <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="ygCard" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stop-color="#2d0a5e"/>
                 <stop offset="100%" stop-color="#0a0020"/>
               </linearGradient>
-              <radialGradient id="ygGold" cx="50%" cy="50%" r="50%">
+              <radialGradient id="ygEye" cx="50%" cy="50%" r="50%">
                 <stop offset="0%" stop-color="#ffe066"/>
                 <stop offset="100%" stop-color="#c8880a"/>
               </radialGradient>
@@ -238,115 +226,54 @@
                 <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
               </filter>
             </defs>
-            <!-- Card background -->
             <rect x="8" y="4" width="56" height="64" rx="6" fill="url(#ygCard)" stroke="#9333ea" stroke-width="1.5"/>
-            <!-- Card border glow -->
             <rect x="8" y="4" width="56" height="64" rx="6" fill="none" stroke="#c084fc" stroke-width=".5" opacity=".5"/>
-            <!-- Eye of Horus body -->
-            <!-- Outer eye white -->
             <ellipse cx="36" cy="34" rx="18" ry="10" fill="#1a0038" stroke="#c8880a" stroke-width="1.5"/>
-            <!-- Pupil -->
-            <circle cx="36" cy="34" r="7" fill="url(#ygGold)" filter="url(#ygGlow)"/>
+            <circle cx="36" cy="34" r="7" fill="url(#ygEye)" filter="url(#ygGlow)"/>
             <circle cx="36" cy="34" r="4" fill="#1a0010"/>
             <circle cx="36" cy="34" r="2" fill="#ff4400" opacity=".9"/>
-            <!-- Eye lashes top -->
             <path d="M18 34 Q36 16 54 34" stroke="#c8880a" stroke-width="1.5" fill="none"/>
-            <!-- Bottom hook (horus marking) -->
             <path d="M26 39 Q32 46 36 44 Q40 42 38 48" stroke="#c8880a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <!-- Left marking -->
             <path d="M18 34 L14 38 L16 42" stroke="#c8880a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <!-- Stars around eye -->
             <circle cx="20" cy="20" r="1.5" fill="#ffe066" opacity=".8"/>
             <circle cx="52" cy="20" r="1.5" fill="#ffe066" opacity=".8"/>
-            <circle cx="14" cy="34" r="1" fill="#ffe066" opacity=".6"/>
-            <circle cx="58" cy="34" r="1" fill="#ffe066" opacity=".6"/>
-            <!-- Bottom label bar -->
-            <rect x="8" y="56" width="56" height="12" rx="0" fill="#9333ea" opacity=".4"/>
-            <rect x="8" y="56" width="56" height="12" rx="0 0 6 6" fill="none"/>
+            <rect x="8" y="57" width="56" height="11" rx="0 0 6 6" fill="#9333ea" opacity=".35"/>
           </svg>
         </div>
         <div class="coll-name">Yu-Gi-Oh!</div>
         <div class="coll-status">Coming soon</div>
       </div>
 
-      <!-- FOOTBALL CARD (full width) -->
+      <!-- FOOTBALL CARD — only soccer ball centered -->
       <div class="coll fc" style="grid-column:1/-1">
         <span class="new-tag">NEW</span>
         <div class="icon-box-wide">
-          <!-- Football + sneaker + trophy inline SVG -->
-          <svg viewBox="0 0 240 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <radialGradient id="ballG" cx="38%" cy="33%" r="65%">
-                <stop offset="0%" stop-color="#eeeeee"/>
-                <stop offset="100%" stop-color="#aaaaaa"/>
+              <radialGradient id="fbG" cx="38%" cy="33%" r="65%">
+                <stop offset="0%" stop-color="#f0f0f0"/>
+                <stop offset="60%" stop-color="#cccccc"/>
+                <stop offset="100%" stop-color="#888888"/>
               </radialGradient>
-              <radialGradient id="trophyG" cx="38%" cy="30%" r="65%">
-                <stop offset="0%" stop-color="#ffe066"/>
-                <stop offset="100%" stop-color="#c8800a"/>
-              </radialGradient>
-              <linearGradient id="shoeTop" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#3b82f6"/>
-                <stop offset="100%" stop-color="#1e3a8a"/>
-              </linearGradient>
-              <filter id="fcGlow">
-                <feGaussianBlur stdDeviation="3" result="blur"/>
+              <filter id="fbGlow">
+                <feGaussianBlur stdDeviation="4" result="blur"/>
                 <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
               </filter>
             </defs>
-
-            <!-- SNEAKER (left) -->
-            <g transform="translate(12,10)">
-              <!-- Sole -->
-              <ellipse cx="32" cy="50" rx="30" ry="8" fill="#1e3a8a" opacity=".9"/>
-              <!-- Upper body -->
-              <path d="M4 46 Q2 30 18 20 Q30 14 52 22 Q60 26 58 42 Z" fill="url(#shoeTop)"/>
-              <!-- Shoe detail stripe -->
-              <path d="M18 22 Q34 16 50 24" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none"/>
-              <!-- Lace lines -->
-              <line x1="22" y1="32" x2="26" y2="24" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round"/>
-              <line x1="30" y1="29" x2="34" y2="21" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round"/>
-              <line x1="38" y1="27" x2="42" y2="22" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round"/>
-              <!-- Shine -->
-              <ellipse cx="20" cy="28" rx="7" ry="3" fill="rgba(255,255,255,0.25)" transform="rotate(-20,20,28)"/>
-            </g>
-
-            <!-- SOCCER BALL (center) -->
-            <g transform="translate(85,2)" filter="url(#fcGlow)">
-              <circle cx="35" cy="35" r="32" fill="url(#ballG)" stroke="#888" stroke-width="1"/>
-              <!-- Pentagon patches -->
-              <g fill="#1a1a1a" opacity=".85">
-                <!-- Center patch -->
-                <polygon points="35,14 40,24 50,24 43,32 46,43 35,37 24,43 27,32 20,24 30,24"/>
-                <!-- Top-left -->
-                <polygon points="12,22 16,30 24,30 18,36 20,44 12,39 4,44 6,36 0,30 8,30" transform="translate(5,0) scale(0.62)" />
-                <!-- Top-right -->
-                <polygon points="50,10 54,18 62,18 56,24 58,32 50,27 42,32 44,24 38,18 46,18" transform="scale(0.72) translate(14,0)"/>
-                <!-- Bottom -->
-                <polygon points="35,50 39,58 47,58 41,63 43,70 35,65 27,70 29,63 23,58 31,58" transform="scale(0.7) translate(15,-5)"/>
-              </g>
-              <!-- Shine -->
-              <ellipse cx="22" cy="20" rx="10" ry="5" fill="rgba(255,255,255,0.38)" transform="rotate(-25,22,20)"/>
-            </g>
-
-            <!-- TROPHY (right) -->
-            <g transform="translate(158,4)">
-              <!-- Glow -->
-              <ellipse cx="41" cy="35" rx="28" ry="26" fill="rgba(255,200,30,0.15)" filter="url(#fcGlow)"/>
-              <!-- Cup body -->
-              <path d="M22 10 Q16 36 30 42 L34 48 L48 48 L52 42 Q66 36 60 10 Z" fill="url(#trophyG)"/>
-              <!-- Left handle -->
-              <path d="M22 18 Q8 28 22 36" stroke="#e8a800" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-              <!-- Right handle -->
-              <path d="M60 18 Q74 28 60 36" stroke="#e8a800" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-              <!-- Stem -->
-              <rect x="37" y="48" width="8" height="10" fill="#c8880a"/>
-              <!-- Base -->
-              <ellipse cx="41" cy="58" rx="14" ry="4" fill="#c8880a"/>
-              <!-- Inner cup highlight -->
-              <path d="M28 14 Q26 30 32 36" stroke="rgba(255,240,120,0.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
-              <!-- Star shine -->
-              <circle cx="32" cy="20" r="5" fill="rgba(255,245,140,0.35)"/>
-            </g>
+            <circle cx="36" cy="36" r="34" fill="rgba(255,255,255,0.06)" filter="url(#fbGlow)"/>
+            <circle cx="36" cy="36" r="30" fill="url(#fbG)" stroke="#999" stroke-width="1"/>
+            <!-- Center pentagon -->
+            <polygon points="36,18 43,28 40,40 32,40 29,28" fill="#111" opacity=".85"/>
+            <!-- surrounding pentagons -->
+            <polygon points="36,18 47,14 54,24 48,32 43,28" fill="#111" opacity=".8"/>
+            <polygon points="36,18 25,14 18,24 24,32 29,28" fill="#111" opacity=".8"/>
+            <polygon points="40,40 48,32 56,36 54,48 44,50" fill="#111" opacity=".8"/>
+            <polygon points="32,40 24,32 16,36 18,48 28,50" fill="#111" opacity=".8"/>
+            <polygon points="44,50 54,48 52,58 40,62 36,54" fill="#111" opacity=".8"/>
+            <polygon points="28,50 18,48 20,58 32,62 36,54" fill="#111" opacity=".8"/>
+            <!-- shine -->
+            <ellipse cx="24" cy="21" rx="10" ry="5.5" fill="rgba(255,255,255,0.42)" transform="rotate(-25,24,21)"/>
+            <ellipse cx="18" cy="17" rx="4" ry="2.5" fill="rgba(255,255,255,0.65)" transform="rotate(-20,18,17)"/>
           </svg>
         </div>
         <div class="coll-name">Football Cards</div>
@@ -387,115 +314,230 @@ var C=document.getElementById('bg'),X=C.getContext('2d'),W=0,H=0;
 function rz(){W=C.width=window.innerWidth;H=C.height=window.innerHeight;}
 rz();window.addEventListener('resize',rz);
 
-/* ---- STARS ---- */
-var stars=[];for(var i=0;i<220;i++)stars.push({x:Math.random()*4000,y:Math.random()*4000,r:.2+Math.random()*1.5,a:.15+Math.random()*.7,spd:.03+Math.random()*.12,tw:.3+Math.random()*.9,to:Math.random()*Math.PI*2});
+/* ======= STARS (fixed positions across full background) ======= */
+var STARS=[];
+for(var i=0;i<280;i++){
+  STARS.push({
+    x:Math.random(),y:Math.random(),
+    r:.15+Math.random()*1.6,
+    base:.1+Math.random()*.8,
+    tw:.3+Math.random()*.9,
+    to:Math.random()*Math.PI*2,
+    speed:.002+Math.random()*.006
+  });
+}
 
-/* ---- HOLOGRAPHIC CARDS ---- */
-var CPAIRS=[['#fbbf24','#f97316'],['#a78bfa','#7c3aed'],['#4ade80','#16a34a'],['#c084fc','#60a5fa'],['#f87171','#dc2626'],['#38bdf8','#0284c7']];
-var cards=[];
-for(var ci=0;ci<12;ci++){var cp=CPAIRS[ci%6];var cw=32+Math.random()*30;
-  cards.push({x:Math.random()*4000,y:Math.random()*4000,w:cw,h:cw*1.45,ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.005,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,al:.08+Math.random()*.13,gp:Math.random()*Math.PI*2,gs:.015+Math.random()*.025,c:cp});}
+/* ======= HOLOGRAPHIC FLOATING CARDS ======= */
+var CPAIRS=[['#fbbf24','#f97316'],['#a78bfa','#7c3aed'],['#4ade80','#16a34a'],['#c084fc','#60a5fa'],['#f87171','#dc2626'],['#38bdf8','#06b6d4'],['#fb7185','#e11d48']];
+var CARDS=[];
+for(var ci=0;ci<14;ci++){
+  var cp=CPAIRS[ci%7],cw=30+Math.random()*32;
+  CARDS.push({
+    x:Math.random()*W||Math.random()*1400,y:Math.random()*H||Math.random()*900,
+    w:cw,h:cw*1.45,
+    ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.005,
+    vx:(Math.random()-.5)*.45,vy:(Math.random()-.5)*.45,
+    al:.1+Math.random()*.14,gp:Math.random()*Math.PI*2,gs:.012+Math.random()*.022,c:cp
+  });
+}
 
-function h2(v){return Math.round(v*255).toString(16).padStart(2,'0');}
-function card(c,t){
+function h2(v){return Math.round(Math.min(255,Math.max(0,v*255))).toString(16).padStart(2,'0');}
+function drawCard(c,t){
   X.save();X.translate(c.x,c.y);X.rotate(c.ang);
-  var hw=c.w/2,hh=c.h/2,gv=Math.sin(c.gp+t*c.gs)*.5+.5,al=c.al*(.65+.35*gv);
+  var hw=c.w/2,hh=c.h/2,gv=Math.sin(c.gp+t*c.gs)*.5+.5,al=c.al*(.6+.4*gv);
   var g=X.createLinearGradient(-hw,-hh,hw,hh);
-  g.addColorStop(0,c.c[0]+h2(al*.65));g.addColorStop(.5,'#fff'+h2(al*.07));g.addColorStop(1,c.c[1]+h2(al*.55));
+  g.addColorStop(0,c.c[0]+h2(al*.7));g.addColorStop(.4,'#ffffff'+h2(al*.06));g.addColorStop(1,c.c[1]+h2(al*.6));
   X.beginPath();X.roundRect(-hw,-hh,c.w,c.h,5);X.fillStyle=g;X.fill();
-  /* holographic shimmer */
-  var sx=Math.sin(t*.025+c.gp)*c.w*.8;
-  var sg=X.createLinearGradient(sx-12,-hh,sx+12,hh);
-  sg.addColorStop(0,'rgba(255,255,255,0)');sg.addColorStop(.5,'rgba(255,255,255,'+(0.22*gv)+')');sg.addColorStop(1,'rgba(255,255,255,0)');
+  /* shimmer streak */
+  var sx=Math.sin(t*.022+c.gp)*hw;
+  var sg=X.createLinearGradient(sx-10,-hh,sx+10,hh);
+  sg.addColorStop(0,'rgba(255,255,255,0)');sg.addColorStop(.5,'rgba(255,255,255,'+(0.28*gv)+')');sg.addColorStop(1,'rgba(255,255,255,0)');
   X.beginPath();X.roundRect(-hw,-hh,c.w,c.h,5);X.fillStyle=sg;X.fill();
-  X.beginPath();X.roundRect(-hw,-hh,c.w,c.h,5);X.strokeStyle=c.c[0]+h2(.25+.45*gv);X.lineWidth=1;X.stroke();
+  X.beginPath();X.roundRect(-hw,-hh,c.w,c.h,5);X.strokeStyle=c.c[0]+h2(.2+.5*gv);X.lineWidth=1;X.stroke();
   X.restore();
 }
 
-/* ---- SPORTS OBJECTS ---- */
-var OBJ=[];
-for(var oi=0;oi<12;oi++){
-  var tp=['ball','ball','ball','ball','shoe','shoe','shoe','trophy','trophy','trophy','ball','shoe'][oi];
-  OBJ.push({t:tp,x:Math.random()*4000,y:Math.random()*4000,s:22+Math.random()*20,ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.007,vx:(Math.random()-.5)*.32,vy:(Math.random()-.5)*.32,al:.08+Math.random()*.1,ph:Math.random()*Math.PI*2});
+/* ======= SOCCER BALLS ======= */
+var BALLS=[];
+for(var bi=0;bi<8;bi++){
+  BALLS.push({
+    x:Math.random()*W||Math.random()*1400,y:Math.random()*H||Math.random()*900,
+    r:14+Math.random()*18,
+    ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.008,
+    vx:(Math.random()-.5)*.38,vy:(Math.random()-.5)*.38,
+    al:.09+Math.random()*.1,ph:Math.random()*Math.PI*2
+  });
 }
-
-function ball(x,y,r,al,t,ph){
-  X.save();X.translate(x,y);
-  var p=Math.sin(t*.02+ph)*.5+.5,a=al*(.75+.25*p);
-  var g=X.createRadialGradient(-r*.3,-r*.3,r*.04,0,0,r);
-  g.addColorStop(0,'rgba(235,235,235,'+a+')');g.addColorStop(.55,'rgba(185,185,185,'+(a*.9)+')');g.addColorStop(1,'rgba(100,100,100,'+(a*.75)+')');
+function drawBall(b,t){
+  X.save();X.translate(b.x,b.y);X.rotate(b.ang);
+  var p=Math.sin(t*.018+b.ph)*.5+.5,a=b.al*(.75+.25*p),r=b.r;
+  var g=X.createRadialGradient(-r*.32,-r*.32,r*.04,0,0,r);
+  g.addColorStop(0,'rgba(235,235,235,'+a+')');g.addColorStop(.55,'rgba(180,180,180,'+(a*.9)+')');g.addColorStop(1,'rgba(90,90,90,'+(a*.8)+')');
   X.beginPath();X.arc(0,0,r,0,Math.PI*2);X.fillStyle=g;X.fill();
-  X.fillStyle='rgba(15,15,15,'+a+')';
-  var pts=[[0,-r*.52,r*.18],[r*.44,-r*.18,r*.16],[-r*.44,-r*.18,r*.16],[r*.26,r*.40,r*.16],[-r*.26,r*.40,r*.16]];
-  for(var p2=0;p2<5;p2++){var px=pts[p2][0],py=pts[p2][1],pr=pts[p2][2];
-    if(px*px+py*py<(r-.8)*(r-.8)){X.beginPath();for(var k=0;k<5;k++){var aa=k*Math.PI*2/5-Math.PI/2;X.lineTo(px+Math.cos(aa)*pr,py+Math.sin(aa)*pr);}X.closePath();X.fill();}}
-  var sh=X.createRadialGradient(-r*.34,-r*.34,0,-r*.34,-r*.34,r*.36);sh.addColorStop(0,'rgba(255,255,255,'+(a*.4)+')');sh.addColorStop(1,'rgba(255,255,255,0)');
+  X.fillStyle='rgba(12,12,12,'+a+')';
+  /* center pentagon + surrounding */
+  function pent(px,py,pr){if(px*px+py*py>(r+2)*(r+2))return;X.beginPath();for(var k=0;k<5;k++){var aa=k*Math.PI*2/5-Math.PI/2;X.lineTo(px+Math.cos(aa)*pr,py+Math.sin(aa)*pr);}X.closePath();X.fill();}
+  pent(0,-r*.5,r*.18);pent(r*.44,-r*.18,r*.16);pent(-r*.44,-r*.18,r*.16);pent(r*.26,r*.4,r*.16);pent(-r*.26,r*.4,r*.16);
+  var sh=X.createRadialGradient(-r*.33,-r*.33,0,-r*.33,-r*.33,r*.36);
+  sh.addColorStop(0,'rgba(255,255,255,'+(a*.45)+')');sh.addColorStop(1,'rgba(255,255,255,0)');
   X.beginPath();X.arc(0,0,r,0,Math.PI*2);X.fillStyle=sh;X.fill();
   X.restore();
 }
 
-function shoe(x,y,s,ang,al,t,ph){
+/* ======= SPORTS ACCESSORIES (shoes + trophies) ======= */
+var ACCS=[];
+for(var ai=0;ai<10;ai++){
+  var tp=ai<5?'shoe':'trophy';
+  ACCS.push({
+    t:tp,x:Math.random()*W||Math.random()*1400,y:Math.random()*H||Math.random()*900,
+    s:18+Math.random()*18,ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.007,
+    vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,
+    al:.08+Math.random()*.1,ph:Math.random()*Math.PI*2
+  });
+}
+function drawShoe(x,y,s,ang,al,t,ph){
   X.save();X.translate(x,y);X.rotate(ang);
-  var p=Math.sin(t*.02+ph)*.5+.5,a=al*(.75+.25*p);
-  var sg=X.createLinearGradient(-s*.75,s*.2,s*.75,s*.45);sg.addColorStop(0,'rgba(20,50,130,'+a+')');sg.addColorStop(1,'rgba(8,18,70,'+a+')');
-  X.beginPath();X.ellipse(0,s*.3,s*.8,s*.2,0,0,Math.PI*2);X.fillStyle=sg;X.fill();
-  var ug=X.createLinearGradient(-s*.65,-s*.38,s*.65,s*.18);ug.addColorStop(0,'rgba(50,110,230,'+a+')');ug.addColorStop(1,'rgba(25,55,130,'+(a*.85)+')');
-  X.beginPath();X.moveTo(-s*.76,s*.16);X.quadraticCurveTo(-s*.86,-s*.07,-s*.16,-s*.37);X.quadraticCurveTo(s*.16,-s*.5,s*.66,-s*.26);X.quadraticCurveTo(s*.8,-s*.07,s*.76,s*.13);X.closePath();X.fillStyle=ug;X.fill();X.strokeStyle='rgba(100,155,255,'+(a*.4)+')';X.lineWidth=.8;X.stroke();
-  X.strokeStyle='rgba(200,218,255,'+(a*.7)+')';X.lineWidth=.7;
+  var p=Math.sin(t*.018+ph)*.5+.5,a=al*(.75+.25*p);
+  X.beginPath();X.ellipse(0,s*.3,s*.8,s*.19,0,0,Math.PI*2);
+  X.fillStyle='rgba(20,50,140,'+a+')';X.fill();
+  var ug=X.createLinearGradient(-s*.65,-s*.38,s*.65,s*.18);
+  ug.addColorStop(0,'rgba(55,115,240,'+a+')');ug.addColorStop(1,'rgba(22,52,130,'+(a*.85)+')');
+  X.beginPath();X.moveTo(-s*.76,s*.16);X.quadraticCurveTo(-s*.86,-s*.07,-s*.15,-s*.37);X.quadraticCurveTo(s*.17,-s*.5,s*.67,-s*.26);X.quadraticCurveTo(s*.8,-s*.07,s*.76,s*.13);X.closePath();X.fillStyle=ug;X.fill();
+  X.strokeStyle='rgba(100,160,255,'+(a*.4)+')';X.lineWidth=.8;X.stroke();
+  X.strokeStyle='rgba(200,220,255,'+(a*.65)+')';X.lineWidth=.7;
   for(var li=-2;li<=2;li++){X.beginPath();X.moveTo(li*s*.13-s*.04,s*.04);X.lineTo(li*s*.13+s*.04,-s*.13);X.stroke();}
   X.restore();
 }
-
-function trophy(x,y,s,al,t,ph){
+function drawTrophy(x,y,s,al,t,ph){
   X.save();X.translate(x,y);
-  var p=Math.sin(t*.02+ph)*.5+.5,a=al*(.75+.25*p);
-  var cg=X.createLinearGradient(-s*.48,-s*.58,s*.48,s*.1);cg.addColorStop(0,'rgba(255,218,52,'+a+')');cg.addColorStop(.5,'rgba(215,160,20,'+(a*.9)+')');cg.addColorStop(1,'rgba(158,105,5,'+(a*.8)+')');
-  X.beginPath();X.moveTo(-s*.48,-s*.53);X.quadraticCurveTo(-s*.62,s*.05,-s*.19,s*.12);X.lineTo(-s*.11,s*.19);X.lineTo(s*.11,s*.19);X.lineTo(s*.19,s*.12);X.quadraticCurveTo(s*.62,s*.05,s*.48,-s*.53);X.closePath();X.fillStyle=cg;X.fill();X.strokeStyle='rgba(255,195,45,'+(a*.38)+')';X.lineWidth=.9;X.stroke();
+  var p=Math.sin(t*.018+ph)*.5+.5,a=al*(.75+.25*p);
+  var cg=X.createLinearGradient(-s*.48,-s*.58,s*.48,s*.1);
+  cg.addColorStop(0,'rgba(255,218,52,'+a+')');cg.addColorStop(.5,'rgba(215,160,20,'+(a*.9)+')');cg.addColorStop(1,'rgba(158,105,5,'+(a*.8)+')');
+  X.beginPath();X.moveTo(-s*.48,-s*.53);X.quadraticCurveTo(-s*.62,s*.05,-s*.19,s*.12);X.lineTo(-s*.11,s*.19);X.lineTo(s*.11,s*.19);X.lineTo(s*.19,s*.12);X.quadraticCurveTo(s*.62,s*.05,s*.48,-s*.53);X.closePath();X.fillStyle=cg;X.fill();
+  X.strokeStyle='rgba(255,195,45,'+(a*.35)+')';X.lineWidth=.9;X.stroke();
   X.strokeStyle='rgba(235,178,35,'+(a*.7)+')';X.lineWidth=1.7;
   X.beginPath();X.moveTo(-s*.48,-s*.28);X.quadraticCurveTo(-s*.75,-s*.07,-s*.48,s*.07);X.stroke();
   X.beginPath();X.moveTo(s*.48,-s*.28);X.quadraticCurveTo(s*.75,-s*.07,s*.48,s*.07);X.stroke();
-  X.fillStyle='rgba(192,142,14,'+a+')';X.fillRect(-s*.065,s*.19,s*.13,s*.19);X.beginPath();X.ellipse(0,s*.4,s*.28,s*.065,0,0,Math.PI*2);X.fill();
-  var st=X.createRadialGradient(-s*.16,-s*.18,0,-s*.16,-s*.18,s*.16);st.addColorStop(0,'rgba(255,242,130,'+(a*.38)+')');st.addColorStop(1,'rgba(255,242,130,0)');X.beginPath();X.arc(-s*.16,-s*.18,s*.16,0,Math.PI*2);X.fillStyle=st;X.fill();
+  X.fillStyle='rgba(192,142,14,'+a+')';X.fillRect(-s*.065,s*.19,s*.13,s*.19);
+  X.beginPath();X.ellipse(0,s*.4,s*.28,s*.065,0,0,Math.PI*2);X.fill();
+  var st=X.createRadialGradient(-s*.16,-s*.18,0,-s*.16,-s*.18,s*.16);
+  st.addColorStop(0,'rgba(255,242,130,'+(a*.38)+')');st.addColorStop(1,'rgba(255,242,130,0)');
+  X.beginPath();X.arc(-s*.16,-s*.18,s*.16,0,Math.PI*2);X.fillStyle=st;X.fill();
   X.restore();
 }
 
-/* ---- LIGHT TRAILS ---- */
+/* ======= LIGHT ORBS ======= */
+var ORBS=[];
+var ORB_COLS=['#c084fc','#60a5fa','#34d399','#fbbf24','#f87171','#818cf8','#38bdf8'];
+for(var oi=0;oi<12;oi++){
+  ORBS.push({
+    x:Math.random()*W||Math.random()*1400,y:Math.random()*H||Math.random()*900,
+    r:8+Math.random()*22,
+    vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,
+    al:.06+Math.random()*.1,ph:Math.random()*Math.PI*2,
+    col:ORB_COLS[oi%7],
+    pulse:.5+Math.random()*.5
+  });
+}
+function drawOrb(o,t){
+  var p=Math.sin(t*.015+o.ph)*.5+.5,a=o.al*(.6+.4*p),r=o.r*(0.85+0.15*p);
+  var hx=parseInt(o.col.slice(1,3),16),hy=parseInt(o.col.slice(3,5),16),hz=parseInt(o.col.slice(5,7),16);
+  var g=X.createRadialGradient(o.x,o.y,0,o.x,o.y,r*2.5);
+  g.addColorStop(0,'rgba('+hx+','+hy+','+hz+','+(a*1.2)+')');
+  g.addColorStop(.4,'rgba('+hx+','+hy+','+hz+','+(a*.6)+')');
+  g.addColorStop(1,'rgba('+hx+','+hy+','+hz+',0)');
+  X.beginPath();X.arc(o.x,o.y,r*2.5,0,Math.PI*2);X.fillStyle=g;X.fill();
+  /* bright core */
+  var gc=X.createRadialGradient(o.x,o.y,0,o.x,o.y,r*.5);
+  gc.addColorStop(0,'rgba(255,255,255,'+(a*.7)+')');gc.addColorStop(1,'rgba(255,255,255,0)');
+  X.beginPath();X.arc(o.x,o.y,r*.5,0,Math.PI*2);X.fillStyle=gc;X.fill();
+}
+
+/* ======= LIGHT TRAILS ======= */
 var TCOLS=['#c084fc','#60a5fa','#fbbf24','#4ade80','#f87171','#38bdf8'];
-var trails=[];
+var TRAILS=[];
 function rgb(h){return parseInt(h.slice(1,3),16)+','+parseInt(h.slice(3,5),16)+','+parseInt(h.slice(5,7),16);}
-function mkTrail(){var e=Math.floor(Math.random()*4),sp=1.2+Math.random()*2,x,y,vx,vy;
+function mkTrail(){
+  var e=Math.floor(Math.random()*4),sp=1.1+Math.random()*1.8,x,y,vx,vy;
   if(e===0){x=Math.random()*W;y=0;vx=(Math.random()-.5)*sp;vy=sp*.9;}
   else if(e===1){x=W;y=Math.random()*H;vx=-sp*.9;vy=(Math.random()-.5)*sp;}
   else if(e===2){x=Math.random()*W;y=H;vx=(Math.random()-.5)*sp;vy=-sp*.9;}
   else{x=0;y=Math.random()*H;vx=sp*.9;vy=(Math.random()-.5)*sp;}
-  trails.push({x:x,y:y,vx:vx,vy:vy,col:TCOLS[Math.floor(Math.random()*6)],len:55+Math.random()*80,al:.45+Math.random()*.4,life:0,max:80+Math.random()*70});}
+  TRAILS.push({x:x,y:y,vx:vx,vy:vy,col:TCOLS[Math.floor(Math.random()*6)],len:50+Math.random()*80,al:.4+Math.random()*.45,life:0,max:75+Math.random()*75});
+}
 
+/* ======= MAIN LOOP ======= */
 var F=0;
 function draw(){
-  F++;X.clearRect(0,0,W,H);
+  F++;
+  X.clearRect(0,0,W,H);
   /* background */
-  var bg=X.createRadialGradient(W*.45,H*.38,0,W*.5,H*.5,Math.max(W,H)*.8);
-  bg.addColorStop(0,'#100818');bg.addColorStop(.4,'#080c1c');bg.addColorStop(1,'#020617');
+  var bg=X.createRadialGradient(W*.45,H*.38,0,W*.5,H*.5,Math.max(W,H)*.85);
+  bg.addColorStop(0,'#0e0818');bg.addColorStop(.45,'#080c1c');bg.addColorStop(1,'#020617');
   X.fillStyle=bg;X.fillRect(0,0,W,H);
-  /* cards */
-  for(var ci=0;ci<cards.length;ci++){var c=cards[ci];c.x+=c.vx;c.y+=c.vy;c.ang+=c.da;if(c.x<-90)c.x=W+90;if(c.x>W+90)c.x=-90;if(c.y<-90)c.y=H+90;if(c.y>H+90)c.y=-90;card(c,F);}
-  /* sports */
-  for(var oi=0;oi<OBJ.length;oi++){var o=OBJ[oi];o.x+=o.vx;o.y+=o.vy;o.ang+=o.da;if(o.x<-90)o.x=W+90;if(o.x>W+90)o.x=-90;if(o.y<-90)o.y=H+90;if(o.y>H+90)o.y=-90;
-    if(o.t==='ball')ball(o.x,o.y,o.s,o.al,F,o.ph);
-    else if(o.t==='shoe')shoe(o.x,o.y,o.s,o.ang,o.al,F,o.ph);
-    else trophy(o.x,o.y,o.s,o.al,F,o.ph);}
-  /* stars */
-  for(var si=0;si<stars.length;si++){var s=stars[si];s.y+=s.spd;if(s.y>H){s.y=0;s.x=Math.random()*W;}var tw=Math.sin(F*s.tw+s.to)*.45+.55;X.beginPath();X.arc(s.x,s.y,s.r,0,Math.PI*2);X.fillStyle='rgba(255,255,255,'+(s.a*tw)+')';X.fill();}
-  /* trails */
-  if(F%22===0&&trails.length<14)mkTrail();
-  for(var ti=trails.length-1;ti>=0;ti--){var tr=trails[ti];tr.x+=tr.vx;tr.y+=tr.vy;tr.life++;
+
+  /* STARS — fixed to fractional positions so they fill the screen at any size */
+  for(var si=0;si<STARS.length;si++){
+    var s=STARS[si];
+    s.to+=s.speed;
+    var tw=Math.sin(s.to)*.45+.55;
+    var sx=s.x*W,sy=s.y*H;
+    X.beginPath();X.arc(sx,sy,s.r,0,Math.PI*2);
+    X.fillStyle='rgba(255,255,255,'+(s.base*tw)+')';X.fill();
+  }
+
+  /* LIGHT ORBS */
+  for(var oi=0;oi<ORBS.length;oi++){
+    var o=ORBS[oi];
+    o.x+=o.vx;o.y+=o.vy;
+    if(o.x<-60)o.x=W+60;if(o.x>W+60)o.x=-60;
+    if(o.y<-60)o.y=H+60;if(o.y>H+60)o.y=-60;
+    drawOrb(o,F);
+  }
+
+  /* HOLOGRAPHIC CARDS */
+  for(var ci=0;ci<CARDS.length;ci++){
+    var c=CARDS[ci];
+    c.x+=c.vx;c.y+=c.vy;c.ang+=c.da;
+    if(c.x<-90)c.x=W+90;if(c.x>W+90)c.x=-90;
+    if(c.y<-90)c.y=H+90;if(c.y>H+90)c.y=-90;
+    drawCard(c,F);
+  }
+
+  /* SOCCER BALLS */
+  for(var bi=0;bi<BALLS.length;bi++){
+    var b=BALLS[bi];
+    b.x+=b.vx;b.y+=b.vy;b.ang+=b.da;
+    if(b.x<-80)b.x=W+80;if(b.x>W+80)b.x=-80;
+    if(b.y<-80)b.y=H+80;if(b.y>H+80)b.y=-80;
+    drawBall(b,F);
+  }
+
+  /* ACCESSORIES */
+  for(var ai=0;ai<ACCS.length;ai++){
+    var a2=ACCS[ai];
+    a2.x+=a2.vx;a2.y+=a2.vy;a2.ang+=a2.da;
+    if(a2.x<-80)a2.x=W+80;if(a2.x>W+80)a2.x=-80;
+    if(a2.y<-80)a2.y=H+80;if(a2.y>H+80)a2.y=-80;
+    if(a2.t==='shoe')drawShoe(a2.x,a2.y,a2.s,a2.ang,a2.al,F,a2.ph);
+    else drawTrophy(a2.x,a2.y,a2.s,a2.al,F,a2.ph);
+  }
+
+  /* LIGHT TRAILS */
+  if(F%20===0&&TRAILS.length<16)mkTrail();
+  for(var ti=TRAILS.length-1;ti>=0;ti--){
+    var tr=TRAILS[ti];tr.x+=tr.vx;tr.y+=tr.vy;tr.life++;
     var pct=tr.life/tr.max,fade=pct<.2?pct/.2:pct>.78?(1-pct)/.22:1;
     var nm=Math.sqrt(tr.vx*tr.vx+tr.vy*tr.vy),tx=tr.x-tr.vx*(tr.len/nm),ty=tr.y-tr.vy*(tr.len/nm);
     var rr=rgb(tr.col),lg=X.createLinearGradient(tx,ty,tr.x,tr.y);
     lg.addColorStop(0,'rgba('+rr+',0)');lg.addColorStop(.65,'rgba('+rr+','+(tr.al*fade*.5)+')');lg.addColorStop(1,'rgba('+rr+','+(tr.al*fade)+')');
     X.beginPath();X.moveTo(tx,ty);X.lineTo(tr.x,tr.y);X.strokeStyle=lg;X.lineWidth=1.5;X.stroke();
-    var hg=X.createRadialGradient(tr.x,tr.y,0,tr.x,tr.y,7);hg.addColorStop(0,'rgba('+rr+','+(tr.al*fade)+')');hg.addColorStop(1,'rgba(0,0,0,0)');X.beginPath();X.arc(tr.x,tr.y,7,0,Math.PI*2);X.fillStyle=hg;X.fill();
-    if(tr.life>=tr.max)trails.splice(ti,1);}
+    var hg=X.createRadialGradient(tr.x,tr.y,0,tr.x,tr.y,7);
+    hg.addColorStop(0,'rgba('+rr+','+(tr.al*fade)+')');hg.addColorStop(1,'rgba(0,0,0,0)');
+    X.beginPath();X.arc(tr.x,tr.y,7,0,Math.PI*2);X.fillStyle=hg;X.fill();
+    if(tr.life>=tr.max)TRAILS.splice(ti,1);
+  }
+
   requestAnimationFrame(draw);
 }
 draw();
