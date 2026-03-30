@@ -18,7 +18,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
 .page{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0}
 
 /* ── HERO ── */
-.hero{width:100%;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1.5rem 2.5rem;gap:1.75rem;position:relative}
+.hero{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1.5rem 2.5rem;gap:1.75rem;position:relative}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(59,130,246,.08) 0%,transparent 70%);pointer-events:none}
 
 /* logo */
@@ -193,21 +193,32 @@ footer a:hover{color:#a78bfa}
         <div class="icon-w">
           <svg viewBox="0 0 58 58" fill="none">
             <defs>
-              <radialGradient id="skG" cx="40%" cy="32%" r="65%"><stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#94a3b8"/></radialGradient>
-              <filter id="skF" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <linearGradient id="scG" x1="0" y1="0" x2=".3" y2="1"><stop offset="0%" stop-color="#fdf0c8"/><stop offset="45%" stop-color="#f0d880"/><stop offset="100%" stop-color="#c8a840"/></linearGradient>
+              <linearGradient id="rlG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8c860"/><stop offset="55%" stop-color="#d4a838"/><stop offset="100%" stop-color="#b88818"/></linearGradient>
+              <radialGradient id="scA" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(217,119,6,.18)"/><stop offset="100%" stop-color="rgba(217,119,6,0)"/></radialGradient>
+              <filter id="scF" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             </defs>
-            <ellipse cx="29" cy="22" rx="17" ry="16" fill="rgba(248,250,252,.07)" filter="url(#skF)"/>
-            <ellipse cx="29" cy="22" rx="16" ry="14" fill="url(#skG)" stroke="rgba(148,163,184,.15)" stroke-width=".5"/>
-            <rect x="20" y="33" width="18" height="9" rx="3" fill="url(#skG)"/>
-            <rect x="22" y="33" width="3" height="5.5" rx="1" fill="#0f172a"/>
-            <rect x="27" y="33" width="3" height="5.5" rx="1" fill="#0f172a"/>
-            <rect x="32" y="33" width="3" height="5.5" rx="1" fill="#0f172a"/>
-            <ellipse cx="20" cy="22" rx="5.5" ry="6" fill="#0f172a"/>
-            <ellipse cx="38" cy="22" rx="5.5" ry="6" fill="#0f172a"/>
-            <path d="M8 46 Q10 44.5 13 46 Q16 47.5 19 46 Q22 44.5 25 46 Q28 47.5 29 47 Q30 47.5 33 46 Q36 44.5 39 46 Q42 47.5 45 46 Q48 44.5 50 46" stroke="#94a3b8" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <circle cx="7" cy="46" r="4" fill="#94a3b8" opacity=".75"/>
-            <circle cx="51" cy="46" r="4" fill="#94a3b8" opacity=".75"/>
-            <ellipse cx="20" cy="14" rx="8" ry="3.5" fill="rgba(255,255,255,.3)" transform="rotate(-18,20,14)"/>
+            <ellipse cx="29" cy="29" rx="27" ry="27" fill="url(#scA)" filter="url(#scF)"/>
+            <rect x="5" y="14" width="48" height="30" rx="2" fill="url(#scG)" stroke="rgba(180,130,20,.35)" stroke-width=".7"/>
+            <rect x="5" y="20" width="48" height="1" fill="rgba(160,110,10,.1)"/>
+            <rect x="5" y="28" width="48" height="1" fill="rgba(160,110,10,.09)"/>
+            <rect x="5" y="36" width="48" height="1" fill="rgba(160,110,10,.1)"/>
+            <ellipse cx="29" cy="14" rx="24" ry="6.5" fill="url(#rlG)" stroke="rgba(160,110,10,.3)" stroke-width=".6"/>
+            <ellipse cx="29" cy="14" rx="17" ry="3.8" fill="rgba(200,160,48,.48)"/>
+            <ellipse cx="29" cy="44" rx="24" ry="6.5" fill="url(#rlG)" stroke="rgba(160,110,10,.3)" stroke-width=".6"/>
+            <ellipse cx="29" cy="44" rx="17" ry="3.8" fill="rgba(200,160,48,.48)"/>
+            <circle cx="14" cy="29" r="5" fill="none" stroke="rgba(120,70,10,.42)" stroke-width=".7"/>
+            <line x1="14" y1="24" x2="14" y2="34" stroke="rgba(120,70,10,.5)" stroke-width=".9"/>
+            <line x1="9" y1="29" x2="19" y2="29" stroke="rgba(120,70,10,.5)" stroke-width=".9"/>
+            <line x1="10.5" y1="25.5" x2="17.5" y2="32.5" stroke="rgba(120,70,10,.25)" stroke-width=".55"/>
+            <line x1="17.5" y1="25.5" x2="10.5" y2="32.5" stroke="rgba(120,70,10,.25)" stroke-width=".55"/>
+            <circle cx="14" cy="29" r="1.4" fill="rgba(120,70,10,.45)"/>
+            <path d="M22 36 Q29 30 37 33 Q43 36 47 27" stroke="rgba(100,55,10,.48)" stroke-width="1" fill="none" stroke-dasharray="2.5,1.8" stroke-linecap="round"/>
+            <line x1="45" y1="24" x2="49" y2="28" stroke="rgba(180,30,20,.65)" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="49" y1="24" x2="45" y2="28" stroke="rgba(180,30,20,.65)" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M22 35 Q26 31 31 33 Q36 35 38 32" fill="rgba(100,140,80,.2)" stroke="rgba(80,110,50,.28)" stroke-width=".6"/>
+            <text x="12.5" y="22" font-size="3.8" fill="rgba(120,70,10,.65)" font-family="serif" font-weight="bold">N</text>
+            <rect x="5" y="14" width="48" height="6" rx="2" fill="rgba(255,255,220,.12)"/>
           </svg>
         </div>
         <div class="cname">One Piece</div>
@@ -384,14 +395,7 @@ for(var ai=0;ai<18;ai++){ACCS.push({t:ai<9?'shoe':'trophy',
   vx:(Math.random()-.5)*.26,vy:(Math.random()-.5)*.26,
   al:.14+Math.random()*.16,ph:Math.random()*Math.PI*2});}
 
-/* ── CORNICELLO porta fortuna ── */
-var CORNO={x:W*.35||500,y:H*.45||400,s:38,
-  ang:-0.35,da:.0018,
-  vx:.18,vy:.12,
-  al:.55,ph:0,
-  swx:Math.random()*Math.PI*2,swy:Math.random()*Math.PI*2};
-
-/* ── Light orbs */
+/* Light orbs */
 var ORBS=[];
 var OCOLS=[[59,130,246],[139,92,246],[6,182,212],[245,158,11],[16,185,129],[236,72,153]];
 for(var oi=0;oi<10;oi++){var oc=OCOLS[oi%6];
@@ -525,56 +529,40 @@ function dTrophy(x,y,s,al,t,ph){
 }
 
 function dCorno(o,t){
-  var x=o.x,y=o.y,s=o.s,al=o.al;
-  /* gentle floating bob */
-  var bx=Math.sin(t*.013+o.swx)*22,by=Math.cos(t*.009+o.swy)*16;
-  X.save();X.translate(x+bx,y+by);X.rotate(o.ang+Math.sin(t*.008)*0.18);
-  var a=al*(Math.sin(t*.018+o.ph)*.2+.8);
-  /* outer glow */
-  var ga=X.createRadialGradient(0,0,s*.05,0,0,s*1.1);
-  ga.addColorStop(0,'rgba(220,60,40,'+(a*.22)+')');ga.addColorStop(1,'rgba(220,60,40,0)');
-  X.beginPath();X.ellipse(0,0,s*1.1,s*1.8,0,0,Math.PI*2);X.fillStyle=ga;X.fill();
-  /* HORN BODY — curved tapered shape */
-  var cg=X.createLinearGradient(-s*.12,-s*1.05,s*.18,s*1.05);
-  cg.addColorStop(0,'rgba(230,80,55,'+a+')');
-  cg.addColorStop(.35,'rgba(198,35,25,'+(a*.95)+')');
-  cg.addColorStop(.72,'rgba(155,15,10,'+(a*.88)+')');
-  cg.addColorStop(1,'rgba(185,145,18,'+(a*.92)+')');
-  X.beginPath();
-  X.moveTo(-s*.1,-s*1.0);
-  X.bezierCurveTo(s*.38,-s*.62,s*.48,s*.05,s*.12,s*1.0);
-  X.bezierCurveTo(s*.06,s*1.08,-s*.06,s*1.08,-s*.12,s*1.0);
-  X.bezierCurveTo(-s*.42,s*.05,-s*.32,-s*.62,s*.1,-s*1.0);
+  var bx=Math.sin(t*.013+o.swx)*20,by=Math.cos(t*.009+o.swy)*14;
+  X.save();X.translate(o.x+bx,o.y+by);X.rotate(o.ang+Math.sin(t*.008)*.16);
+  var a=o.al*(Math.sin(t*.018+o.ph)*.2+.8),s2=o.s;
+  var ga=X.createRadialGradient(0,0,s2*.05,0,0,s2*1.15);
+  ga.addColorStop(0,'rgba(220,60,40,'+(a*.18)+')');ga.addColorStop(1,'rgba(220,60,40,0)');
+  X.beginPath();X.ellipse(0,0,s2*1.1,s2*1.8,0,0,Math.PI*2);X.fillStyle=ga;X.fill();
+  var cg=X.createLinearGradient(-s2*.12,-s2*1.05,s2*.18,s2*1.05);
+  cg.addColorStop(0,'rgba(230,80,55,'+a+')');cg.addColorStop(.35,'rgba(198,35,25,'+(a*.95)+')');
+  cg.addColorStop(.72,'rgba(155,15,10,'+(a*.88)+')');cg.addColorStop(1,'rgba(185,145,18,'+(a*.92)+')');
+  X.beginPath();X.moveTo(-s2*.1,-s2*1.0);
+  X.bezierCurveTo(s2*.38,-s2*.62,s2*.48,s2*.05,s2*.12,s2*1.0);
+  X.bezierCurveTo(s2*.06,s2*1.08,-s2*.06,s2*1.08,-s2*.12,s2*1.0);
+  X.bezierCurveTo(-s2*.42,s2*.05,-s2*.32,-s2*.62,s2*.1,-s2*1.0);
   X.closePath();X.fillStyle=cg;X.fill();
-  /* highlight stripe */
-  X.beginPath();X.moveTo(-s*.04,-s*.88);
-  X.bezierCurveTo(s*.16,-s*.52,s*.2,s*.05,s*.04,s*.78);
-  X.strokeStyle='rgba(255,180,170,'+(a*.38)+')';X.lineWidth=s*.1;X.lineCap='round';X.stroke();
-  /* twist lines */
-  X.strokeStyle='rgba(120,10,5,'+(a*.35)+')';X.lineWidth=1.2;
-  for(var ti2=0;ti2<4;ti2++){
-    var ty=-s*.75+ti2*s*.5;
-    X.beginPath();X.moveTo(-s*.14,ty);X.quadraticCurveTo(s*.28,ty+s*.12,s*.1,ty+s*.25);X.stroke();
-  }
-  /* gold tip */
-  var tg=X.createRadialGradient(0,s*1.02,0,0,s*1.02,s*.15);
+  X.beginPath();X.moveTo(-s2*.04,-s2*.88);
+  X.bezierCurveTo(s2*.16,-s2*.52,s2*.2,s2*.05,s2*.04,s2*.78);
+  X.strokeStyle='rgba(255,180,170,'+(a*.35)+')';X.lineWidth=s2*.1;X.lineCap='round';X.stroke();
+  X.strokeStyle='rgba(120,10,5,'+(a*.32)+')';X.lineWidth=1.1;
+  for(var ti2=0;ti2<4;ti2++){var ty=-s2*.72+ti2*s2*.48;X.beginPath();X.moveTo(-s2*.13,ty);X.quadraticCurveTo(s2*.26,ty+s2*.11,s2*.1,ty+s2*.23);X.stroke();}
+  var tg=X.createRadialGradient(0,s2*1.02,0,0,s2*1.02,s2*.14);
   tg.addColorStop(0,'rgba(255,215,50,'+a+')');tg.addColorStop(1,'rgba(180,130,10,'+(a*.7)+')');
-  X.beginPath();X.ellipse(0,s*1.02,s*.1,s*.08,0,0,Math.PI*2);X.fillStyle=tg;X.fill();
-  /* gold ring at top */
-  var rg=X.createLinearGradient(-s*.16,-s*1.05,s*.16,-s*.88);
+  X.beginPath();X.ellipse(0,s2*1.02,s2*.1,s2*.075,0,0,Math.PI*2);X.fillStyle=tg;X.fill();
+  var rg=X.createLinearGradient(-s2*.15,-s2*1.04,s2*.15,-s2*.87);
   rg.addColorStop(0,'rgba(255,215,50,'+a+')');rg.addColorStop(1,'rgba(180,130,10,'+(a*.8)+')');
-  X.beginPath();X.ellipse(0,-s*.92,s*.16,s*.065,0,0,Math.PI*2);X.strokeStyle=rg;X.lineWidth=s*.055;X.stroke();
-  /* ring shine */
-  X.beginPath();X.arc(-s*.09,-s*.94,s*.055,Math.PI,0);X.strokeStyle='rgba(255,240,150,'+(a*.55)+')';X.lineWidth=s*.03;X.stroke();
+  X.beginPath();X.ellipse(0,-s2*.92,s2*.15,s2*.06,0,0,Math.PI*2);X.strokeStyle=rg;X.lineWidth=s2*.052;X.stroke();
   X.restore();
 }
-
 var SPEED=0.8;
+var CORNO={x:0,y:0,s:36,ang:-0.32,vx:.16,vy:.10,al:.52,ph:1.4,swx:2.1,swy:.8,init:false};
 var F=0;
 function draw(){
   F++;
   X.clearRect(0,0,W,H);
-  if(F===1){CORNO.x=W*.35;CORNO.y=H*.42;}
+  if(!CORNO.init){CORNO.x=W*.33;CORNO.y=H*.42;CORNO.init=true;}
 
   /* deep space background */
   var bg=X.createRadialGradient(CX,CY*.8,0,CX,CY,Math.max(W,H)*.85);
@@ -639,10 +627,9 @@ function draw(){
 
   /* CORNICELLO */
   CORNO.x+=CORNO.vx;CORNO.y+=CORNO.vy;
-  if(CORNO.x<-60)CORNO.x=W+60;if(CORNO.x>W+60)CORNO.x=-60;
-  if(CORNO.y<-60)CORNO.y=H+60;if(CORNO.y>H+60)CORNO.y=-60;
+  if(CORNO.x<-55)CORNO.x=W+55;if(CORNO.x>W+55)CORNO.x=-55;
+  if(CORNO.y<-80)CORNO.y=H+80;if(CORNO.y>H+80)CORNO.y=-80;
   dCorno(CORNO,F);
-
   /* trails */
   if(F%16===0&&TRLS.length<20)mkT();
   for(var ti=TRLS.length-1;ti>=0;ti--){var tr=TRLS[ti];tr.x+=tr.vx;tr.y+=tr.vy;tr.life++;
