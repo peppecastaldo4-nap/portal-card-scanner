@@ -476,67 +476,8 @@ document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 })();
 </script>
 </body>
-</html>/* ═══════════════════════════════════════════
-     SPORT IMAGE OVERLAY — float & fade
-  ═══════════════════════════════════════════ */
-  (function(){
-    var els=[document.getElementById('sp0'),document.getElementById('sp1'),document.getElementById('sp2'),document.getElementById('sp3')];
-    var cur=0;
-    var stopFloat=null;
-
-    function rnd(min,max){return min+Math.random()*(max-min);}
-
-    function floatEl(el){
-      var r=Math.random();
-      var startX,startY,tx,ty;
-
-      if(r<0.4){
-        /* centro schermo — completamente visibile */
-        startX=rnd(18,48); startY=rnd(12,50);
-        tx=startX+rnd(-2,2); ty=startY+rnd(-2,2);
-      } else if(r<0.7){
-        /* bordo sinistro o destro — al bordo esatto */
-        if(Math.random()<0.5){
-          startX=0; startY=rnd(8,55);        /* bordo sinistro */
-          tx=rnd(15,35); ty=startY+rnd(-3,3);
-        } else {
-          startX=58; startY=rnd(8,55);       /* bordo destro (img ~42vw) */
-          tx=rnd(35,55); ty=startY+rnd(-3,3);
-        }
-      } else {
-        /* dall'alto — al bordo superiore */
-        startX=rnd(18,50); startY=0;
-        tx=startX+rnd(-3,3); ty=rnd(10,45);
-      }
-
-      el.style.left=startX+'vw';
-      el.style.top =startY+'vh';
-      el.style.right='auto';
-
-      var spd=0.003;
-      var dx=(tx-startX)*spd, dy=(ty-startY)*spd;
-      var x=startX, y=startY, raf;
-      function move(){x+=dx;y+=dy;el.style.left=x+'vw';el.style.top=y+'vh';raf=requestAnimationFrame(move);}
-      raf=requestAnimationFrame(move);
-      return function(){cancelAnimationFrame(raf);};
-    }
-
-    function show(){
-      var idx=cur; cur=(cur+1)%4;
-      var el=els[idx];
-      if(stopFloat) stopFloat();
-      els.forEach(function(e){e.style.opacity='0';});
-      stopFloat=floatEl(el);
-      setTimeout(function(){el.style.opacity='0.3';},80);
-      /* visibile 5s poi passa alla prossima dopo 1.2s */
-      setTimeout(function(){
-        el.style.opacity='0';
-        setTimeout(show,1200);
-      },5000);
-    }
-
-    setTimeout(show,1200);
-  })();<!DOCTYPE html>
+</html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
