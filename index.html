@@ -4,723 +4,195 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Card Scanner - Official</title>
-
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="X-XSS-Protection" content="1; mode=block">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';">
-
-  <meta name="description" content="Portal Card Scanner - AI-powered Pokémon, One Piece, Dragon Ball, Yu-Gi-Oh and Football card scanner. Scan cards, get real-time prices. Free Android app.">
-  <meta name="keywords" content="pokemon card scanner, one piece card scanner, dragon ball card scanner, yugioh card scanner, football card scanner, TCG card scanner, card price checker, portal card scanner, sports cards">
+  <meta name="description" content="Portal Card Scanner - AI-powered Pokémon, One Piece, Dragon Ball, Yu-Gi-Oh and Football card scanner. Real-time prices. Free Android app.">
+  <meta name="keywords" content="pokemon card scanner, one piece card scanner, dragon ball card scanner, yugioh card scanner, football card scanner, TCG card scanner, card price checker, portal card scanner, sports cards, sports accessories">
   <meta name="author" content="Portal Card Scanner">
   <meta name="robots" content="index, follow">
   <meta name="impact-site-verification" value="4ce42002-7635-40b9-8229-fc2182a0b9ce">
-
   <meta property="og:title" content="Portal Card Scanner - Official">
-  <meta property="og:description" content="AI-powered card scanner for Pokémon, One Piece, Dragon Ball, Yu-Gi-Oh and Football cards. Get real-time prices. Coming soon: Sports accessories shop!">
+  <meta property="og:description" content="AI-powered card scanner for Pokemon, One Piece, Dragon Ball, Yu-Gi-Oh and Football cards. Real-time prices. Coming soon: Sports accessories!">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://peppecastaldo4-nap.github.io/portal-card-scanner/">
   <meta property="og:image" content="https://peppecastaldo4-nap.github.io/portal-card-scanner/logo.png">
-
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body, html {
-      min-height: 100vh;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: #020617;
-      color: #f1f5f9;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      overflow-x: hidden;
-    }
-
-    canvas#bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .container {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-      max-width: 640px;
-      width: 100%;
-      padding: 2.5rem 1.25rem 2rem;
-    }
-
-    .logo-wrap {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid rgba(126, 34, 206, 0.6);
-      box-shadow:
-        0 0 30px rgba(126,34,206,0.55),
-        0 0 65px rgba(59,130,246,0.3),
-        0 0 100px rgba(126,34,206,0.2);
-      flex-shrink: 0;
-    }
-    .logo-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-    }
-
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.4rem, 4vw, 2rem);
-      font-weight: 900;
-      text-align: center;
-      background: linear-gradient(135deg, #c084fc, #60a5fa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: 0.05em;
-    }
-
-    .playstore-link { display: inline-block; }
-    .playstore-link img {
-      height: 65px; width: auto; display: block;
-      filter: drop-shadow(0 4px 16px rgba(126,34,206,0.4));
-      transition: transform 0.2s, filter 0.2s;
-    }
-    .playstore-link:hover img {
-      transform: scale(1.05);
-      filter: drop-shadow(0 6px 24px rgba(126,34,206,0.6));
-    }
-
-    .lang-cards { display: flex; flex-direction: column; gap: 1.25rem; width: 100%; }
-
-    .lang-card {
-      background: rgba(15, 23, 42, 0.65);
-      border: 1px solid rgba(126, 34, 206, 0.25);
-      border-radius: 1rem;
-      padding: 1.25rem 1.5rem;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-
-    .lang-header {
-      display: flex; align-items: center; gap: 0.625rem;
-      margin-bottom: 0.75rem;
-    }
-    .flag { font-size: 1.25rem; line-height: 1; }
-    .lang-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(0.75rem, 2.5vw, 0.875rem);
-      font-weight: 700;
-      background: linear-gradient(90deg, #c084fc, #818cf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: 0.03em;
-    }
-
-    .features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-    .features li {
-      font-size: clamp(0.8rem, 2.5vw, 0.9375rem);
-      color: #cbd5e1;
-      display: flex; align-items: flex-start; gap: 0.5rem;
-    }
-    .features li::before {
-      content: '✦';
-      color: #a78bfa;
-      font-size: 0.7rem;
-      flex-shrink: 0;
-      margin-top: 0.2em;
-    }
-
-    /* ===== V2 COMING SOON SECTION ===== */
-    .v2-section {
-      width: 100%;
-      margin-top: 0.5rem;
-    }
-
-    .v2-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: linear-gradient(135deg, rgba(251,191,36,0.15), rgba(245,158,11,0.1));
-      border: 1px solid rgba(251,191,36,0.4);
-      border-radius: 2rem;
-      padding: 0.35rem 1rem;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: #fbbf24;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      box-shadow: 0 0 20px rgba(251,191,36,0.15);
-      animation: pulseBadge 2.5s ease-in-out infinite;
-    }
-    @keyframes pulseBadge {
-      0%, 100% { box-shadow: 0 0 20px rgba(251,191,36,0.15); }
-      50% { box-shadow: 0 0 35px rgba(251,191,36,0.35), 0 0 60px rgba(251,191,36,0.1); }
-    }
-    .v2-badge-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #fbbf24;
-      animation: blink 1.2s ease-in-out infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
-    .v2-card {
-      background: linear-gradient(135deg,
-        rgba(15,23,42,0.85) 0%,
-        rgba(30,10,60,0.75) 50%,
-        rgba(15,23,42,0.85) 100%);
-      border: 1px solid rgba(251,191,36,0.25);
-      border-radius: 1.25rem;
-      padding: 1.75rem 1.5rem;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow:
-        0 8px 40px rgba(0,0,0,0.4),
-        inset 0 1px 0 rgba(251,191,36,0.1),
-        0 0 80px rgba(251,191,36,0.05);
-      position: relative;
-      overflow: hidden;
-    }
-    .v2-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 60%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(251,191,36,0.04), transparent);
-      animation: shimmer 4s ease-in-out infinite;
-    }
-    @keyframes shimmer { 0%{left:-100%} 100%{left:200%} }
-
-    .v2-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1rem, 3.5vw, 1.3rem);
-      font-weight: 900;
-      background: linear-gradient(135deg, #fbbf24, #f97316, #ec4899);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 1.25rem;
-      letter-spacing: 0.04em;
-    }
-
-    .v2-collections {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.875rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .collection-item {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 0.875rem;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s, transform 0.2s;
-    }
-    .collection-item:hover {
-      transform: translateY(-2px);
-    }
-    .collection-item.pokemon { border-color: rgba(250,204,21,0.3); }
-    .collection-item.onepiece { border-color: rgba(239,68,68,0.3); }
-    .collection-item.dragonball { border-color: rgba(251,146,60,0.35); }
-    .collection-item.yugioh { border-color: rgba(168,85,247,0.35); }
-    .collection-item.football { border-color: rgba(34,197,94,0.35); }
-
-    .collection-item.dragonball { background: rgba(251,146,60,0.06); }
-    .collection-item.yugioh { background: rgba(168,85,247,0.06); }
-    .collection-item.football { background: rgba(34,197,94,0.06); }
-
-    .collection-emoji { font-size: 2rem; line-height: 1; }
-    .collection-name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: #e2e8f0;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    .collection-status {
-      font-size: 0.65rem;
-      color: #94a3b8;
-    }
-    .collection-item.pokemon .collection-status,
-    .collection-item.onepiece .collection-status {
-      color: #4ade80;
-    }
-    .new-tag {
-      position: absolute;
-      top: 6px; right: 6px;
-      background: linear-gradient(135deg, #fbbf24, #f97316);
-      color: #000;
-      font-size: 0.5rem;
-      font-weight: 800;
-      padding: 2px 5px;
-      border-radius: 0.25rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .v2-separator {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(251,191,36,0.2), rgba(34,197,94,0.2), transparent);
-      margin: 1.25rem 0;
-    }
-
-    .football-feature {
-      background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(16,185,129,0.05));
-      border: 1px solid rgba(34,197,94,0.2);
-      border-radius: 1rem;
-      padding: 1.25rem;
-    }
-    .football-feature-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #4ade80;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .brands-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 0.875rem;
-    }
-    .brand-pill {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 2rem;
-      padding: 0.3rem 0.75rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #e2e8f0;
-      white-space: nowrap;
-    }
-
-    .football-desc {
-      font-size: 0.8rem;
-      color: #94a3b8;
-      line-height: 1.6;
-    }
-    .football-desc strong { color: #4ade80; }
-
-    .v2-footer-note {
-      margin-top: 1rem;
-      font-size: 0.75rem;
-      color: #64748b;
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      width: 100%;
-      text-align: center;
-      padding: 1.25rem 0;
-      color: #475569;
-      font-size: 0.8125rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    footer a {
-      color: #7c3aed;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    footer a:hover { color: #a78bfa; }
-    .footer-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-
-    /* Divider */
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(126,34,206,0.2), transparent);
-    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body,html{min-height:100vh;font-family:'Plus Jakarta Sans',sans-serif;background:#020617;color:#f1f5f9;display:flex;justify-content:center;align-items:flex-start;overflow-x:hidden}
+    canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+    #sports-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+    .sport-icon{position:absolute;opacity:0;animation:floatSport linear infinite;will-change:transform,opacity;user-select:none;line-height:1}
+    @keyframes floatSport{0%{opacity:0;transform:translateY(0) rotate(0deg) scale(0.85)}8%{opacity:.12}50%{opacity:.08;transform:translateY(-40vh) rotate(180deg) scale(1.05)}92%{opacity:.12}100%{opacity:0;transform:translateY(-85vh) rotate(360deg) scale(0.85)}}
+    .container{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:1.5rem;max-width:640px;width:100%;padding:2.5rem 1.25rem 2rem}
+    .logo-wrap{width:130px;height:130px;border-radius:50%;overflow:hidden;border:3px solid rgba(126,34,206,.6);box-shadow:0 0 30px rgba(126,34,206,.55),0 0 65px rgba(59,130,246,.3),0 0 100px rgba(126,34,206,.2);flex-shrink:0}
+    .logo-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{font-family:'Orbitron',sans-serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:900;text-align:center;background:linear-gradient(135deg,#c084fc,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.05em}
+    .playstore-link{display:inline-block}
+    .playstore-link img{height:65px;width:auto;display:block;filter:drop-shadow(0 4px 16px rgba(126,34,206,.4));transition:transform .2s,filter .2s}
+    .playstore-link:hover img{transform:scale(1.05);filter:drop-shadow(0 6px 24px rgba(126,34,206,.6))}
+    .main-card{background:rgba(15,23,42,.65);border:1px solid rgba(126,34,206,.25);border-radius:1rem;padding:1.5rem;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 4px 24px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.05);width:100%}
+    .card-title{font-family:'Orbitron',sans-serif;font-size:clamp(.75rem,2.5vw,.875rem);font-weight:700;background:linear-gradient(90deg,#c084fc,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.03em;margin-bottom:.875rem}
+    .features{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+    .features li{font-size:clamp(.8rem,2.5vw,.9375rem);color:#cbd5e1;display:flex;align-items:flex-start;gap:.5rem}
+    .features li::before{content:'✦';color:#a78bfa;font-size:.7rem;flex-shrink:0;margin-top:.2em}
+    .v2-badge{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(245,158,11,.1));border:1px solid rgba(251,191,36,.4);border-radius:2rem;padding:.35rem 1rem;font-family:'Orbitron',sans-serif;font-size:.7rem;font-weight:700;color:#fbbf24;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 0 20px rgba(251,191,36,.15);animation:pulseBadge 2.5s ease-in-out infinite}
+    @keyframes pulseBadge{0%,100%{box-shadow:0 0 20px rgba(251,191,36,.15)}50%{box-shadow:0 0 35px rgba(251,191,36,.35),0 0 60px rgba(251,191,36,.1)}}
+    .v2-dot{width:6px;height:6px;border-radius:50%;background:#fbbf24;animation:blink 1.2s ease-in-out infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+    .v2-card{background:linear-gradient(135deg,rgba(15,23,42,.85) 0%,rgba(30,10,60,.75) 50%,rgba(15,23,42,.85) 100%);border:1px solid rgba(251,191,36,.25);border-radius:1.25rem;padding:1.75rem 1.5rem;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 8px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(251,191,36,.1),0 0 80px rgba(251,191,36,.05);position:relative;overflow:hidden;width:100%}
+    .v2-card::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(251,191,36,.04),transparent);animation:shimmer 4s ease-in-out infinite}
+    @keyframes shimmer{0%{left:-100%}100%{left:200%}}
+    .v2-title{font-family:'Orbitron',sans-serif;font-size:clamp(1rem,3.5vw,1.3rem);font-weight:900;background:linear-gradient(135deg,#fbbf24,#f97316,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.25rem;letter-spacing:.04em}
+    .v2-collections{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.5rem}
+    .collection-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:.875rem;padding:1rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center;position:relative;overflow:hidden;transition:border-color .3s,transform .2s}
+    .collection-item:hover{transform:translateY(-2px)}
+    .collection-item.pokemon{border-color:rgba(250,204,21,.3)}
+    .collection-item.onepiece{border-color:rgba(239,68,68,.3)}
+    .collection-item.dragonball{border-color:rgba(251,146,60,.35);background:rgba(251,146,60,.06)}
+    .collection-item.yugioh{border-color:rgba(168,85,247,.35);background:rgba(168,85,247,.06)}
+    .collection-item.football{border-color:rgba(34,197,94,.35);background:rgba(34,197,94,.06)}
+    .collection-emoji{font-size:2rem;line-height:1}
+    .collection-name{font-family:'Orbitron',sans-serif;font-size:.65rem;font-weight:700;color:#e2e8f0;letter-spacing:.05em;text-transform:uppercase}
+    .collection-status{font-size:.65rem;color:#94a3b8}
+    .collection-item.pokemon .collection-status,.collection-item.onepiece .collection-status{color:#4ade80}
+    .new-tag{position:absolute;top:6px;right:6px;background:linear-gradient(135deg,#fbbf24,#f97316);color:#000;font-size:.5rem;font-weight:800;padding:2px 5px;border-radius:.25rem;letter-spacing:.05em;text-transform:uppercase}
+    .v2-separator{height:1px;background:linear-gradient(90deg,transparent,rgba(251,191,36,.2),rgba(34,197,94,.2),transparent);margin:1.25rem 0}
+    .football-feature{background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(16,185,129,.05));border:1px solid rgba(34,197,94,.2);border-radius:1rem;padding:1.25rem}
+    .football-feature-title{font-family:'Orbitron',sans-serif;font-size:.75rem;font-weight:700;color:#4ade80;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+    .brands-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.875rem}
+    .brand-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:2rem;padding:.3rem .75rem;font-size:.75rem;font-weight:600;color:#e2e8f0;white-space:nowrap}
+    .football-desc{font-size:.8rem;color:#94a3b8;line-height:1.6}
+    .football-desc strong{color:#4ade80}
+    .v2-footer-note{margin-top:1rem;font-size:.75rem;color:#64748b;text-align:center;line-height:1.5}
+    .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(126,34,206,.2),transparent)}
+    footer{width:100%;text-align:center;padding:1.25rem 0;color:#475569;font-size:.8125rem;display:flex;flex-direction:column;gap:.5rem;align-items:center}
+    footer a{color:#7c3aed;text-decoration:none;transition:color .2s}
+    footer a:hover{color:#a78bfa}
+    .footer-links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
   </style>
 </head>
 <body>
-
 <canvas id="bg"></canvas>
-
+<div id="sports-layer"></div>
 <div class="container">
-
   <div class="logo-wrap">
     <img src="logo.png" alt="Portal Card Scanner Logo" width="130" height="130">
   </div>
-
   <h1>Portal Card Scanner</h1>
-
   <a class="playstore-link" href="https://play.google.com/store/apps/details?id=com.portal.cardscanner" target="_blank" rel="noopener noreferrer">
     <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" width="240" height="65">
   </a>
-
-  <div class="lang-cards">
-
-    <!-- ITALIANO -->
-    <div class="lang-card">
-      <div class="lang-header">
-        <span class="flag">🇮🇹</span>
-        <span class="lang-title">Scanner Carte Pokémon e One Piece AI</span>
-      </div>
-      <ul class="features">
-        <li>Scansiona istantaneamente qualsiasi carta Pokémon e One Piece.</li>
-        <li>Prezzi in tempo reale.</li>
-        <li>Riconoscimento automatico dell'espansione e della rarità.</li>
-        <li>Gestisci la tua collezione digitale gratuitamente.</li>
-      </ul>
-    </div>
-
-    <!-- ENGLISH -->
-    <div class="lang-card">
-      <div class="lang-header">
-        <span class="flag">🇬🇧</span>
-        <span class="lang-title">AI Pokémon and One Piece Card Scanner</span>
-      </div>
-      <ul class="features">
-        <li>Instant scan for any Pokémon and One Piece card.</li>
-        <li>Real-time prices.</li>
-        <li>Auto-detect set, rarity, and holographic effects.</li>
-        <li>Track your collection value in one tap.</li>
-      </ul>
-    </div>
-
-    <!-- JAPANESE -->
-    <div class="lang-card">
-      <div class="lang-header">
-        <span class="flag">🇯🇵</span>
-        <span class="lang-title">AI ポケモン & One Piece カードスキャナー</span>
-      </div>
-      <ul class="features">
-        <li>AIによる高速カード認識 & 自動スキャン。</li>
-        <li>リアルタイム価格表示。</li>
-        <li>エキスパンション & レアリティを自動判別。</li>
-        <li>ポケモンとワンピースのカードをスキャン。</li>
-      </ul>
-    </div>
-
+  <div class="main-card">
+    <div class="card-title">AI Pokemon &amp; One Piece Card Scanner</div>
+    <ul class="features">
+      <li>Instantly scan any Pokemon and One Piece card with AI recognition.</li>
+      <li>Real-time market prices at your fingertips.</li>
+      <li>Auto-detect card set, rarity, and holographic effects.</li>
+      <li>Track and manage your full collection — completely free.</li>
+    </ul>
   </div>
-
-  <!-- ===== V2 COMING SOON ===== -->
-  <div class="v2-section">
-    <div style="display:flex; justify-content:center;">
-      <div class="v2-badge">
-        <span class="v2-badge-dot"></span>
-        Prossimamente — Version 2.0
-      </div>
-    </div>
-
-    <div class="v2-card">
-      <div class="v2-title">🚀 Nuove Collezioni in Arrivo</div>
-
-      <div class="v2-collections">
-
-        <div class="collection-item pokemon">
-          <div class="collection-emoji">⚡</div>
-          <div class="collection-name">Pokémon</div>
-          <div class="collection-status">✓ Disponibile</div>
-        </div>
-
-        <div class="collection-item onepiece">
-          <div class="collection-emoji">☠️</div>
-          <div class="collection-name">One Piece</div>
-          <div class="collection-status">✓ Disponibile</div>
-        </div>
-
-        <div class="collection-item dragonball">
-          <span class="new-tag">NEW</span>
-          <div class="collection-emoji">🐉</div>
-          <div class="collection-name">Dragon Ball</div>
-          <div class="collection-status">Coming soon</div>
-        </div>
-
-        <div class="collection-item yugioh">
-          <span class="new-tag">NEW</span>
-          <div class="collection-emoji">👁️</div>
-          <div class="collection-name">Yu-Gi-Oh!</div>
-          <div class="collection-status">Coming soon</div>
-        </div>
-
-        <div class="collection-item football" style="grid-column: 1/-1;">
-          <span class="new-tag">NEW</span>
-          <div class="collection-emoji">⚽</div>
-          <div class="collection-name">Football Cards</div>
-          <div class="collection-status">Coming soon — con modalità accessori sportivi</div>
-        </div>
-
-      </div>
-
-      <div class="v2-separator"></div>
-
-      <div class="football-feature">
-        <div class="football-feature-title">
-          ⚽ Modalità Football Card — Esclusiva V2
-        </div>
-        <div class="brands-grid">
-          <span class="brand-pill">👟 Nike</span>
-          <span class="brand-pill">🏃 Adidas</span>
-          <span class="brand-pill">🐆 Puma</span>
-          <span class="brand-pill">🏅 Decathlon</span>
-          <span class="brand-pill">🧢 New Balance</span>
-          <span class="brand-pill">+ altri</span>
-        </div>
-        <p class="football-desc">
-          Dopo aver scansionato una carta Football, scopri il valore e — novità assoluta —
-          accedi direttamente ai migliori <strong>accessori sportivi</strong> del tuo brand preferito.
-          Nike, Adidas, Puma, Decathlon e tanti altri partner ti aspettano con offerte esclusive,
-          direttamente dall'app.
-        </p>
-      </div>
-
-      <p class="v2-footer-note">
-        🔔 La versione 2.0 è in sviluppo attivo. Scarica l'app ora per ricevere l'aggiornamento automatico al lancio.
-      </p>
-    </div>
+  <div style="display:flex;justify-content:center">
+    <div class="v2-badge"><span class="v2-dot"></span>Coming Soon — Version 2.0</div>
   </div>
-
+  <div class="v2-card">
+    <div class="v2-title">New Collections &amp; Features</div>
+    <div class="v2-collections">
+      <div class="collection-item pokemon">
+        <div class="collection-emoji">&#9889;</div>
+        <div class="collection-name">Pokemon</div>
+        <div class="collection-status">&#10003; Available now</div>
+      </div>
+      <div class="collection-item onepiece">
+        <div class="collection-emoji">&#9760;</div>
+        <div class="collection-name">One Piece</div>
+        <div class="collection-status">&#10003; Available now</div>
+      </div>
+      <div class="collection-item dragonball">
+        <span class="new-tag">NEW</span>
+        <div class="collection-emoji">&#128009;</div>
+        <div class="collection-name">Dragon Ball</div>
+        <div class="collection-status">Coming soon</div>
+      </div>
+      <div class="collection-item yugioh">
+        <span class="new-tag">NEW</span>
+        <div class="collection-emoji">&#128065;</div>
+        <div class="collection-name">Yu-Gi-Oh!</div>
+        <div class="collection-status">Coming soon</div>
+      </div>
+      <div class="collection-item football" style="grid-column:1/-1">
+        <span class="new-tag">NEW</span>
+        <div class="collection-emoji">&#9917;</div>
+        <div class="collection-name">Football Cards</div>
+        <div class="collection-status">Coming soon — with exclusive sports accessories mode</div>
+      </div>
+    </div>
+    <div class="v2-separator"></div>
+    <div class="football-feature">
+      <div class="football-feature-title">&#9917; Football Card Mode — V2 Exclusive</div>
+      <div class="brands-grid">
+        <span class="brand-pill">&#128095; Nike</span>
+        <span class="brand-pill">&#127939; Adidas</span>
+        <span class="brand-pill">&#128006; Puma</span>
+        <span class="brand-pill">&#127941; Decathlon</span>
+        <span class="brand-pill">&#129346; New Balance</span>
+        <span class="brand-pill">+ more</span>
+      </div>
+      <p class="football-desc">After scanning a Football card, discover its value and — brand new — instantly browse the best <strong>sports accessories</strong> from your favourite brand. Nike, Adidas, Puma, Decathlon and more partner brands are coming, with exclusive deals directly inside the app.</p>
+    </div>
+    <p class="v2-footer-note">&#128276; Version 2.0 is in active development. Download the app now to receive the update automatically at launch.</p>
+  </div>
   <div class="divider"></div>
-
   <footer>
     <div class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Service</a>
     </div>
-    <div>© 2026 Portal Card Scanner — <a href="mailto:portalcardscanner@gmail.com">portalcardscanner@gmail.com</a></div>
+    <div>&#169; 2026 Portal Card Scanner &#8212; <a href="mailto:portalcardscanner@gmail.com">portalcardscanner@gmail.com</a></div>
   </footer>
-
 </div>
-
 <script>
-(function () {
-  'use strict';
-  const canvas = document.getElementById('bg');
-  const ctx = canvas.getContext('2d');
-
-  let W, H;
-  function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  // ── Stars ──
-  const NUM_STARS = 160;
-  const stars = Array.from({ length: NUM_STARS }, () => ({
-    x: Math.random() * (typeof W !== 'undefined' ? W : 800),
-    y: Math.random() * (typeof H !== 'undefined' ? H : 600),
-    r: Math.random() * 1.8 + 0.2,
-    alpha: Math.random() * 0.6 + 0.2,
-    speed: Math.random() * 0.18 + 0.04,
-    tw: Math.random() * 0.8 + 0.3,
-    twOff: Math.random() * Math.PI * 2,
-  }));
-
-  // ── Holographic Floating Cards ──
-  const CARD_COUNT = 9;
-  const CARD_COLORS = [
-    ['#fbbf24','#f97316'], // orange-yellow (Dragon Ball)
-    ['#a78bfa','#7c3aed'], // purple (Yu-Gi-Oh)
-    ['#4ade80','#16a34a'], // green (Football)
-    ['#c084fc','#60a5fa'], // purple-blue (Pokemon)
-    ['#f87171','#dc2626'], // red (One Piece)
-  ];
-
-  const floatingCards = Array.from({ length: CARD_COUNT }, (_, i) => {
-    const colors = CARD_COLORS[i % CARD_COLORS.length];
-    return {
-      x: Math.random() * (typeof W !== 'undefined' ? W : 800),
-      y: Math.random() * (typeof H !== 'undefined' ? H : 600),
-      w: 38 + Math.random() * 28,
-      h: 0, // computed from w
-      angle: Math.random() * Math.PI * 2,
-      angleSpeed: (Math.random() - 0.5) * 0.004,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-      alpha: 0.12 + Math.random() * 0.12,
-      glowPhase: Math.random() * Math.PI * 2,
-      glowSpeed: Math.random() * 0.025 + 0.01,
-      colors,
-    };
-  });
-  floatingCards.forEach(c => { c.h = c.w * 1.4; });
-
-  // ── Light Trails ──
-  const TRAIL_COLORS = ['#c084fc','#60a5fa','#fbbf24','#4ade80','#f87171'];
-  const trails = [];
-  function hexToRgb(hex) {
-    const r = parseInt(hex.slice(1,3),16);
-    const g = parseInt(hex.slice(3,5),16);
-    const b = parseInt(hex.slice(5,7),16);
-    return `${r},${g},${b}`;
-  }
-  function spawnTrail() {
-    const edge = Math.floor(Math.random() * 4);
-    let x, y, vx, vy;
-    const spd = 1.2 + Math.random() * 2;
-    if (edge === 0) { x = Math.random()*W; y = 0;  vx=(Math.random()-.5)*spd; vy=spd*.8; }
-    else if(edge===1){x=W; y=Math.random()*H; vx=-spd*.8; vy=(Math.random()-.5)*spd;}
-    else if(edge===2){x=Math.random()*W; y=H; vx=(Math.random()-.5)*spd; vy=-spd*.8;}
-    else{x=0; y=Math.random()*H; vx=spd*.8; vy=(Math.random()-.5)*spd;}
-    trails.push({
-      x,y,vx,vy,
-      color: TRAIL_COLORS[Math.floor(Math.random()*TRAIL_COLORS.length)],
-      len: 60+Math.random()*80,
-      alpha: 0.5+Math.random()*0.4,
-      life: 0,
-      maxLife: 90+Math.random()*60,
-    });
-  }
-
-  // ── Draw holographic card ──
-  function drawCard(card, t) {
-    ctx.save();
-    ctx.translate(card.x, card.y);
-    ctx.rotate(card.angle);
-
-    const hw = card.w / 2, hh = card.h / 2;
-    const glow = Math.sin(card.glowPhase + t * card.glowSpeed) * 0.5 + 0.5;
-    const alpha = card.alpha * (0.7 + 0.3 * glow);
-
-    // Card body
-    const grad = ctx.createLinearGradient(-hw, -hh, hw, hh);
-    grad.addColorStop(0, card.colors[0] + Math.round(alpha * 255 * 0.6).toString(16).padStart(2,'0'));
-    grad.addColorStop(0.5, '#ffffff' + Math.round(alpha * 255 * 0.08).toString(16).padStart(2,'0'));
-    grad.addColorStop(1, card.colors[1] + Math.round(alpha * 255 * 0.5).toString(16).padStart(2,'0'));
-
-    ctx.beginPath();
-    ctx.roundRect(-hw, -hh, card.w, card.h, 4);
-    ctx.fillStyle = grad;
-    ctx.fill();
-
-    // Holographic shimmer stripe
-    const shimmerX = Math.sin(t * 0.03 + card.glowPhase) * card.w;
-    const shimmerGrad = ctx.createLinearGradient(shimmerX - 15, -hh, shimmerX + 15, hh);
-    shimmerGrad.addColorStop(0, 'rgba(255,255,255,0)');
-    shimmerGrad.addColorStop(0.5, `rgba(255,255,255,${0.25 * glow})`);
-    shimmerGrad.addColorStop(1, 'rgba(255,255,255,0)');
-    ctx.beginPath();
-    ctx.roundRect(-hw, -hh, card.w, card.h, 4);
-    ctx.fillStyle = shimmerGrad;
-    ctx.fill();
-
-    // Border glow
-    ctx.beginPath();
-    ctx.roundRect(-hw, -hh, card.w, card.h, 4);
-    ctx.strokeStyle = card.colors[0] + Math.round((0.3 + 0.4 * glow) * 255).toString(16).padStart(2,'0');
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  // ── Sports icon sprites (simple) ──
-  const SPORT_ICONS = ['⚽','👟','🏆','⚡','🐉','👁️'];
-  // We skip emoji rendering on canvas for performance — just use the holographic cards
-
-  let frame = 0;
-  function draw() {
-    frame++;
-    const t = frame;
-
-    ctx.clearRect(0, 0, W, H);
-
-    // Deep space gradient
-    const bg = ctx.createRadialGradient(W*.45, H*.4, 0, W*.5, H*.5, Math.max(W,H)*.75);
-    bg.addColorStop(0,   '#0d0a1a');
-    bg.addColorStop(0.4, '#080b1a');
-    bg.addColorStop(1,   '#020617');
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, W, H);
-
-    // Floating holographic cards
-    for (const card of floatingCards) {
-      card.x += card.vx;
-      card.y += card.vy;
-      card.angle += card.angleSpeed;
-      if (card.x < -80) card.x = W + 80;
-      if (card.x > W + 80) card.x = -80;
-      if (card.y < -80) card.y = H + 80;
-      if (card.y > H + 80) card.y = -80;
-      drawCard(card, t);
-    }
-
-    // Stars
-    for (const s of stars) {
-      s.y += s.speed;
-      if (s.y > H) { s.y = 0; s.x = Math.random() * W; }
-      const tw = Math.sin(t * s.tw + s.twOff) * 0.4 + 0.6;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(241,245,249,${s.alpha * tw})`;
-      ctx.fill();
-      if (s.r > 1) {
-        const g = ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*4);
-        g.addColorStop(0, `rgba(200,210,255,${0.15*tw})`);
-        g.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.beginPath(); ctx.arc(s.x,s.y,s.r*4,0,Math.PI*2);
-        ctx.fillStyle = g; ctx.fill();
-      }
-    }
-
-    // Trails
-    if (t % 25 === 0 && trails.length < 12) spawnTrail();
-    for (let i = trails.length - 1; i >= 0; i--) {
-      const tr = trails[i];
-      tr.x += tr.vx; tr.y += tr.vy; tr.life++;
-      const p = tr.life / tr.maxLife;
-      const fade = p < 0.2 ? p/0.2 : p > 0.8 ? (1-p)/0.2 : 1;
-      const norm = Math.sqrt(tr.vx*tr.vx + tr.vy*tr.vy);
-      const tx = tr.x - tr.vx * (tr.len / norm);
-      const ty = tr.y - tr.vy * (tr.len / norm);
-      const lg = ctx.createLinearGradient(tx,ty,tr.x,tr.y);
-      const rgb = hexToRgb(tr.color);
-      lg.addColorStop(0, `rgba(${rgb},0)`);
-      lg.addColorStop(0.7, `rgba(${rgb},${tr.alpha*fade*0.5})`);
-      lg.addColorStop(1, `rgba(${rgb},${tr.alpha*fade})`);
-      ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(tr.x,tr.y);
-      ctx.strokeStyle = lg; ctx.lineWidth = 1.5; ctx.stroke();
-      const hg = ctx.createRadialGradient(tr.x,tr.y,0,tr.x,tr.y,8);
-      hg.addColorStop(0, `rgba(${rgb},${tr.alpha*fade})`);
-      hg.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.beginPath(); ctx.arc(tr.x,tr.y,8,0,Math.PI*2);
-      ctx.fillStyle = hg; ctx.fill();
-      if (tr.life >= tr.maxLife) trails.splice(i, 1);
-    }
-
-    requestAnimationFrame(draw);
-  }
-
-  draw();
+(function(){
+'use strict';
+var canvas=document.getElementById('bg'),ctx=canvas.getContext('2d'),W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+var stars=[];for(var i=0;i<160;i++)stars.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*1.8+0.2,alpha:Math.random()*0.6+0.2,speed:Math.random()*0.18+0.04,tw:Math.random()*0.8+0.3,twOff:Math.random()*Math.PI*2});
+var CARD_COLORS=[['#fbbf24','#f97316'],['#a78bfa','#7c3aed'],['#4ade80','#16a34a'],['#c084fc','#60a5fa'],['#f87171','#dc2626']];
+var cards=[];for(var ci=0;ci<9;ci++){var colors=CARD_COLORS[ci%CARD_COLORS.length];var cw=38+Math.random()*28;cards.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,w:cw,h:cw*1.4,angle:Math.random()*Math.PI*2,angleSpeed:(Math.random()-0.5)*0.004,vx:(Math.random()-0.5)*0.35,vy:(Math.random()-0.5)*0.35,alpha:0.12+Math.random()*0.12,glowPhase:Math.random()*Math.PI*2,glowSpeed:Math.random()*0.025+0.01,colors:colors});}
+function toHex(v){return Math.round(v*255).toString(16).padStart(2,'0');}
+function drawCard(c,t){ctx.save();ctx.translate(c.x,c.y);ctx.rotate(c.angle);var hw=c.w/2,hh=c.h/2,glow=Math.sin(c.glowPhase+t*c.glowSpeed)*0.5+0.5,a=c.alpha*(0.7+0.3*glow);var g=ctx.createLinearGradient(-hw,-hh,hw,hh);g.addColorStop(0,c.colors[0]+toHex(a*0.6));g.addColorStop(0.5,'#ffffff'+toHex(a*0.08));g.addColorStop(1,c.colors[1]+toHex(a*0.5));ctx.beginPath();ctx.roundRect(-hw,-hh,c.w,c.h,4);ctx.fillStyle=g;ctx.fill();var sx=Math.sin(t*0.03+c.glowPhase)*c.w;var sg=ctx.createLinearGradient(sx-15,-hh,sx+15,hh);sg.addColorStop(0,'rgba(255,255,255,0)');sg.addColorStop(0.5,'rgba(255,255,255,'+(0.25*glow)+')');sg.addColorStop(1,'rgba(255,255,255,0)');ctx.beginPath();ctx.roundRect(-hw,-hh,c.w,c.h,4);ctx.fillStyle=sg;ctx.fill();ctx.beginPath();ctx.roundRect(-hw,-hh,c.w,c.h,4);ctx.strokeStyle=c.colors[0]+toHex(0.3+0.4*glow);ctx.lineWidth=1;ctx.stroke();ctx.restore();}
+var TCOLS=['#c084fc','#60a5fa','#fbbf24','#4ade80','#f87171'];
+var trails=[];
+function hexRgb(h){return parseInt(h.slice(1,3),16)+','+parseInt(h.slice(3,5),16)+','+parseInt(h.slice(5,7),16);}
+function spawnTrail(){var e=Math.floor(Math.random()*4),spd=1.2+Math.random()*2,x,y,vx,vy;if(e===0){x=Math.random()*W;y=0;vx=(Math.random()-.5)*spd;vy=spd*.8;}else if(e===1){x=W;y=Math.random()*H;vx=-spd*.8;vy=(Math.random()-.5)*spd;}else if(e===2){x=Math.random()*W;y=H;vx=(Math.random()-.5)*spd;vy=-spd*.8;}else{x=0;y=Math.random()*H;vx=spd*.8;vy=(Math.random()-.5)*spd;}trails.push({x:x,y:y,vx:vx,vy:vy,color:TCOLS[Math.floor(Math.random()*TCOLS.length)],len:60+Math.random()*80,alpha:0.5+Math.random()*0.4,life:0,maxLife:90+Math.random()*60});}
+var frame=0;
+function draw(){frame++;ctx.clearRect(0,0,W,H);var bg=ctx.createRadialGradient(W*.45,H*.4,0,W*.5,H*.5,Math.max(W,H)*.75);bg.addColorStop(0,'#0d0a1a');bg.addColorStop(0.4,'#080b1a');bg.addColorStop(1,'#020617');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+for(var ci=0;ci<cards.length;ci++){var c=cards[ci];c.x+=c.vx;c.y+=c.vy;c.angle+=c.angleSpeed;if(c.x<-80)c.x=W+80;if(c.x>W+80)c.x=-80;if(c.y<-80)c.y=H+80;if(c.y>H+80)c.y=-80;drawCard(c,frame);}
+for(var si=0;si<stars.length;si++){var s=stars[si];s.y+=s.speed;if(s.y>H){s.y=0;s.x=Math.random()*W;}var tw=Math.sin(frame*s.tw+s.twOff)*0.4+0.6;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='rgba(241,245,249,'+(s.alpha*tw)+')';ctx.fill();}
+if(frame%25===0&&trails.length<12)spawnTrail();
+for(var ti=trails.length-1;ti>=0;ti--){var tr=trails[ti];tr.x+=tr.vx;tr.y+=tr.vy;tr.life++;var p=tr.life/tr.maxLife,fade=p<0.2?p/0.2:p>0.8?(1-p)/0.2:1,norm=Math.sqrt(tr.vx*tr.vx+tr.vy*tr.vy),tx=tr.x-tr.vx*(tr.len/norm),ty=tr.y-tr.vy*(tr.len/norm);var lg=ctx.createLinearGradient(tx,ty,tr.x,tr.y),rgb=hexRgb(tr.color);lg.addColorStop(0,'rgba('+rgb+',0)');lg.addColorStop(0.7,'rgba('+rgb+','+(tr.alpha*fade*0.5)+')');lg.addColorStop(1,'rgba('+rgb+','+(tr.alpha*fade)+')');ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(tr.x,tr.y);ctx.strokeStyle=lg;ctx.lineWidth=1.5;ctx.stroke();var hg=ctx.createRadialGradient(tr.x,tr.y,0,tr.x,tr.y,8);hg.addColorStop(0,'rgba('+rgb+','+(tr.alpha*fade)+')');hg.addColorStop(1,'rgba(0,0,0,0)');ctx.beginPath();ctx.arc(tr.x,tr.y,8,0,Math.PI*2);ctx.fillStyle=hg;ctx.fill();if(tr.life>=tr.maxLife)trails.splice(ti,1);}
+requestAnimationFrame(draw);}
+draw();
+/* FLOATING SPORTS ICONS */
+var ICONS=['⚽','👟','🏆','🎽','🧢','🥅','👟','⚽','🏅','🥇','🎯','👕','⚽','👟'];
+var layer=document.getElementById('sports-layer');
+for(var ii=0;ii<14;ii++){
+var el=document.createElement('span');
+el.className='sport-icon';
+el.textContent=ICONS[ii%ICONS.length];
+var leftPct=(3+Math.random()*94).toFixed(1);
+var startY=(5+Math.random()*80).toFixed(1);
+var dur=(18+Math.random()*22).toFixed(1);
+var delay=(-(Math.random()*parseFloat(dur))).toFixed(1);
+var fs=(1.6+Math.random()*1.6).toFixed(1);
+el.style.cssText='left:'+leftPct+'%;bottom:'+startY+'%;font-size:'+fs+'rem;animation-duration:'+dur+'s;animation-delay:'+delay+'s;';
+layer.appendChild(el);}
 })();
 </script>
-
 </body>
 </html>
