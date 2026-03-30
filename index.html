@@ -1,546 +1,576 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Card Scanner - Official</title>
-  <meta name="description" content="Portal Card Scanner - AI-powered Pokemon, One Piece, Dragon Ball, Yu-Gi-Oh and Football card scanner. Real-time prices. Free Android app.">
-  <meta name="robots" content="index, follow">
-  <meta name="impact-site-verification" value="4ce42002-7635-40b9-8229-fc2182a0b9ce">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body,html{min-height:100vh;font-family:'Plus Jakarta Sans',sans-serif;background:#020617;color:#f1f5f9;display:flex;justify-content:center;overflow-x:hidden}
-    canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
-    .wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:1.5rem;max-width:640px;width:100%;padding:2.5rem 1.25rem 2.5rem}
-    .logo-wrap{width:130px;height:130px;border-radius:50%;overflow:hidden;border:3px solid rgba(126,34,206,.6);box-shadow:0 0 30px rgba(126,34,206,.55),0 0 65px rgba(59,130,246,.3);flex-shrink:0}
-    .logo-wrap img{width:100%;height:100%;object-fit:cover}
-    h1{font-family:'Orbitron',sans-serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:900;text-align:center;background:linear-gradient(135deg,#c084fc,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.05em}
-    .playstore-link img{height:65px;width:auto;display:block;filter:drop-shadow(0 4px 16px rgba(126,34,206,.4));transition:transform .2s}
-    .playstore-link:hover img{transform:scale(1.05)}
-    .card{background:rgba(15,23,42,.7);border:1px solid rgba(126,34,206,.25);border-radius:1rem;padding:1.5rem;backdrop-filter:blur(14px);width:100%}
-    .card-title{font-family:'Orbitron',sans-serif;font-size:.875rem;font-weight:700;background:linear-gradient(90deg,#c084fc,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.875rem}
-    .features{list-style:none;display:flex;flex-direction:column;gap:.5rem}
-    .features li{font-size:.9375rem;color:#cbd5e1;display:flex;align-items:flex-start;gap:.5rem}
-    .features li::before{content:'✦';color:#a78bfa;font-size:.7rem;flex-shrink:0;margin-top:.2em}
-    .v2-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.4);border-radius:2rem;padding:.35rem 1rem;font-family:'Orbitron',sans-serif;font-size:.7rem;font-weight:700;color:#fbbf24;letter-spacing:.08em;animation:pulseBadge 2.5s ease-in-out infinite}
-    @keyframes pulseBadge{0%,100%{box-shadow:0 0 20px rgba(251,191,36,.15)}50%{box-shadow:0 0 35px rgba(251,191,36,.35)}}
-    .v2-dot{width:6px;height:6px;border-radius:50%;background:#fbbf24;animation:blink 1.2s ease-in-out infinite}
-    @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-    .v2-card{background:linear-gradient(135deg,rgba(15,23,42,.9),rgba(28,8,58,.8),rgba(15,23,42,.9));border:1px solid rgba(251,191,36,.22);border-radius:1.25rem;padding:1.75rem 1.5rem;backdrop-filter:blur(18px);position:relative;overflow:hidden;width:100%}
-    .v2-card::before{content:'';position:absolute;top:0;left:-100%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(251,191,36,.05),transparent);animation:shimmer 4s ease-in-out infinite;pointer-events:none}
-    @keyframes shimmer{0%{left:-100%}100%{left:200%}}
-    .v2-title{font-family:'Orbitron',sans-serif;font-size:clamp(1rem,3.5vw,1.3rem);font-weight:900;background:linear-gradient(135deg,#fbbf24,#f97316,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.25rem;letter-spacing:.04em}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.5rem}
-    .coll{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:.875rem;padding:1rem .75rem .875rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center;position:relative;overflow:hidden;transition:transform .2s,box-shadow .3s}
-    .coll:hover{transform:translateY(-3px)}
-    .coll.pk{border-color:rgba(250,204,21,.35)}.coll.pk:hover{box-shadow:0 8px 30px rgba(250,204,21,.2)}
-    .coll.op{border-color:rgba(239,68,68,.35)}.coll.op:hover{box-shadow:0 8px 30px rgba(239,68,68,.2)}
-    .coll.db{border-color:rgba(180,180,220,.35);background:rgba(180,180,220,.04)}.coll.db:hover{box-shadow:0 8px 30px rgba(180,180,220,.2)}
-    .coll.yg{border-color:rgba(168,85,247,.4);background:rgba(168,85,247,.05)}.coll.yg:hover{box-shadow:0 8px 30px rgba(168,85,247,.22)}
-    .coll.fc{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.05)}.coll.fc:hover{box-shadow:0 8px 30px rgba(34,197,94,.22)}
-    .icon-box{width:80px;height:80px;display:flex;align-items:center;justify-content:center}
-    .icon-box svg{width:72px;height:72px}
-    .icon-box-wide{width:100%;height:72px;display:flex;align-items:center;justify-content:center}
-    .icon-box-wide svg{height:68px;width:auto;max-width:120px}
-    .coll-name{font-family:'Orbitron',sans-serif;font-size:.65rem;font-weight:700;color:#e2e8f0;letter-spacing:.06em;text-transform:uppercase}
-    .coll-status{font-size:.65rem;color:#94a3b8}
-    .coll.pk .coll-status,.coll.op .coll-status{color:#4ade80}
-    .new-tag{position:absolute;top:6px;right:6px;background:linear-gradient(135deg,#fbbf24,#f97316);color:#000;font-size:.5rem;font-weight:800;padding:2px 6px;border-radius:.25rem;text-transform:uppercase;letter-spacing:.04em}
-    .sep{height:1px;background:linear-gradient(90deg,transparent,rgba(251,191,36,.2),rgba(34,197,94,.2),transparent);margin:1.25rem 0}
-    .ff{background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(16,185,129,.05));border:1px solid rgba(34,197,94,.2);border-radius:1rem;padding:1.25rem}
-    .ff-title{font-family:'Orbitron',sans-serif;font-size:.75rem;font-weight:700;color:#4ade80;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.75rem}
-    .brands{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.875rem}
-    .brand{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:2rem;padding:.3rem .75rem;font-size:.75rem;font-weight:600;color:#e2e8f0}
-    .ff p{font-size:.8rem;color:#94a3b8;line-height:1.6}
-    .ff p strong{color:#4ade80}
-    .v2-note{margin-top:1rem;font-size:.75rem;color:#64748b;text-align:center;line-height:1.5}
-    .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(126,34,206,.2),transparent)}
-    footer{width:100%;text-align:center;padding:1.25rem 0;color:#475569;font-size:.8125rem;display:flex;flex-direction:column;gap:.5rem;align-items:center}
-    footer a{color:#7c3aed;text-decoration:none}
-    footer a:hover{color:#a78bfa}
-    .footer-links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Card Scanner — Official</title>
+<meta name="description" content="AI-powered TCG card scanner. Pokemon, One Piece, Dragon Ball, Yu-Gi-Oh, Football cards. Real-time prices. Free on Android.">
+<meta name="robots" content="index, follow">
+<meta name="impact-site-verification" value="4ce42002-7635-40b9-8229-fc2182a0b9ce">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#3b82f6;--violet:#8b5cf6;--cyan:#06b6d4;--amber:#f59e0b;--green:#10b981;--pink:#ec4899}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100vh;background:#030712;color:#e2e8f0;font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ── PAGE ── */
+.page{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0}
+
+/* ── HERO ── */
+.hero{width:100%;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1.5rem 2.5rem;gap:1.75rem;position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(59,130,246,.08) 0%,transparent 70%);pointer-events:none}
+
+/* logo */
+.logo-outer{position:relative;width:116px;height:116px}
+.logo-ring{width:116px;height:116px;border-radius:50%;overflow:hidden;border:1px solid rgba(99,179,255,.25);box-shadow:0 0 0 6px rgba(59,130,246,.06),0 0 30px rgba(59,130,246,.22),0 0 70px rgba(139,92,246,.14)}
+.logo-ring img{width:100%;height:100%;object-fit:cover;display:block}
+.logo-scan{position:absolute;top:0;left:0;right:0;bottom:0;border-radius:50%;overflow:hidden;pointer-events:none}
+.logo-scan::after{content:'';position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(99,179,255,.8),transparent);animation:scanLine 2.8s ease-in-out infinite;top:-2px;box-shadow:0 0 8px rgba(99,179,255,.6)}
+@keyframes scanLine{0%{top:-2px;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:calc(100% + 2px);opacity:0}}
+
+/* headline */
+.headline{text-align:center;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.app-name{font-family:'Orbitron',sans-serif;font-size:clamp(1.5rem,5vw,2.4rem);font-weight:900;letter-spacing:.04em;line-height:1.1;background:linear-gradient(135deg,#93c5fd 0%,#c084fc 45%,#f9a8d4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(139,92,246,.4))}
+.app-sub{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(148,163,184,.6);font-weight:400}
+
+/* store button */
+.store-wrap{position:relative;display:inline-block}
+.store-wrap::before{content:'';position:absolute;inset:-3px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--violet),var(--pink));opacity:.5;filter:blur(6px);animation:btnGlow 2.5s ease-in-out infinite}
+@keyframes btnGlow{0%,100%{opacity:.35;filter:blur(6px)}50%{opacity:.7;filter:blur(10px)}}
+.store-btn{position:relative;display:block;border-radius:8px;overflow:hidden;transition:transform .25s}
+.store-btn:hover{transform:scale(1.04) translateY(-2px)}
+.store-btn img{display:block;height:58px;width:auto;border-radius:8px}
+
+/* ── STATS STRIP ── */
+.stats{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center}
+.stat{display:flex;flex-direction:column;align-items:center;gap:.2rem}
+.stat-n{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,#93c5fd,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-l{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(148,163,184,.5)}
+
+/* ── GLASS PANEL ── */
+.glass{background:rgba(8,15,32,.7);border:1px solid rgba(99,179,255,.1);border-radius:20px;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+
+/* ── FEATURES ── */
+.features-sec{width:100%;max-width:680px;padding:0 1.25rem 1.5rem}
+.feat-panel{padding:1.5rem 1.75rem}
+.sec-label{font-family:'Orbitron',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:1.1rem;display:flex;align-items:center;gap:.6rem}
+.sec-label::before{content:'';width:3px;height:12px;background:var(--blue);border-radius:2px;box-shadow:0 0 10px var(--blue);flex-shrink:0}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.feat{display:flex;align-items:flex-start;gap:.6rem;font-size:.8125rem;color:#94a3b8;line-height:1.5}
+.feat-icon{width:16px;height:16px;border-radius:4px;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05em}
+.feat-icon svg{width:9px;height:9px}
+
+/* ── V2 SECTION ── */
+.v2-sec{width:100%;max-width:680px;padding:0 1.25rem 3rem}
+.v2-badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(245,158,11,.35);border-radius:100px;padding:.38rem 1.1rem;font-family:'Orbitron',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);background:rgba(245,158,11,.07);margin-bottom:1.25rem;box-shadow:0 0 20px rgba(245,158,11,.12);animation:badgePulse 3s ease-in-out infinite}
+@keyframes badgePulse{0%,100%{box-shadow:0 0 20px rgba(245,158,11,.12)}50%{box-shadow:0 0 35px rgba(245,158,11,.3),0 0 70px rgba(245,158,11,.08)}}
+.bdot{width:5px;height:5px;border-radius:50%;background:var(--amber);box-shadow:0 0 6px var(--amber);animation:bdotBlink 1.4s ease-in-out infinite}
+@keyframes bdotBlink{0%,100%{opacity:1}50%{opacity:.1}}
+.v2-panel{padding:2rem 1.5rem;position:relative;overflow:hidden;border-color:rgba(245,158,11,.15)}
+.v2-panel::before{content:'';position:absolute;top:0;left:-80%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(245,158,11,.04),transparent);animation:vshine 6s ease-in-out infinite;pointer-events:none}
+@keyframes vshine{0%{left:-80%}100%{left:180%}}
+.v2-title{font-family:'Orbitron',sans-serif;font-size:clamp(.9rem,3vw,1.15rem);font-weight:900;letter-spacing:.04em;background:linear-gradient(135deg,#fbbf24,#f97316 50%,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.75rem}
+
+/* ── COLLECTION GRID — 3D TILT ── */
+.coll-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.coll-card{background:rgba(8,15,32,.6);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:1.5rem .875rem 1.1rem;display:flex;flex-direction:column;align-items:center;gap:.625rem;position:relative;overflow:hidden;cursor:default;transition:border-color .3s,box-shadow .3s;transform-style:preserve-3d;will-change:transform}
+/* holographic foil */
+.coll-card .foil{position:absolute;inset:0;border-radius:16px;opacity:0;transition:opacity .3s;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.12) 0%,rgba(139,92,246,.06) 30%,transparent 65%)}
+.coll-card:hover .foil{opacity:1}
+/* coloured top edge glow */
+.coll-card::after{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;border-radius:1px;transition:opacity .3s}
+.coll-card:hover::after{opacity:1}
+
+.coll-card.pk{--glow:rgba(250,204,21,.18);border-color:rgba(250,204,21,.15)}.coll-card.pk::after{background:linear-gradient(90deg,transparent,#facc15,transparent)}.coll-card.pk:hover{border-color:rgba(250,204,21,.4);box-shadow:0 20px 60px rgba(250,204,21,.1),0 0 0 1px rgba(250,204,21,.08)}
+.coll-card.op{--glow:rgba(239,68,68,.18);border-color:rgba(239,68,68,.15)}.coll-card.op::after{background:linear-gradient(90deg,transparent,#ef4444,transparent)}.coll-card.op:hover{border-color:rgba(239,68,68,.4);box-shadow:0 20px 60px rgba(239,68,68,.1),0 0 0 1px rgba(239,68,68,.08)}
+.coll-card.db{--glow:rgba(148,163,220,.15);border-color:rgba(148,163,220,.12)}.coll-card.db::after{background:linear-gradient(90deg,transparent,#94a3db,transparent)}.coll-card.db:hover{border-color:rgba(148,163,220,.32);box-shadow:0 20px 60px rgba(148,163,184,.08),0 0 0 1px rgba(148,163,184,.07)}
+.coll-card.yg{--glow:rgba(168,85,247,.18);border-color:rgba(168,85,247,.15)}.coll-card.yg::after{background:linear-gradient(90deg,transparent,#a855f7,transparent)}.coll-card.yg:hover{border-color:rgba(168,85,247,.4);box-shadow:0 20px 60px rgba(168,85,247,.12),0 0 0 1px rgba(168,85,247,.08)}
+.coll-card.fc{--glow:rgba(16,185,129,.18);border-color:rgba(16,185,129,.15)}.coll-card.fc::after{background:linear-gradient(90deg,transparent,#10b981,transparent)}.coll-card.fc:hover{border-color:rgba(16,185,129,.4);box-shadow:0 20px 60px rgba(16,185,129,.1),0 0 0 1px rgba(16,185,129,.08)}
+
+.icon-w{width:68px;height:68px;display:flex;align-items:center;justify-content:center;position:relative}
+.icon-w svg{width:58px;height:58px;filter:drop-shadow(0 0 8px var(--glow,rgba(255,255,255,.1)))}
+.icon-ww{width:100%;height:64px;display:flex;align-items:center;justify-content:center}
+.icon-ww svg{height:58px;width:auto;max-width:90px;filter:drop-shadow(0 0 10px var(--glow,rgba(255,255,255,.1)))}
+
+.cname{font-family:'Orbitron',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#cbd5e1}
+.cstatus{font-size:.6rem;color:#475569;letter-spacing:.04em}
+.coll-card.pk .cstatus,.coll-card.op .cstatus{color:#10b981}
+.new-chip{position:absolute;top:9px;right:9px;background:linear-gradient(135deg,#f59e0b,#f97316);color:#000;font-family:'Orbitron',sans-serif;font-size:.42rem;font-weight:900;letter-spacing:.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;box-shadow:0 0 12px rgba(245,158,11,.4)}
+
+/* ── AFFILIATE ── */
+.hdiv{height:1px;background:linear-gradient(90deg,transparent,rgba(245,158,11,.12),rgba(16,185,129,.12),transparent);margin:1.5rem 0}
+.aff{background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.12);border-radius:14px;padding:1.25rem}
+.aff-label{font-family:'Orbitron',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:.875rem;display:flex;align-items:center;gap:.5rem}
+.aff-label::before{content:'';width:3px;height:10px;background:var(--green);border-radius:2px;box-shadow:0 0 8px var(--green);flex-shrink:0}
+.brands{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.875rem}
+.brand{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:.25rem .7rem;font-size:.7rem;font-weight:500;color:#64748b;letter-spacing:.04em}
+.aff p{font-size:.8rem;color:#475569;line-height:1.7}
+.aff p strong{color:var(--green);font-weight:600}
+.v2-note{margin-top:1.25rem;font-size:.7rem;color:#334155;text-align:center;line-height:1.6}
+
+/* ── FOOTER ── */
+.page-div{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(99,179,255,.08),transparent)}
+footer{width:100%;text-align:center;padding:1.25rem 1.25rem;color:#334155;font-size:.78rem;display:flex;flex-direction:column;gap:.45rem;align-items:center}
+footer a{color:rgba(139,92,246,.7);text-decoration:none;transition:color .2s}
+footer a:hover{color:#a78bfa}
+.flinks{display:flex;gap:1.25rem;flex-wrap:wrap;justify-content:center}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+</style>
 </head>
 <body>
 <canvas id="bg"></canvas>
-<div class="wrap">
+<div class="page">
 
-  <div class="logo-wrap">
-    <img src="logo.png" alt="Portal Card Scanner Logo" width="130" height="130">
+<!-- HERO -->
+<section class="hero">
+  <div class="logo-outer">
+    <div class="logo-ring"><img src="logo.png" alt="Portal Card Scanner" width="116" height="116"></div>
+    <div class="logo-scan"></div>
   </div>
-  <h1>Portal Card Scanner</h1>
-  <a class="playstore-link" href="https://play.google.com/store/apps/details?id=com.portal.cardscanner" target="_blank" rel="noopener noreferrer">
-    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" width="240" height="65">
-  </a>
-
-  <div class="card">
-    <div class="card-title">AI Pokemon &amp; One Piece Card Scanner</div>
-    <ul class="features">
-      <li>Instantly scan any Pokemon and One Piece card with AI recognition.</li>
-      <li>Real-time market prices at your fingertips.</li>
-      <li>Auto-detect card set, rarity, and holographic effects.</li>
-      <li>Track and manage your full collection — completely free.</li>
-    </ul>
+  <div class="headline">
+    <div class="app-name">Portal Card Scanner</div>
+    <div class="app-sub">AI · Real-Time Prices · Collection Manager</div>
   </div>
-
-  <div style="display:flex;justify-content:center">
-    <div class="v2-badge"><span class="v2-dot"></span>Coming Soon — Version 2.0</div>
+  <div class="stats">
+    <div class="stat"><span class="stat-n">AI</span><span class="stat-l">Instant Scan</span></div>
+    <div class="stat"><span class="stat-n">Live</span><span class="stat-l">Market Prices</span></div>
+    <div class="stat"><span class="stat-n">Free</span><span class="stat-l">Always</span></div>
   </div>
+  <div class="store-wrap">
+    <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.portal.cardscanner" target="_blank" rel="noopener noreferrer">
+      <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" width="220" height="58">
+    </a>
+  </div>
+</section>
 
-  <div class="v2-card">
-    <div class="v2-title">New Collections &amp; Features</div>
-    <div class="grid">
+<!-- FEATURES -->
+<section class="features-sec reveal">
+  <div class="glass feat-panel">
+    <div class="sec-label">Current Features</div>
+    <div class="feat-grid">
+      <div class="feat"><div class="feat-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Instant AI card recognition</div>
+      <div class="feat"><div class="feat-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Live market price tracking</div>
+      <div class="feat"><div class="feat-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Rarity &amp; holo auto-detect</div>
+      <div class="feat"><div class="feat-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Full collection manager</div>
+    </div>
+  </div>
+</section>
 
-      <!-- POKEMON — lightning bolt -->
-      <div class="coll pk">
-        <div class="icon-box">
-          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- V2 -->
+<section class="v2-sec reveal" style="transition-delay:.15s">
+  <div style="display:flex;justify-content:center;margin-bottom:1.25rem">
+    <div class="v2-badge"><span class="bdot"></span>Version 2.0 — Coming Soon</div>
+  </div>
+  <div class="glass v2-panel">
+    <div class="v2-title">Expanding to New Universes</div>
+    <div class="coll-grid">
+
+      <!-- POKEMON — lightning -->
+      <div class="coll-card pk" data-tilt>
+        <div class="foil"></div>
+        <div class="icon-w">
+          <svg viewBox="0 0 58 58" fill="none">
             <defs>
-              <linearGradient id="boltG" x1="0" y1="0" x2="0.3" y2="1">
-                <stop offset="0%" stop-color="#fff176"/>
-                <stop offset="40%" stop-color="#facc15"/>
-                <stop offset="100%" stop-color="#d97706"/>
-              </linearGradient>
-              <filter id="boltGlow">
-                <feGaussianBlur stdDeviation="3.5" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
+              <linearGradient id="lG" x1="0" y1="0" x2=".15" y2="1"><stop offset="0%" stop-color="#fef9c3"/><stop offset="50%" stop-color="#facc15"/><stop offset="100%" stop-color="#b45309"/></linearGradient>
+              <filter id="lF" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             </defs>
-            <!-- outer glow -->
-            <polygon points="42,4 22,38 34,38 28,68 52,28 38,28" fill="#facc15" opacity="0.18" filter="url(#boltGlow)" transform="scale(1.15) translate(-4,-4)"/>
-            <!-- bolt body -->
-            <polygon points="42,4 22,38 34,38 28,68 52,28 38,28" fill="url(#boltG)" stroke="#b45309" stroke-width="1.2" stroke-linejoin="round"/>
-            <!-- inner highlight -->
-            <polygon points="40,10 26,36 36,36 32,58 46,32 36,32" fill="rgba(255,255,220,0.35)"/>
+            <polygon points="38,3 16,31 27,31 22,55 44,25 32,25" fill="#facc15" opacity=".2" filter="url(#lF)"/>
+            <polygon points="38,3 16,31 27,31 22,55 44,25 32,25" fill="url(#lG)"/>
+            <polygon points="35,9 19,30 28,30 24,48 38,27 28,27" fill="rgba(255,255,220,.25)"/>
           </svg>
         </div>
-        <div class="coll-name">Pokemon</div>
-        <div class="coll-status">&#10003; Available now</div>
+        <div class="cname">Pokemon</div>
+        <div class="cstatus">&#9679; Live now</div>
       </div>
 
       <!-- ONE PIECE — skull -->
-      <div class="coll op">
-        <div class="icon-box">
-          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div class="coll-card op" data-tilt>
+        <div class="foil"></div>
+        <div class="icon-w">
+          <svg viewBox="0 0 58 58" fill="none">
             <defs>
-              <radialGradient id="skullG" cx="45%" cy="38%" r="65%">
-                <stop offset="0%" stop-color="#f5f5f5"/>
-                <stop offset="100%" stop-color="#b0b0b0"/>
-              </radialGradient>
-              <filter id="skullGlow">
-                <feGaussianBlur stdDeviation="2.5" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
+              <radialGradient id="skG" cx="40%" cy="32%" r="65%"><stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#94a3b8"/></radialGradient>
+              <filter id="skF" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             </defs>
-            <!-- skull glow -->
-            <ellipse cx="36" cy="30" rx="24" ry="22" fill="rgba(255,255,255,0.1)" filter="url(#skullGlow)"/>
-            <!-- skull head -->
-            <ellipse cx="36" cy="28" rx="22" ry="20" fill="url(#skullG)"/>
-            <!-- jaw -->
-            <rect x="26" y="44" width="20" height="10" rx="3" fill="url(#skullG)"/>
-            <!-- teeth gaps -->
-            <rect x="29" y="44" width="3" height="6" rx="1" fill="#1a1a2e"/>
-            <rect x="34.5" y="44" width="3" height="6" rx="1" fill="#1a1a2e"/>
-            <rect x="40" y="44" width="3" height="6" rx="1" fill="#1a1a2e"/>
-            <!-- left eye -->
-            <ellipse cx="27" cy="27" rx="7" ry="7" fill="#1a1a2e"/>
-            <ellipse cx="27" cy="27" rx="4" ry="4" fill="#0d0d1a"/>
-            <!-- right eye -->
-            <ellipse cx="45" cy="27" rx="7" ry="7" fill="#1a1a2e"/>
-            <ellipse cx="45" cy="27" rx="4" ry="4" fill="#0d0d1a"/>
-            <!-- nose -->
-            <path d="M33 36 L36 32 L39 36 Z" fill="#1a1a2e"/>
-            <!-- crossbones -->
-            <line x1="10" y1="60" x2="62" y2="60" stroke="#d0d0d0" stroke-width="5" stroke-linecap="round"/>
-            <line x1="10" y1="60" x2="62" y2="60" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
-            <circle cx="10" cy="60" r="5" fill="#c0c0c0" stroke="#909090" stroke-width="1"/>
-            <circle cx="62" cy="60" r="5" fill="#c0c0c0" stroke="#909090" stroke-width="1"/>
-            <!-- shine -->
-            <ellipse cx="27" cy="16" rx="9" ry="4" fill="rgba(255,255,255,0.38)" transform="rotate(-15,27,16)"/>
+            <ellipse cx="29" cy="22" rx="17" ry="16" fill="rgba(248,250,252,.07)" filter="url(#skF)"/>
+            <ellipse cx="29" cy="22" rx="16" ry="14" fill="url(#skG)" stroke="rgba(148,163,184,.15)" stroke-width=".5"/>
+            <rect x="20" y="33" width="18" height="9" rx="3" fill="url(#skG)"/>
+            <rect x="22" y="33" width="3" height="5.5" rx="1" fill="#0f172a"/>
+            <rect x="27" y="33" width="3" height="5.5" rx="1" fill="#0f172a"/>
+            <rect x="32" y="33" width="3" height="5.5" rx="1" fill="#0f172a"/>
+            <ellipse cx="20" cy="22" rx="5.5" ry="6" fill="#0f172a"/>
+            <ellipse cx="38" cy="22" rx="5.5" ry="6" fill="#0f172a"/>
+            <path d="M8 46 Q10 44.5 13 46 Q16 47.5 19 46 Q22 44.5 25 46 Q28 47.5 29 47 Q30 47.5 33 46 Q36 44.5 39 46 Q42 47.5 45 46 Q48 44.5 50 46" stroke="#94a3b8" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="7" cy="46" r="4" fill="#94a3b8" opacity=".75"/>
+            <circle cx="51" cy="46" r="4" fill="#94a3b8" opacity=".75"/>
+            <ellipse cx="20" cy="14" rx="8" ry="3.5" fill="rgba(255,255,255,.3)" transform="rotate(-18,20,14)"/>
           </svg>
         </div>
-        <div class="coll-name">One Piece</div>
-        <div class="coll-status">&#10003; Available now</div>
+        <div class="cname">One Piece</div>
+        <div class="cstatus">&#9679; Live now</div>
       </div>
 
-      <!-- DRAGON BALL — silver sphere -->
-      <div class="coll db">
-        <span class="new-tag">NEW</span>
-        <div class="icon-box">
-          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- DRAGON BALL — chrome sphere -->
+      <div class="coll-card db" data-tilt>
+        <span class="new-chip">New</span>
+        <div class="foil"></div>
+        <div class="icon-w">
+          <svg viewBox="0 0 58 58" fill="none">
             <defs>
-              <radialGradient id="silvG" cx="35%" cy="30%" r="70%">
-                <stop offset="0%" stop-color="#f0f0f8"/>
-                <stop offset="30%" stop-color="#c8ccd8"/>
-                <stop offset="65%" stop-color="#8890a8"/>
-                <stop offset="100%" stop-color="#4a5068"/>
-              </radialGradient>
-              <radialGradient id="silvGlow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="rgba(180,190,255,0.3)"/>
-                <stop offset="100%" stop-color="rgba(180,190,255,0)"/>
-              </radialGradient>
-              <filter id="sfGlow">
-                <feGaussianBlur stdDeviation="3" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
+              <radialGradient id="chrG" cx="30%" cy="25%" r="75%"><stop offset="0%" stop-color="#f1f5f9"/><stop offset="22%" stop-color="#dde4f0"/><stop offset="55%" stop-color="#7c8ba0"/><stop offset="100%" stop-color="#1e2a3a"/></radialGradient>
+              <radialGradient id="chrA" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(148,180,255,.22)"/><stop offset="100%" stop-color="rgba(148,180,255,0)"/></radialGradient>
+              <filter id="chrF" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             </defs>
-            <!-- outer glow ring -->
-            <circle cx="36" cy="36" r="34" fill="url(#silvGlow)" filter="url(#sfGlow)"/>
-            <!-- sphere body -->
-            <circle cx="36" cy="36" r="30" fill="url(#silvG)"/>
-            <!-- equator line -->
-            <ellipse cx="36" cy="36" rx="30" ry="8" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-            <!-- vertical line -->
-            <ellipse cx="36" cy="36" rx="8" ry="30" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-            <!-- dark shade bottom-right -->
-            <circle cx="36" cy="36" r="30" fill="radial-gradient" opacity="0"/>
-            <!-- specular highlight 1 (main) -->
-            <ellipse cx="24" cy="20" rx="10" ry="6" fill="rgba(255,255,255,0.55)" transform="rotate(-30,24,20)"/>
-            <!-- specular highlight 2 (small) -->
-            <ellipse cx="18" cy="15" rx="4" ry="2.5" fill="rgba(255,255,255,0.7)" transform="rotate(-25,18,15)"/>
-            <!-- rim light -->
-            <path d="M8 48 Q6 36 14 26" stroke="rgba(180,200,255,0.3)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <circle cx="29" cy="29" r="28" fill="url(#chrA)" filter="url(#chrF)"/>
+            <circle cx="29" cy="29" r="24" fill="url(#chrG)"/>
+            <ellipse cx="29" cy="29" rx="24" ry="6.5" fill="none" stroke="rgba(255,255,255,.07)" stroke-width=".8"/>
+            <ellipse cx="29" cy="29" rx="6.5" ry="24" fill="none" stroke="rgba(255,255,255,.06)" stroke-width=".8"/>
+            <ellipse cx="18" cy="14" rx="9" ry="5" fill="rgba(255,255,255,.62)" transform="rotate(-28,18,14)"/>
+            <ellipse cx="12" cy="10" rx="4" ry="2.2" fill="rgba(255,255,255,.78)" transform="rotate(-22,12,10)"/>
+            <path d="M4 40 Q3 28 9 18" stroke="rgba(160,190,255,.18)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <!-- subtle caustic lines -->
+            <ellipse cx="40" cy="40" rx="8" ry="3" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="1" transform="rotate(20,40,40)"/>
           </svg>
         </div>
-        <div class="coll-name">Dragon Ball</div>
-        <div class="coll-status">Coming soon</div>
+        <div class="cname">Dragon Ball</div>
+        <div class="cstatus">Coming soon</div>
       </div>
 
-      <!-- YU-GI-OH — eye of horus card -->
-      <div class="coll yg">
-        <span class="new-tag">NEW</span>
-        <div class="icon-box">
-          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- YU-GI-OH — eye of horus -->
+      <div class="coll-card yg" data-tilt>
+        <span class="new-chip">New</span>
+        <div class="foil"></div>
+        <div class="icon-w">
+          <svg viewBox="0 0 58 58" fill="none">
             <defs>
-              <linearGradient id="ygCard" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#2d0a5e"/>
-                <stop offset="100%" stop-color="#0a0020"/>
-              </linearGradient>
-              <radialGradient id="ygEye" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#ffe066"/>
-                <stop offset="100%" stop-color="#c8880a"/>
-              </radialGradient>
-              <filter id="ygGlow">
-                <feGaussianBlur stdDeviation="2.5" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
+              <linearGradient id="ygBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1e0840"/><stop offset="100%" stop-color="#06021a"/></linearGradient>
+              <radialGradient id="ygI" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#92400e"/></radialGradient>
+              <filter id="ygF" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             </defs>
-            <rect x="8" y="4" width="56" height="64" rx="6" fill="url(#ygCard)" stroke="#9333ea" stroke-width="1.5"/>
-            <rect x="8" y="4" width="56" height="64" rx="6" fill="none" stroke="#c084fc" stroke-width=".5" opacity=".5"/>
-            <ellipse cx="36" cy="34" rx="18" ry="10" fill="#1a0038" stroke="#c8880a" stroke-width="1.5"/>
-            <circle cx="36" cy="34" r="7" fill="url(#ygEye)" filter="url(#ygGlow)"/>
-            <circle cx="36" cy="34" r="4" fill="#1a0010"/>
-            <circle cx="36" cy="34" r="2" fill="#ff4400" opacity=".9"/>
-            <path d="M18 34 Q36 16 54 34" stroke="#c8880a" stroke-width="1.5" fill="none"/>
-            <path d="M26 39 Q32 46 36 44 Q40 42 38 48" stroke="#c8880a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M18 34 L14 38 L16 42" stroke="#c8880a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <circle cx="20" cy="20" r="1.5" fill="#ffe066" opacity=".8"/>
-            <circle cx="52" cy="20" r="1.5" fill="#ffe066" opacity=".8"/>
-            <rect x="8" y="57" width="56" height="11" rx="0 0 6 6" fill="#9333ea" opacity=".35"/>
+            <rect x="3" y="2" width="52" height="54" rx="6" fill="url(#ygBg)" stroke="rgba(139,92,246,.3)" stroke-width="1"/>
+            <rect x="6" y="5" width="46" height="48" rx="4" fill="none" stroke="rgba(139,92,246,.1)" stroke-width=".5"/>
+            <!-- eye almond -->
+            <path d="M8 29 Q29 14 50 29 Q29 44 8 29Z" fill="rgba(15,4,40,.9)" stroke="#92400e" stroke-width="1.2"/>
+            <!-- iris -->
+            <circle cx="29" cy="29" r="8.5" fill="url(#ygI)" filter="url(#ygF)" opacity=".95"/>
+            <!-- pupil -->
+            <circle cx="29" cy="29" r="5" fill="#0d0618"/>
+            <circle cx="29" cy="29" r="2.2" fill="#dc2626" opacity=".9"/>
+            <!-- specular on iris -->
+            <ellipse cx="25" cy="25.5" rx="2.5" ry="1.5" fill="rgba(255,255,220,.38)" transform="rotate(-20,25,25.5)"/>
+            <!-- lash top -->
+            <path d="M8 29 Q29 11 50 29" stroke="rgba(180,130,20,.5)" stroke-width="1" fill="none"/>
+            <!-- horus curl -->
+            <path d="M21 34 Q25 41 29 39 Q33 37 31 45" stroke="rgba(180,130,20,.5)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <!-- left serif -->
+            <path d="M8 29 L3.5 34 L5 39" stroke="rgba(180,130,20,.45)" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- corner glints -->
+            <circle cx="11" cy="10" r="1.3" fill="#fde68a" opacity=".55"/>
+            <circle cx="47" cy="10" r="1.3" fill="#fde68a" opacity=".55"/>
+            <!-- bottom trim -->
+            <rect x="3" y="48" width="52" height="8" rx="0 0 6 6" fill="rgba(139,92,246,.15)"/>
           </svg>
         </div>
-        <div class="coll-name">Yu-Gi-Oh!</div>
-        <div class="coll-status">Coming soon</div>
+        <div class="cname">Yu-Gi-Oh!</div>
+        <div class="cstatus">Coming soon</div>
       </div>
 
-      <!-- FOOTBALL CARD — only soccer ball centered -->
-      <div class="coll fc" style="grid-column:1/-1">
-        <span class="new-tag">NEW</span>
-        <div class="icon-box-wide">
-          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- FOOTBALL — soccer ball -->
+      <div class="coll-card fc" data-tilt style="grid-column:1/-1">
+        <span class="new-chip">New</span>
+        <div class="foil"></div>
+        <div class="icon-ww">
+          <svg viewBox="0 0 58 58" fill="none">
             <defs>
-              <radialGradient id="fbG" cx="38%" cy="33%" r="65%">
-                <stop offset="0%" stop-color="#f0f0f0"/>
-                <stop offset="60%" stop-color="#cccccc"/>
-                <stop offset="100%" stop-color="#888888"/>
-              </radialGradient>
-              <filter id="fbGlow">
-                <feGaussianBlur stdDeviation="4" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
+              <radialGradient id="fbG" cx="33%" cy="28%" r="70%"><stop offset="0%" stop-color="#f8fafc"/><stop offset="45%" stop-color="#e2e8f0"/><stop offset="100%" stop-color="#64748b"/></radialGradient>
+              <filter id="fbF" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             </defs>
-            <circle cx="36" cy="36" r="34" fill="rgba(255,255,255,0.06)" filter="url(#fbGlow)"/>
-            <circle cx="36" cy="36" r="30" fill="url(#fbG)" stroke="#999" stroke-width="1"/>
-            <!-- Center pentagon -->
-            <polygon points="36,18 43,28 40,40 32,40 29,28" fill="#111" opacity=".85"/>
-            <!-- surrounding pentagons -->
-            <polygon points="36,18 47,14 54,24 48,32 43,28" fill="#111" opacity=".8"/>
-            <polygon points="36,18 25,14 18,24 24,32 29,28" fill="#111" opacity=".8"/>
-            <polygon points="40,40 48,32 56,36 54,48 44,50" fill="#111" opacity=".8"/>
-            <polygon points="32,40 24,32 16,36 18,48 28,50" fill="#111" opacity=".8"/>
-            <polygon points="44,50 54,48 52,58 40,62 36,54" fill="#111" opacity=".8"/>
-            <polygon points="28,50 18,48 20,58 32,62 36,54" fill="#111" opacity=".8"/>
-            <!-- shine -->
-            <ellipse cx="24" cy="21" rx="10" ry="5.5" fill="rgba(255,255,255,0.42)" transform="rotate(-25,24,21)"/>
-            <ellipse cx="18" cy="17" rx="4" ry="2.5" fill="rgba(255,255,255,0.65)" transform="rotate(-20,18,17)"/>
+            <circle cx="29" cy="29" r="27" fill="rgba(16,185,129,.08)" filter="url(#fbF)"/>
+            <circle cx="29" cy="29" r="24" fill="url(#fbG)" stroke="rgba(148,163,184,.3)" stroke-width=".8"/>
+            <g fill="#0f172a" opacity=".84">
+              <polygon points="29,8 33.5,17.5 29,22 24.5,17.5"/>
+              <polygon points="29,22 33.5,17.5 42,20.5 42,29.5 33.5,33"/>
+              <polygon points="29,22 24.5,17.5 17,20.5 17,29.5 24.5,33"/>
+              <polygon points="33.5,33 42,29.5 46.5,38 40,44.5 31.5,41.5"/>
+              <polygon points="24.5,33 17,29.5 12.5,38 19,44.5 27.5,41.5"/>
+              <polygon points="31.5,41.5 40,44.5 37.5,51.5 20.5,51.5 18,44.5 27.5,41.5"/>
+            </g>
+            <g stroke="rgba(148,163,184,.2)" stroke-width=".6" fill="none">
+              <line x1="29" y1="8" x2="29" y2="22"/><line x1="33.5" y1="17.5" x2="42" y2="20.5"/>
+              <line x1="24.5" y1="17.5" x2="17" y2="20.5"/><line x1="42" y1="29.5" x2="33.5" y2="33"/>
+              <line x1="17" y1="29.5" x2="24.5" y2="33"/><line x1="31.5" y1="41.5" x2="40" y2="44.5"/>
+              <line x1="27.5" y1="41.5" x2="19" y2="44.5"/>
+            </g>
+            <ellipse cx="18" cy="15" rx="7.5" ry="4" fill="rgba(255,255,255,.5)" transform="rotate(-28,18,15)"/>
+            <ellipse cx="13" cy="11" rx="3.2" ry="1.9" fill="rgba(255,255,255,.65)" transform="rotate(-22,13,11)"/>
           </svg>
         </div>
-        <div class="coll-name">Football Cards</div>
-        <div class="coll-status">Coming soon — with exclusive sports accessories mode</div>
+        <div class="cname">Football Cards</div>
+        <div class="cstatus">Coming soon — with sports accessories affiliate mode</div>
       </div>
 
     </div>
-    <div class="sep"></div>
-    <div class="ff">
-      <div class="ff-title">&#9917; Football Card Mode — V2 Exclusive</div>
+
+    <div class="hdiv"></div>
+    <div class="aff">
+      <div class="aff-label">Sports Accessories Mode — V2</div>
       <div class="brands">
-        <span class="brand">Nike</span>
-        <span class="brand">Adidas</span>
-        <span class="brand">Puma</span>
-        <span class="brand">Decathlon</span>
-        <span class="brand">New Balance</span>
-        <span class="brand">+ more</span>
+        <span class="brand">Nike</span><span class="brand">Adidas</span><span class="brand">Puma</span><span class="brand">Decathlon</span><span class="brand">New Balance</span><span class="brand">+ more</span>
       </div>
-      <p>After scanning a Football card, discover its value and — brand new — instantly browse the best <strong>sports accessories</strong> from your favourite brand. Nike, Adidas, Puma, Decathlon and more partner brands are coming, with exclusive deals directly inside the app.</p>
+      <p>Scan a Football card and instantly browse <strong>curated sports gear</strong> from top brands — exclusive affiliate offers delivered inside the app.</p>
     </div>
-    <p class="v2-note">&#128276; Version 2.0 is in active development. Download the app now to receive the update automatically at launch.</p>
+    <p class="v2-note">Version 2.0 is in active development. Install now to receive the update automatically at launch.</p>
   </div>
+</section>
 
-  <div class="divider"></div>
-  <footer>
-    <div class="footer-links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-    </div>
-    <div>&#169; 2026 Portal Card Scanner &#8212; <a href="mailto:portalcardscanner@gmail.com">portalcardscanner@gmail.com</a></div>
-  </footer>
+<div class="page-div"></div>
+<footer>
+  <div class="flinks"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></div>
+  <span>&#169; 2026 Portal Card Scanner &nbsp;&mdash;&nbsp; <a href="mailto:portalcardscanner@gmail.com">portalcardscanner@gmail.com</a></span>
+</footer>
 </div>
 
 <script>
 (function(){
 'use strict';
-var C=document.getElementById('bg'),X=C.getContext('2d'),W=0,H=0;
-function rz(){W=C.width=window.innerWidth;H=C.height=window.innerHeight;}
+
+/* ═══════════════════════════════════════════
+   3D STARFIELD CANVAS
+═══════════════════════════════════════════ */
+var C=document.getElementById('bg'),X=C.getContext('2d'),W=0,H=0,CX=0,CY=0;
+function rz(){W=C.width=window.innerWidth;H=C.height=window.innerHeight;CX=W/2;CY=H/2;}
 rz();window.addEventListener('resize',rz);
 
-/* ======= STARS (fixed positions across full background) ======= */
-var STARS=[];
-for(var i=0;i<280;i++){
-  STARS.push({
-    x:Math.random(),y:Math.random(),
-    r:.15+Math.random()*1.6,
-    base:.1+Math.random()*.8,
-    tw:.3+Math.random()*.9,
-    to:Math.random()*Math.PI*2,
-    speed:.002+Math.random()*.006
-  });
-}
+/* Flying star field — 3D perspective */
+var NS=450,FL=280; // num stars, focal length
+function mkStar(){return{x:(Math.random()-0.5)*W*3,y:(Math.random()-0.5)*H*3,z:Math.random()*W,pz:0};}
+var STARS=[];for(var i=0;i<NS;i++){STARS.push(mkStar());STARS[i].z=Math.random()*W;}
 
-/* ======= HOLOGRAPHIC FLOATING CARDS ======= */
-var CPAIRS=[['#fbbf24','#f97316'],['#a78bfa','#7c3aed'],['#4ade80','#16a34a'],['#c084fc','#60a5fa'],['#f87171','#dc2626'],['#38bdf8','#06b6d4'],['#fb7185','#e11d48']];
-var CARDS=[];
-for(var ci=0;ci<14;ci++){
-  var cp=CPAIRS[ci%7],cw=30+Math.random()*32;
-  CARDS.push({
-    x:Math.random()*W||Math.random()*1400,y:Math.random()*H||Math.random()*900,
-    w:cw,h:cw*1.45,
-    ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.005,
-    vx:(Math.random()-.5)*.45,vy:(Math.random()-.5)*.45,
-    al:.1+Math.random()*.14,gp:Math.random()*Math.PI*2,gs:.012+Math.random()*.022,c:cp
-  });
-}
+/* Nebula blobs */
+var BLOBS=[
+  {fx:.18,fy:.22,r:.38,r0:59,g0:130,b0:246,a:.045,spd:.0008,ph:0},
+  {fx:.82,fy:.15,r:.30,r0:139,g0:92,b0:246,a:.04,spd:.0011,ph:1.8},
+  {fx:.50,fy:.70,r:.42,r0:6,g0:182,b0:212,a:.035,spd:.0007,ph:3.2},
+  {fx:.15,fy:.80,r:.28,r0:236,g0:72,b0:153,a:.03,spd:.0013,ph:5},
+  {fx:.88,fy:.60,r:.32,r0:16,g0:185,b0:129,a:.03,spd:.0009,ph:2.1},
+];
 
-function h2(v){return Math.round(Math.min(255,Math.max(0,v*255))).toString(16).padStart(2,'0');}
-function drawCard(c,t){
+/* Holographic cards (flat 2D but with 3D parallax feel) */
+var CPAIRS=[[59,130,246,139,92,246],[6,182,212,59,130,246],[245,158,11,251,146,60],[16,185,129,5,150,105],[236,72,153,168,85,247],[148,163,184,100,116,139],[250,204,21,234,179,8]];
+var FCARDS=[];
+for(var ci=0;ci<16;ci++){var cp=CPAIRS[ci%7],cw=26+Math.random()*28;
+  FCARDS.push({x:Math.random()*W,y:Math.random()*H,w:cw,h:cw*1.45,
+    ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.004,
+    vx:(Math.random()-.5)*.38,vy:(Math.random()-.5)*.38,
+    al:.07+Math.random()*.11,gp:Math.random()*Math.PI*2,gs:.01+Math.random()*.018,
+    r1:cp[0],g1:cp[1],b1:cp[2],r2:cp[3],g2:cp[4],b2:cp[5]});}
+
+/* Soccer balls */
+var BALLS=[];
+for(var bi=0;bi<9;bi++){BALLS.push({x:Math.random()*W,y:Math.random()*H,r:10+Math.random()*14,
+  ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.007,
+  vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,
+  al:.06+Math.random()*.09,ph:Math.random()*Math.PI*2});}
+
+/* Sports accessories */
+var ACCS=[];
+for(var ai=0;ai<12;ai++){ACCS.push({t:ai<6?'shoe':'trophy',
+  x:Math.random()*W,y:Math.random()*H,s:12+Math.random()*13,
+  ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.006,
+  vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,
+  al:.05+Math.random()*.08,ph:Math.random()*Math.PI*2});}
+
+/* Light orbs */
+var ORBS=[];
+var OCOLS=[[59,130,246],[139,92,246],[6,182,212],[245,158,11],[16,185,129],[236,72,153]];
+for(var oi=0;oi<10;oi++){var oc=OCOLS[oi%6];
+  ORBS.push({x:Math.random()*W,y:Math.random()*H,r:20+Math.random()*55,
+    vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,
+    al:.04+Math.random()*.07,ph:Math.random()*Math.PI*2,spd:.008+Math.random()*.012,
+    r0:oc[0],g0:oc[1],b0:oc[2]});}
+
+/* Trails */
+var TRLS=[],TPAL=['59,130,246','139,92,246','6,182,212','245,158,11','16,185,129','236,72,153'];
+function mkT(){var e=Math.floor(Math.random()*4),sp=.8+Math.random()*1.5,x,y,vx,vy;
+  if(e===0){x=Math.random()*W;y=-5;vx=(Math.random()-.5)*sp;vy=sp*.9;}
+  else if(e===1){x=W+5;y=Math.random()*H;vx=-sp*.9;vy=(Math.random()-.5)*sp;}
+  else if(e===2){x=Math.random()*W;y=H+5;vx=(Math.random()-.5)*sp;vy=-sp*.9;}
+  else{x=-5;y=Math.random()*H;vx=sp*.9;vy=(Math.random()-.5)*sp;}
+  TRLS.push({x:x,y:y,vx:vx,vy:vy,col:TPAL[Math.floor(Math.random()*6)],len:40+Math.random()*65,al:.28+Math.random()*.32,life:0,max:65+Math.random()*75});}
+
+function h2(v){return Math.round(Math.max(0,Math.min(255,v*255))).toString(16).padStart(2,'0');}
+
+function dCard(c,t){
   X.save();X.translate(c.x,c.y);X.rotate(c.ang);
-  var hw=c.w/2,hh=c.h/2,gv=Math.sin(c.gp+t*c.gs)*.5+.5,al=c.al*(.6+.4*gv);
+  var hw=c.w/2,hh=c.h/2,gv=Math.sin(c.gp+t*c.gs)*.5+.5,al=c.al*(.55+.45*gv);
   var g=X.createLinearGradient(-hw,-hh,hw,hh);
-  g.addColorStop(0,c.c[0]+h2(al*.7));g.addColorStop(.4,'#ffffff'+h2(al*.06));g.addColorStop(1,c.c[1]+h2(al*.6));
-  X.beginPath();X.roundRect(-hw,-hh,c.w,c.h,5);X.fillStyle=g;X.fill();
-  /* shimmer streak */
-  var sx=Math.sin(t*.022+c.gp)*hw;
-  var sg=X.createLinearGradient(sx-10,-hh,sx+10,hh);
-  sg.addColorStop(0,'rgba(255,255,255,0)');sg.addColorStop(.5,'rgba(255,255,255,'+(0.28*gv)+')');sg.addColorStop(1,'rgba(255,255,255,0)');
-  X.beginPath();X.roundRect(-hw,-hh,c.w,c.h,5);X.fillStyle=sg;X.fill();
-  X.beginPath();X.roundRect(-hw,-hh,c.w,c.h,5);X.strokeStyle=c.c[0]+h2(.2+.5*gv);X.lineWidth=1;X.stroke();
+  g.addColorStop(0,'rgba('+c.r1+','+c.g1+','+c.b1+','+al+')');
+  g.addColorStop(.5,'rgba(255,255,255,'+(al*.05)+')');
+  g.addColorStop(1,'rgba('+c.r2+','+c.g2+','+c.b2+','+(al*.9)+')');
+  X.beginPath();X.roundRect(-hw,-hh,c.w,c.h,4);X.fillStyle=g;X.fill();
+  var sx=Math.sin(t*.022+c.gp)*hw*.7;
+  var sg=X.createLinearGradient(sx-8,-hh,sx+8,hh);
+  sg.addColorStop(0,'rgba(255,255,255,0)');sg.addColorStop(.5,'rgba(255,255,255,'+(0.2*gv)+')');sg.addColorStop(1,'rgba(255,255,255,0)');
+  X.beginPath();X.roundRect(-hw,-hh,c.w,c.h,4);X.fillStyle=sg;X.fill();
+  X.beginPath();X.roundRect(-hw,-hh,c.w,c.h,4);X.strokeStyle='rgba('+c.r1+','+c.g1+','+c.b1+','+(.12+.28*gv)+')';X.lineWidth=.8;X.stroke();
   X.restore();
 }
 
-/* ======= SOCCER BALLS ======= */
-var BALLS=[];
-for(var bi=0;bi<8;bi++){
-  BALLS.push({
-    x:Math.random()*W||Math.random()*1400,y:Math.random()*H||Math.random()*900,
-    r:14+Math.random()*18,
-    ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.008,
-    vx:(Math.random()-.5)*.38,vy:(Math.random()-.5)*.38,
-    al:.09+Math.random()*.1,ph:Math.random()*Math.PI*2
-  });
-}
-function drawBall(b,t){
+function dBall(b,t){
+  var r=b.r,a=b.al*(Math.sin(t*.016+b.ph)*.25+.85);
   X.save();X.translate(b.x,b.y);X.rotate(b.ang);
-  var p=Math.sin(t*.018+b.ph)*.5+.5,a=b.al*(.75+.25*p),r=b.r;
-  var g=X.createRadialGradient(-r*.32,-r*.32,r*.04,0,0,r);
-  g.addColorStop(0,'rgba(235,235,235,'+a+')');g.addColorStop(.55,'rgba(180,180,180,'+(a*.9)+')');g.addColorStop(1,'rgba(90,90,90,'+(a*.8)+')');
+  var g=X.createRadialGradient(-r*.3,-r*.3,r*.03,0,0,r);
+  g.addColorStop(0,'rgba(225,225,225,'+a+')');g.addColorStop(.5,'rgba(170,170,170,'+(a*.9)+')');g.addColorStop(1,'rgba(70,70,70,'+(a*.8)+')');
   X.beginPath();X.arc(0,0,r,0,Math.PI*2);X.fillStyle=g;X.fill();
-  X.fillStyle='rgba(12,12,12,'+a+')';
-  /* center pentagon + surrounding */
-  function pent(px,py,pr){if(px*px+py*py>(r+2)*(r+2))return;X.beginPath();for(var k=0;k<5;k++){var aa=k*Math.PI*2/5-Math.PI/2;X.lineTo(px+Math.cos(aa)*pr,py+Math.sin(aa)*pr);}X.closePath();X.fill();}
-  pent(0,-r*.5,r*.18);pent(r*.44,-r*.18,r*.16);pent(-r*.44,-r*.18,r*.16);pent(r*.26,r*.4,r*.16);pent(-r*.26,r*.4,r*.16);
-  var sh=X.createRadialGradient(-r*.33,-r*.33,0,-r*.33,-r*.33,r*.36);
+  X.fillStyle='rgba(8,8,8,'+a+')';
+  function pent(px,py,pr){if(px*px+py*py>(r-.5)*(r-.5))return;X.beginPath();for(var k=0;k<5;k++){var aa=k*Math.PI*2/5-Math.PI/2;X.lineTo(px+Math.cos(aa)*pr,py+Math.sin(aa)*pr);}X.closePath();X.fill();}
+  pent(0,-r*.5,r*.17);pent(r*.42,-r*.17,r*.15);pent(-r*.42,-r*.17,r*.15);pent(r*.25,r*.38,r*.15);pent(-r*.25,r*.38,r*.15);
+  var sh=X.createRadialGradient(-r*.32,-r*.32,0,-r*.32,-r*.32,r*.34);
   sh.addColorStop(0,'rgba(255,255,255,'+(a*.45)+')');sh.addColorStop(1,'rgba(255,255,255,0)');
   X.beginPath();X.arc(0,0,r,0,Math.PI*2);X.fillStyle=sh;X.fill();
   X.restore();
 }
 
-/* ======= SPORTS ACCESSORIES (shoes + trophies) ======= */
-var ACCS=[];
-for(var ai=0;ai<10;ai++){
-  var tp=ai<5?'shoe':'trophy';
-  ACCS.push({
-    t:tp,x:Math.random()*W||Math.random()*1400,y:Math.random()*H||Math.random()*900,
-    s:18+Math.random()*18,ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.007,
-    vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,
-    al:.08+Math.random()*.1,ph:Math.random()*Math.PI*2
-  });
-}
-function drawShoe(x,y,s,ang,al,t,ph){
+function dShoe(x,y,s,ang,al,t,ph){
   X.save();X.translate(x,y);X.rotate(ang);
-  var p=Math.sin(t*.018+ph)*.5+.5,a=al*(.75+.25*p);
-  X.beginPath();X.ellipse(0,s*.3,s*.8,s*.19,0,0,Math.PI*2);
-  X.fillStyle='rgba(20,50,140,'+a+')';X.fill();
-  var ug=X.createLinearGradient(-s*.65,-s*.38,s*.65,s*.18);
-  ug.addColorStop(0,'rgba(55,115,240,'+a+')');ug.addColorStop(1,'rgba(22,52,130,'+(a*.85)+')');
-  X.beginPath();X.moveTo(-s*.76,s*.16);X.quadraticCurveTo(-s*.86,-s*.07,-s*.15,-s*.37);X.quadraticCurveTo(s*.17,-s*.5,s*.67,-s*.26);X.quadraticCurveTo(s*.8,-s*.07,s*.76,s*.13);X.closePath();X.fillStyle=ug;X.fill();
-  X.strokeStyle='rgba(100,160,255,'+(a*.4)+')';X.lineWidth=.8;X.stroke();
-  X.strokeStyle='rgba(200,220,255,'+(a*.65)+')';X.lineWidth=.7;
-  for(var li=-2;li<=2;li++){X.beginPath();X.moveTo(li*s*.13-s*.04,s*.04);X.lineTo(li*s*.13+s*.04,-s*.13);X.stroke();}
+  var a=al*(Math.sin(t*.016+ph)*.25+.85);
+  X.beginPath();X.ellipse(0,s*.3,s*.76,s*.17,0,0,Math.PI*2);X.fillStyle='rgba(14,38,115,'+a+')';X.fill();
+  var ug=X.createLinearGradient(-s*.6,-s*.35,s*.6,s*.15);ug.addColorStop(0,'rgba(48,96,215,'+a+')');ug.addColorStop(1,'rgba(18,42,115,'+(a*.85)+')');
+  X.beginPath();X.moveTo(-s*.72,s*.14);X.quadraticCurveTo(-s*.82,-s*.06,-s*.13,-s*.35);X.quadraticCurveTo(s*.15,-s*.46,s*.63,-s*.24);X.quadraticCurveTo(s*.76,-s*.06,s*.72,s*.12);X.closePath();X.fillStyle=ug;X.fill();
+  X.strokeStyle='rgba(70,130,245,'+(a*.28)+')';X.lineWidth=.6;X.stroke();
+  X.strokeStyle='rgba(170,200,255,'+(a*.55)+')';X.lineWidth=.6;
+  for(var li=-2;li<=2;li++){X.beginPath();X.moveTo(li*s*.11-s*.035,s*.035);X.lineTo(li*s*.11+s*.035,-s*.11);X.stroke();}
   X.restore();
 }
-function drawTrophy(x,y,s,al,t,ph){
+
+function dTrophy(x,y,s,al,t,ph){
   X.save();X.translate(x,y);
-  var p=Math.sin(t*.018+ph)*.5+.5,a=al*(.75+.25*p);
-  var cg=X.createLinearGradient(-s*.48,-s*.58,s*.48,s*.1);
-  cg.addColorStop(0,'rgba(255,218,52,'+a+')');cg.addColorStop(.5,'rgba(215,160,20,'+(a*.9)+')');cg.addColorStop(1,'rgba(158,105,5,'+(a*.8)+')');
-  X.beginPath();X.moveTo(-s*.48,-s*.53);X.quadraticCurveTo(-s*.62,s*.05,-s*.19,s*.12);X.lineTo(-s*.11,s*.19);X.lineTo(s*.11,s*.19);X.lineTo(s*.19,s*.12);X.quadraticCurveTo(s*.62,s*.05,s*.48,-s*.53);X.closePath();X.fillStyle=cg;X.fill();
-  X.strokeStyle='rgba(255,195,45,'+(a*.35)+')';X.lineWidth=.9;X.stroke();
-  X.strokeStyle='rgba(235,178,35,'+(a*.7)+')';X.lineWidth=1.7;
-  X.beginPath();X.moveTo(-s*.48,-s*.28);X.quadraticCurveTo(-s*.75,-s*.07,-s*.48,s*.07);X.stroke();
-  X.beginPath();X.moveTo(s*.48,-s*.28);X.quadraticCurveTo(s*.75,-s*.07,s*.48,s*.07);X.stroke();
-  X.fillStyle='rgba(192,142,14,'+a+')';X.fillRect(-s*.065,s*.19,s*.13,s*.19);
-  X.beginPath();X.ellipse(0,s*.4,s*.28,s*.065,0,0,Math.PI*2);X.fill();
-  var st=X.createRadialGradient(-s*.16,-s*.18,0,-s*.16,-s*.18,s*.16);
-  st.addColorStop(0,'rgba(255,242,130,'+(a*.38)+')');st.addColorStop(1,'rgba(255,242,130,0)');
-  X.beginPath();X.arc(-s*.16,-s*.18,s*.16,0,Math.PI*2);X.fillStyle=st;X.fill();
+  var a=al*(Math.sin(t*.016+ph)*.25+.85);
+  var cg=X.createLinearGradient(-s*.44,-s*.54,s*.44,s*.1);cg.addColorStop(0,'rgba(252,210,46,'+a+')');cg.addColorStop(.5,'rgba(208,152,16,'+(a*.9)+')');cg.addColorStop(1,'rgba(148,96,4,'+(a*.8)+')');
+  X.beginPath();X.moveTo(-s*.44,-s*.5);X.quadraticCurveTo(-s*.58,s*.04,-s*.17,s*.1);X.lineTo(-s*.1,s*.18);X.lineTo(s*.1,s*.18);X.lineTo(s*.17,s*.1);X.quadraticCurveTo(s*.58,s*.04,s*.44,-s*.5);X.closePath();X.fillStyle=cg;X.fill();
+  X.strokeStyle='rgba(252,195,40,'+(a*.25)+')';X.lineWidth=.7;X.stroke();
+  X.strokeStyle='rgba(228,165,28,'+(a*.62)+')';X.lineWidth=1.4;
+  X.beginPath();X.moveTo(-s*.44,-s*.25);X.quadraticCurveTo(-s*.70,-s*.06,-s*.44,s*.05);X.stroke();
+  X.beginPath();X.moveTo(s*.44,-s*.25);X.quadraticCurveTo(s*.70,-s*.06,s*.44,s*.05);X.stroke();
+  X.fillStyle='rgba(180,130,10,'+a+')';X.fillRect(-s*.058,s*.18,s*.116,s*.18);
+  X.beginPath();X.ellipse(0,s*.37,s*.25,s*.058,0,0,Math.PI*2);X.fill();
   X.restore();
 }
 
-/* ======= LIGHT ORBS ======= */
-var ORBS=[];
-var ORB_COLS=['#c084fc','#60a5fa','#34d399','#fbbf24','#f87171','#818cf8','#38bdf8'];
-for(var oi=0;oi<12;oi++){
-  ORBS.push({
-    x:Math.random()*W||Math.random()*1400,y:Math.random()*H||Math.random()*900,
-    r:8+Math.random()*22,
-    vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,
-    al:.06+Math.random()*.1,ph:Math.random()*Math.PI*2,
-    col:ORB_COLS[oi%7],
-    pulse:.5+Math.random()*.5
-  });
-}
-function drawOrb(o,t){
-  var p=Math.sin(t*.015+o.ph)*.5+.5,a=o.al*(.6+.4*p),r=o.r*(0.85+0.15*p);
-  var hx=parseInt(o.col.slice(1,3),16),hy=parseInt(o.col.slice(3,5),16),hz=parseInt(o.col.slice(5,7),16);
-  var g=X.createRadialGradient(o.x,o.y,0,o.x,o.y,r*2.5);
-  g.addColorStop(0,'rgba('+hx+','+hy+','+hz+','+(a*1.2)+')');
-  g.addColorStop(.4,'rgba('+hx+','+hy+','+hz+','+(a*.6)+')');
-  g.addColorStop(1,'rgba('+hx+','+hy+','+hz+',0)');
-  X.beginPath();X.arc(o.x,o.y,r*2.5,0,Math.PI*2);X.fillStyle=g;X.fill();
-  /* bright core */
-  var gc=X.createRadialGradient(o.x,o.y,0,o.x,o.y,r*.5);
-  gc.addColorStop(0,'rgba(255,255,255,'+(a*.7)+')');gc.addColorStop(1,'rgba(255,255,255,0)');
-  X.beginPath();X.arc(o.x,o.y,r*.5,0,Math.PI*2);X.fillStyle=gc;X.fill();
-}
-
-/* ======= LIGHT TRAILS ======= */
-var TCOLS=['#c084fc','#60a5fa','#fbbf24','#4ade80','#f87171','#38bdf8'];
-var TRAILS=[];
-function rgb(h){return parseInt(h.slice(1,3),16)+','+parseInt(h.slice(3,5),16)+','+parseInt(h.slice(5,7),16);}
-function mkTrail(){
-  var e=Math.floor(Math.random()*4),sp=1.1+Math.random()*1.8,x,y,vx,vy;
-  if(e===0){x=Math.random()*W;y=0;vx=(Math.random()-.5)*sp;vy=sp*.9;}
-  else if(e===1){x=W;y=Math.random()*H;vx=-sp*.9;vy=(Math.random()-.5)*sp;}
-  else if(e===2){x=Math.random()*W;y=H;vx=(Math.random()-.5)*sp;vy=-sp*.9;}
-  else{x=0;y=Math.random()*H;vx=sp*.9;vy=(Math.random()-.5)*sp;}
-  TRAILS.push({x:x,y:y,vx:vx,vy:vy,col:TCOLS[Math.floor(Math.random()*6)],len:50+Math.random()*80,al:.4+Math.random()*.45,life:0,max:75+Math.random()*75});
-}
-
-/* ======= MAIN LOOP ======= */
+var SPEED=0.8;
 var F=0;
 function draw(){
   F++;
   X.clearRect(0,0,W,H);
-  /* background */
-  var bg=X.createRadialGradient(W*.45,H*.38,0,W*.5,H*.5,Math.max(W,H)*.85);
-  bg.addColorStop(0,'#0e0818');bg.addColorStop(.45,'#080c1c');bg.addColorStop(1,'#020617');
+
+  /* deep space background */
+  var bg=X.createRadialGradient(CX,CY*.8,0,CX,CY,Math.max(W,H)*.85);
+  bg.addColorStop(0,'#0c0618');bg.addColorStop(.5,'#060a18');bg.addColorStop(1,'#020612');
   X.fillStyle=bg;X.fillRect(0,0,W,H);
 
-  /* STARS — fixed to fractional positions so they fill the screen at any size */
+  /* nebula blobs */
+  for(var bi2=0;bi2<BLOBS.length;bi2++){
+    var b=BLOBS[bi2];b.ph+=b.spd;
+    var bx=W*(b.fx+Math.sin(b.ph)*.04),by=H*(b.fy+Math.cos(b.ph*.7)*.03),br=Math.min(W,H)*b.r;
+    var og=X.createRadialGradient(bx,by,0,bx,by,br);
+    og.addColorStop(0,'rgba('+b.r0+','+b.g0+','+b.b0+','+b.a+')');
+    og.addColorStop(1,'rgba('+b.r0+','+b.g0+','+b.b0+',0)');
+    X.beginPath();X.arc(bx,by,br,0,Math.PI*2);X.fillStyle=og;X.fill();
+  }
+
+  /* 3D STARFIELD */
   for(var si=0;si<STARS.length;si++){
     var s=STARS[si];
-    s.to+=s.speed;
-    var tw=Math.sin(s.to)*.45+.55;
-    var sx=s.x*W,sy=s.y*H;
-    X.beginPath();X.arc(sx,sy,s.r,0,Math.PI*2);
-    X.fillStyle='rgba(255,255,255,'+(s.base*tw)+')';X.fill();
+    s.pz=s.z;
+    s.z-=SPEED;
+    if(s.z<=0){s.x=(Math.random()-.5)*W*3;s.y=(Math.random()-.5)*H*3;s.z=W;s.pz=W;}
+    var sx=s.x/s.z*FL+CX,sy=s.y/s.z*FL+CY;
+    var px=s.x/s.pz*FL+CX,py=s.y/s.pz*FL+CY;
+    var depth=1-s.z/W;
+    var rad=depth*depth*2.2+.12;
+    var alpha=depth*depth*.75+.05;
+    /* star trail for speed feel */
+    if(s.pz!==s.z&&depth>.1){
+      X.beginPath();X.moveTo(px,py);X.lineTo(sx,sy);
+      X.strokeStyle='rgba(255,255,255,'+alpha*.55+')';X.lineWidth=rad*.6;X.stroke();
+    }
+    X.beginPath();X.arc(sx,sy,rad,0,Math.PI*2);
+    /* color near stars faintly blue */
+    var col=depth>.7?'220,235,255':'255,255,255';
+    X.fillStyle='rgba('+col+','+alpha+')';X.fill();
   }
 
-  /* LIGHT ORBS */
-  for(var oi=0;oi<ORBS.length;oi++){
-    var o=ORBS[oi];
-    o.x+=o.vx;o.y+=o.vy;
-    if(o.x<-60)o.x=W+60;if(o.x>W+60)o.x=-60;
-    if(o.y<-60)o.y=H+60;if(o.y>H+60)o.y=-60;
-    drawOrb(o,F);
+  /* light orbs */
+  for(var oi2=0;oi2<ORBS.length;oi2++){
+    var o=ORBS[oi2];o.x+=o.vx;o.y+=o.vy;
+    if(o.x<-80)o.x=W+80;if(o.x>W+80)o.x=-80;if(o.y<-80)o.y=H+80;if(o.y>H+80)o.y=-80;
+    var op2=Math.sin(F*o.spd+o.ph)*.5+.5,oa=o.al*(.65+.35*op2);
+    var og2=X.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r*2.4);
+    og2.addColorStop(0,'rgba('+o.r0+','+o.g0+','+o.b0+','+oa+')');
+    og2.addColorStop(.4,'rgba('+o.r0+','+o.g0+','+o.b0+','+(oa*.35)+')');
+    og2.addColorStop(1,'rgba('+o.r0+','+o.g0+','+o.b0+',0)');
+    X.beginPath();X.arc(o.x,o.y,o.r*2.4,0,Math.PI*2);X.fillStyle=og2;X.fill();
+    var ogc=X.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r*.3);
+    ogc.addColorStop(0,'rgba(255,255,255,'+(oa*.6)+')');ogc.addColorStop(1,'rgba(255,255,255,0)');
+    X.beginPath();X.arc(o.x,o.y,o.r*.3,0,Math.PI*2);X.fillStyle=ogc;X.fill();
   }
 
-  /* HOLOGRAPHIC CARDS */
-  for(var ci=0;ci<CARDS.length;ci++){
-    var c=CARDS[ci];
-    c.x+=c.vx;c.y+=c.vy;c.ang+=c.da;
-    if(c.x<-90)c.x=W+90;if(c.x>W+90)c.x=-90;
-    if(c.y<-90)c.y=H+90;if(c.y>H+90)c.y=-90;
-    drawCard(c,F);
-  }
+  /* floating cards */
+  for(var ci2=0;ci2<FCARDS.length;ci2++){var c=FCARDS[ci2];c.x+=c.vx;c.y+=c.vy;c.ang+=c.da;if(c.x<-80)c.x=W+80;if(c.x>W+80)c.x=-80;if(c.y<-80)c.y=H+80;if(c.y>H+80)c.y=-80;dCard(c,F);}
 
-  /* SOCCER BALLS */
-  for(var bi=0;bi<BALLS.length;bi++){
-    var b=BALLS[bi];
-    b.x+=b.vx;b.y+=b.vy;b.ang+=b.da;
-    if(b.x<-80)b.x=W+80;if(b.x>W+80)b.x=-80;
-    if(b.y<-80)b.y=H+80;if(b.y>H+80)b.y=-80;
-    drawBall(b,F);
-  }
+  /* soccer balls */
+  for(var bi3=0;bi3<BALLS.length;bi3++){var bl=BALLS[bi3];bl.x+=bl.vx;bl.y+=bl.vy;bl.ang+=bl.da;if(bl.x<-60)bl.x=W+60;if(bl.x>W+60)bl.x=-60;if(bl.y<-60)bl.y=H+60;if(bl.y>H+60)bl.y=-60;dBall(bl,F);}
 
-  /* ACCESSORIES */
-  for(var ai=0;ai<ACCS.length;ai++){
-    var a2=ACCS[ai];
-    a2.x+=a2.vx;a2.y+=a2.vy;a2.ang+=a2.da;
-    if(a2.x<-80)a2.x=W+80;if(a2.x>W+80)a2.x=-80;
-    if(a2.y<-80)a2.y=H+80;if(a2.y>H+80)a2.y=-80;
-    if(a2.t==='shoe')drawShoe(a2.x,a2.y,a2.s,a2.ang,a2.al,F,a2.ph);
-    else drawTrophy(a2.x,a2.y,a2.s,a2.al,F,a2.ph);
-  }
+  /* accessories */
+  for(var ai2=0;ai2<ACCS.length;ai2++){var a2=ACCS[ai2];a2.x+=a2.vx;a2.y+=a2.vy;a2.ang+=a2.da;if(a2.x<-60)a2.x=W+60;if(a2.x>W+60)a2.x=-60;if(a2.y<-60)a2.y=H+60;if(a2.y>H+60)a2.y=-60;if(a2.t==='shoe')dShoe(a2.x,a2.y,a2.s,a2.ang,a2.al,F,a2.ph);else dTrophy(a2.x,a2.y,a2.s,a2.al,F,a2.ph);}
 
-  /* LIGHT TRAILS */
-  if(F%20===0&&TRAILS.length<16)mkTrail();
-  for(var ti=TRAILS.length-1;ti>=0;ti--){
-    var tr=TRAILS[ti];tr.x+=tr.vx;tr.y+=tr.vy;tr.life++;
-    var pct=tr.life/tr.max,fade=pct<.2?pct/.2:pct>.78?(1-pct)/.22:1;
-    var nm=Math.sqrt(tr.vx*tr.vx+tr.vy*tr.vy),tx=tr.x-tr.vx*(tr.len/nm),ty=tr.y-tr.vy*(tr.len/nm);
-    var rr=rgb(tr.col),lg=X.createLinearGradient(tx,ty,tr.x,tr.y);
-    lg.addColorStop(0,'rgba('+rr+',0)');lg.addColorStop(.65,'rgba('+rr+','+(tr.al*fade*.5)+')');lg.addColorStop(1,'rgba('+rr+','+(tr.al*fade)+')');
-    X.beginPath();X.moveTo(tx,ty);X.lineTo(tr.x,tr.y);X.strokeStyle=lg;X.lineWidth=1.5;X.stroke();
-    var hg=X.createRadialGradient(tr.x,tr.y,0,tr.x,tr.y,7);
-    hg.addColorStop(0,'rgba('+rr+','+(tr.al*fade)+')');hg.addColorStop(1,'rgba(0,0,0,0)');
-    X.beginPath();X.arc(tr.x,tr.y,7,0,Math.PI*2);X.fillStyle=hg;X.fill();
-    if(tr.life>=tr.max)TRAILS.splice(ti,1);
-  }
+  /* trails */
+  if(F%16===0&&TRLS.length<20)mkT();
+  for(var ti=TRLS.length-1;ti>=0;ti--){var tr=TRLS[ti];tr.x+=tr.vx;tr.y+=tr.vy;tr.life++;
+    var pct=tr.life/tr.max,fade=pct<.15?pct/.15:pct>.82?(1-pct)/.18:1;
+    var nm=Math.sqrt(tr.vx*tr.vx+tr.vy*tr.vy),tx2=tr.x-tr.vx*(tr.len/nm),ty2=tr.y-tr.vy*(tr.len/nm);
+    var lg=X.createLinearGradient(tx2,ty2,tr.x,tr.y);
+    lg.addColorStop(0,'rgba('+tr.col+',0)');lg.addColorStop(.6,'rgba('+tr.col+','+(tr.al*fade*.4)+')');lg.addColorStop(1,'rgba('+tr.col+','+(tr.al*fade)+')');
+    X.beginPath();X.moveTo(tx2,ty2);X.lineTo(tr.x,tr.y);X.strokeStyle=lg;X.lineWidth=1.1;X.stroke();
+    var hg=X.createRadialGradient(tr.x,tr.y,0,tr.x,tr.y,5.5);hg.addColorStop(0,'rgba('+tr.col+','+(tr.al*fade)+')');hg.addColorStop(1,'rgba(0,0,0,0)');
+    X.beginPath();X.arc(tr.x,tr.y,5.5,0,Math.PI*2);X.fillStyle=hg;X.fill();
+    if(tr.life>=tr.max)TRLS.splice(ti,1);}
 
   requestAnimationFrame(draw);
 }
 draw();
+
+/* ═══════════════════════════════════════════
+   3D CARD TILT — mouse parallax
+═══════════════════════════════════════════ */
+document.querySelectorAll('[data-tilt]').forEach(function(card){
+  var mx=0.5,my=0.5,cx=0.5,cy=0.5,raf=null;
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function update(){
+    cx=lerp(cx,mx,.1);cy=lerp(cy,my,.1);
+    var rx=(cy-.5)*22,ry=(cx-.5)*-22;
+    card.style.transform='perspective(700px) rotateX('+rx+'deg) rotateY('+ry+'deg) scale3d(1.04,1.04,1.04)';
+    var foil=card.querySelector('.foil');
+    if(foil){foil.style.setProperty('--mx',(cx*100)+'%');foil.style.setProperty('--my',(cy*100)+'%');}
+    raf=requestAnimationFrame(update);
+  }
+  card.addEventListener('mouseenter',function(){raf=requestAnimationFrame(update);});
+  card.addEventListener('mousemove',function(e){var r=card.getBoundingClientRect();mx=(e.clientX-r.left)/r.width;my=(e.clientY-r.top)/r.height;});
+  card.addEventListener('mouseleave',function(){cancelAnimationFrame(raf);mx=.5;my=.5;card.style.transform='';});
+  /* touch */
+  card.addEventListener('touchmove',function(e){var r=card.getBoundingClientRect(),t=e.touches[0];mx=(t.clientX-r.left)/r.width;my=(t.clientY-r.top)/r.height;},{passive:true});
+});
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
 })();
 </script>
 </body>
