@@ -296,33 +296,12 @@ for(var ci=0;ci<16;ci++){var cp=CPAIRS[ci%7],cw=26+Math.random()*28;
     al:.07+Math.random()*.11,gp:Math.random()*Math.PI*2,gs:.01+Math.random()*.018,
     r1:cp[0],g1:cp[1],b1:cp[2],r2:cp[3],g2:cp[4],b2:cp[5]});}
 
-/* Soccer balls */
-var BALLS=[];
-for(var bi=0;bi<5;bi++){BALLS.push({x:Math.random()*W,y:Math.random()*H,r:9+Math.random()*11,
-  ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.007,
-  vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,
-  al:.04+Math.random()*.05,ph:Math.random()*Math.PI*2});}
 
-/* Sports accessories — 3D floating */
-var ACCS=[];
-for(var ai=0;ai<8;ai++){ACCS.push({t:ai<4?'shoe':'trophy',
-  x:Math.random()*W,y:Math.random()*H,s:22+Math.random()*22,
-  ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.005,
-  vx:(Math.random()-.5)*.24,vy:(Math.random()-.5)*.24,
-  al:.07+Math.random()*.08,ph:Math.random()*Math.PI*2});}
 
-/* Tennis balls */
-var TBALLS=[];
-for(var ti=0;ti<4;ti++){TBALLS.push({x:Math.random()*W,y:Math.random()*H,r:7+Math.random()*8,
-  ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.009,
-  vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,
-  al:.04+Math.random()*.055,ph:Math.random()*Math.PI*2});}
-/* Boxing gloves */
-var GLOVES=[];
-for(var gi=0;gi<3;gi++){GLOVES.push({x:Math.random()*W,y:Math.random()*H,s:15+Math.random()*13,
-  ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.004,
-  vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,
-  al:.05+Math.random()*.065,ph:Math.random()*Math.PI*2});}
+
+
+
+
 /* Light orbs */
 var ORBS=[];
 var OCOLS=[[59,130,246],[139,92,246],[6,182,212],[245,158,11],[16,185,129],[236,72,153]];
@@ -331,6 +310,14 @@ for(var oi=0;oi<10;oi++){var oc=OCOLS[oi%6];
     vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,
     al:.022+Math.random()*.04,ph:Math.random()*Math.PI*2,spd:.008+Math.random()*.012,
     r0:oc[0],g0:oc[1],b0:oc[2]});}
+
+/* Twinkling sparkle stars */
+var TWINKLES=[];
+var TWINKCOLS=[[255,255,255],[220,240,255],[255,248,180],[180,210,255],[255,210,255],[180,255,230]];
+for(var tw2i=0;tw2i<90;tw2i++){var twc=TWINKCOLS[Math.floor(Math.random()*6)];
+  TWINKLES.push({x:Math.random()*W,y:Math.random()*H,r:.6+Math.random()*2.2,
+    al:.25+Math.random()*.75,ph:Math.random()*Math.PI*2,spd:.016+Math.random()*.032,
+    r0:twc[0],g0:twc[1],b0:twc[2]});}
 
 /* Trails */
 var TRLS=[],TPAL=['59,130,246','139,92,246','6,182,212','245,158,11','16,185,129','236,72,153'];
@@ -501,9 +488,9 @@ var SPEED=0.8;
   ['sport-soccer-final.png','sport-basketball-final.png','sport-boxing-final.png','sport-runner-final.png'].forEach(function(src){
     var im=new Image(),sz=120+Math.random()*80;im.src=src;
     SPORTIMGS.push({img:im,x:Math.random()*W,y:Math.random()*H,w:sz,h:sz,
-      ang:Math.random()*Math.PI*2,da:(Math.random()-.5)*.0018,
+      ang:0,da:(Math.random()-.5)*.0018,
       vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,
-      al:.14+Math.random()*.08,ph:Math.random()*Math.PI*2});
+      al:.19+Math.random()*.08,ph:Math.random()*Math.PI*2});
   });
   
 var CORNO={x:0,y:0,s:34,ang:-0.32,vx:.15,vy:.10,al:.48,ph:1.4,swx:2.1,swy:.8,init:false};
@@ -571,15 +558,15 @@ function draw(){
     /* floating cards */
   for(var ci2=0;ci2<FCARDS.length;ci2++){var c=FCARDS[ci2];c.x+=c.vx;c.y+=c.vy;c.ang+=c.da;if(c.x<-80)c.x=W+80;if(c.x>W+80)c.x=-80;if(c.y<-80)c.y=H+80;if(c.y>H+80)c.y=-80;dCard(c,F);}
 
-  /* soccer balls */
-  for(var bi3=0;bi3<BALLS.length;bi3++){var bl=BALLS[bi3];bl.x+=bl.vx;bl.y+=bl.vy;bl.ang+=bl.da;if(bl.x<-60)bl.x=W+60;if(bl.x>W+60)bl.x=-60;if(bl.y<-60)bl.y=H+60;if(bl.y>H+60)bl.y=-60;dBall(bl,F);}
-
-  /* accessories */
-  for(var ai2=0;ai2<ACCS.length;ai2++){var a2=ACCS[ai2];a2.x+=a2.vx;a2.y+=a2.vy;a2.ang+=a2.da;if(a2.x<-60)a2.x=W+60;if(a2.x>W+60)a2.x=-60;if(a2.y<-60)a2.y=H+60;if(a2.y>H+60)a2.y=-60;if(a2.t==='shoe')dShoe(a2.x,a2.y,a2.s,a2.ang,a2.al,F,a2.ph);else dTrophy(a2.x,a2.y,a2.s,a2.al,F,a2.ph);}
-
-  /* Tennis + Gloves */
-  TBALLS.forEach(function(b){b.ang+=b.da;b.x+=b.vx;b.y+=b.vy;if(b.x<-20)b.x=W+20;if(b.x>W+20)b.x=-20;if(b.y<-20)b.y=H+20;if(b.y>H+20)b.y=-20;dTennisBall(b,F);});
-  GLOVES.forEach(function(o){o.ang+=o.da;o.x+=o.vx;o.y+=o.vy;if(o.x<-40)o.x=W+40;if(o.x>W+40)o.x=-40;if(o.y<-60)o.y=H+60;if(o.y>H+60)o.y=-60;dGlove(o,F);});
+  /* twinkling sparkle stars */
+  for(var twi=0;twi<TWINKLES.length;twi++){var tw=TWINKLES[twi];
+    var twa=tw.al*(Math.sin(F*tw.spd+tw.ph)*.5+.5);
+    X.beginPath();X.arc(tw.x,tw.y,tw.r,0,Math.PI*2);
+    X.fillStyle='rgba('+tw.r0+','+tw.g0+','+tw.b0+','+twa+')';X.fill();
+    if(tw.r>1.4){var clen=tw.r*3;
+      X.strokeStyle='rgba('+tw.r0+','+tw.g0+','+tw.b0+','+(twa*.45)+')';X.lineWidth=.5;
+      X.beginPath();X.moveTo(tw.x-clen,tw.y);X.lineTo(tw.x+clen,tw.y);X.stroke();
+      X.beginPath();X.moveTo(tw.x,tw.y-clen);X.lineTo(tw.x,tw.y+clen);X.stroke();}}
   /* Cornicello */
   CORNO.x+=CORNO.vx;CORNO.y+=CORNO.vy;
   if(CORNO.x<-55)CORNO.x=W+55;if(CORNO.x>W+55)CORNO.x=-55;
