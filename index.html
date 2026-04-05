@@ -193,6 +193,52 @@
       display: none
     }
 
+    /* Italian ribbon: two centered rows; second row includes a leading gold dot */
+    .sport-strip--split {
+      flex-direction: column;
+      gap: .45rem;
+      padding-top: .65rem;
+      padding-bottom: .65rem
+    }
+
+    .sport-strip__line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem .85rem;
+      width: 100%
+    }
+
+    .sport-strip__line span {
+      font-size: .5625rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted2);
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem
+    }
+
+    .sport-strip__line span::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: .75;
+      flex-shrink: 0
+    }
+
+    .sport-strip__line span:first-child::before {
+      display: none
+    }
+
+    .sport-strip__line--lead span:first-child::before {
+      display: block
+    }
+
     /* ── HERO ── */
     .hero {
       width: 100%;
@@ -1291,7 +1337,7 @@
 
     <section class="band band--hero">
       <div class="band__bg" aria-hidden="true"></div>
-      <p class="band__scene" aria-hidden="true">Scene · Basketball arena</p>
+      <p class="band__scene" aria-hidden="true">Scena · Arena di basket</p>
       <div class="band__inner">
         <header class="hero">
           <p class="eyebrow">Sports &amp; trading card intelligence</p>
@@ -1327,14 +1373,18 @@
       <img class="hero-phone" src="mobile.png" alt="" width="760" height="760" aria-hidden="true">
     </section>
 
-    <div class="sport-strip" role="presentation">
-      <span>Basketball</span><span>Tennis</span><span>Track &amp; field</span><span>Football cards</span><span>Training
-        &amp; gear</span>
+    <div class="sport-strip sport-strip--split" role="presentation">
+      <div class="sport-strip__line">
+        <span>Pallacanestro</span><span>Tennis</span><span>Atletica leggera</span>
+      </div>
+      <div class="sport-strip__line sport-strip__line--lead">
+        <span>Figurine da calcio</span><span>Formazione e attrezzatura</span>
+      </div>
     </div>
 
     <section class="band band--features">
       <div class="band__bg" aria-hidden="true"></div>
-      <p class="band__scene" aria-hidden="true">Scene · Track &amp; field</p>
+      <p class="band__scene" aria-hidden="true">Scena · Atletica leggera</p>
       <div class="band__inner">
         <section class="features-sec reveal">
           <div class="glass feat-panel">
@@ -1384,12 +1434,12 @@
     </section>
 
     <div class="sport-strip" role="presentation">
-      <span>TCG universes</span><span>Sports collectibles</span><span>Version 2.0 roadmap</span>
+      <span>Universi TCG</span><span>Collezionabili sportivi</span><span>Roadmap versione 2.0</span>
     </div>
 
     <section class="band band--universes">
       <div class="band__bg" aria-hidden="true"></div>
-      <p class="band__scene" aria-hidden="true">Scene · Tennis</p>
+      <p class="band__scene" aria-hidden="true">Scena · Tennis</p>
       <div class="band__inner">
         <section class="v2-sec reveal" style="transition-delay:.12s">
           <div style="display:flex;justify-content:center">
@@ -1492,7 +1542,9 @@
                 <p class="aff__lede">Scan a football card, then explore curated performance and lifestyle products from
                   trusted retailers.</p>
                 <div class="brands">
-                  <span class="brand">The industry's top brands</span>
+                  <span class="brand">Nike</span><span class="brand">Adidas</span><span class="brand">Puma</span><span
+                    class="brand">Decathlon</span><span class="brand">New Balance</span><span class="brand">Under
+                    Armour</span><span class="brand">Asics</span><span class="brand">+ more</span>
                 </div>
                 <p>We surface <strong>transparent affiliate offers</strong> in context — basketball, tennis, athletics,
                   and training — so the app reads as a <strong>sports portal</strong>, not only a TCG utility.</p>
