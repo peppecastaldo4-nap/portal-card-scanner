@@ -77,6 +77,10 @@
       isolation: isolate
     }
 
+    .band--hero {
+      overflow: visible
+    }
+
     .band__bg {
       position: absolute;
       inset: 0;
@@ -198,7 +202,35 @@
       justify-content: center;
       padding: 3.25rem 1.5rem 3rem;
       gap: 1.65rem;
-      text-align: center
+      text-align: center;
+      position: relative;
+      isolation: isolate
+    }
+
+    .hero>* {
+      position: relative;
+      z-index: 1
+    }
+
+    .hero-media {
+      width: 100%;
+      max-width: 760px
+    }
+
+    /* Phone mockup: anchored to full-width hero band → top-right viewport balance */
+    .band--hero .hero-phone {
+      display: none;
+      position: absolute;
+      top: clamp(3.25rem, 7vw, 5.5rem);
+      right: clamp(0.5rem, 3vw, 2.75rem);
+      width: min(340px, 30vw);
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+      filter: drop-shadow(0 20px 50px rgba(0, 0, 0, .55)) drop-shadow(0 0 28px rgba(61, 139, 253, .12));
+      opacity: .94;
+      z-index: 2;
+      transform: translateZ(0)
     }
 
     .eyebrow {
@@ -247,6 +279,24 @@
       .logo-outer {
         grid-column: 1;
         justify-self: start
+      }
+
+    }
+
+    @media(min-width:900px) {
+      .band--hero .hero-phone {
+        display: block;
+        top: clamp(2.75rem, 6vw, 4.5rem);
+        right: clamp(0.75rem, 4vw, 3.25rem);
+        width: min(400px, 32vw)
+      }
+    }
+
+    @media(min-width:1200px) {
+      .band--hero .hero-phone {
+        top: clamp(2.5rem, 5vw, 4rem);
+        right: clamp(1.25rem, 5vw, 4rem);
+        width: min(440px, 28vw)
       }
     }
 
@@ -1245,16 +1295,19 @@
       <div class="band__inner">
         <header class="hero">
           <p class="eyebrow">Sports &amp; trading card intelligence</p>
-          <div class="hero-lockup">
-            <div class="logo-outer">
-              <div class="logo-ring"><img src="logo.png" alt="Portal Card Scanner" width="156" height="156"></div>
-              <div class="logo-scan"></div>
-            </div>
-            <div class="headline">
-              <h1 class="app-name">Portal <span>Card</span> Scanner</h1>
-              <p class="app-sub">Built for <strong>collectors and multi-sport fans</strong> — from the court to the
-                track and the terrace, scan TCG and football cards, track live values, and manage your collection in one
-                place.</p>
+          <div class="hero-media">
+            <div class="hero-lockup">
+              <div class="logo-outer">
+                <div class="logo-ring"><img src="logo.png" alt="Portal Card Scanner" width="156" height="156"></div>
+                <div class="logo-scan"></div>
+              </div>
+              <div class="headline">
+                <h1 class="app-name">Portal <span>Card</span> Scanner</h1>
+                <p class="app-sub">Built for <strong>collectors and multi-sport fans</strong> — from the court to the
+                  track and the terrace, scan TCG and football cards, track live values, and manage your collection in
+                  one
+                  place.</p>
+              </div>
             </div>
           </div>
           <div class="stats">
@@ -1271,6 +1324,7 @@
           </div>
         </header>
       </div>
+      <img class="hero-phone" src="mobile.png" alt="" width="760" height="760" aria-hidden="true">
     </section>
 
     <div class="sport-strip" role="presentation">
