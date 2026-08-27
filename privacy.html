@@ -15,89 +15,49 @@
       background: #05080f;
       color: #e8edf5;
       min-height: 100vh;
-      position: relative;
-      isolation: isolate;
       padding: 2.5rem 1.25rem 4rem;
+      line-height: 1.65;
     }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background-image:
-        linear-gradient(180deg, rgba(5, 8, 15, 0.94) 0%, rgba(5, 8, 15, 0.88) 50%, rgba(5, 8, 15, 0.95) 100%),
-        url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=2000&q=80');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-    .doc {
-      max-width: 720px;
-      width: 100%;
-      margin: 0 auto;
-    }
+    .doc { max-width: 720px; width: 100%; margin: 0 auto; }
     .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      color: #d4a853;
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      transition: opacity 0.2s;
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      color: #d4a853; text-decoration: none;
+      font-size: 0.875rem; font-weight: 500; margin-bottom: 2rem;
     }
     .back-link:hover { opacity: 0.85; }
     h1 {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(2rem, 5vw, 2.75rem);
-      font-weight: 400;
-      letter-spacing: 0.03em;
-      color: #fff;
-      margin-bottom: 0.35rem;
-      line-height: 1;
+      font-weight: 400; letter-spacing: 0.03em;
+      color: #fff; margin-bottom: 0.35rem; line-height: 1;
     }
-    .updated {
-      font-size: 0.8125rem;
-      color: #5c677a;
-      margin-bottom: 2rem;
+    .updated { color: #8b95a7; font-size: 0.875rem; margin-bottom: 2rem; }
+    .section-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
     }
     h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      color: #d4a853;
-      margin-top: 0;
-      margin-bottom: 0.85rem;
+      font-size: 1.125rem; font-weight: 600; color: #fff;
+      margin-bottom: 0.85rem; letter-spacing: 0.01em;
     }
-    p { font-size: 0.9375rem; line-height: 1.75; margin-bottom: 0.75rem; color: #cbd5e1; }
-    ul { padding-left: 1.25rem; margin-bottom: 0.75rem; }
-    li { font-size: 0.9375rem; line-height: 1.75; color: #cbd5e1; margin-bottom: 0.25rem; }
-    strong { color: #e8edf5; }
-    a { color: #d4a853; text-decoration: none; font-weight: 500; }
-    a:hover { opacity: 0.9; }
-    .section-card {
-      background: rgba(12, 17, 28, 0.82);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 1.5rem 1.35rem;
-      margin-bottom: 1rem;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    h3 {
+      font-size: 0.95rem; font-weight: 600; color: #d4a853;
+      margin: 1.25rem 0 0.6rem;
     }
-    .highlight {
-      background: rgba(26, 127, 74, 0.12);
-      border: 1px solid rgba(34, 197, 94, 0.28);
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      margin: 1rem 0;
+    p { margin-bottom: 0.85rem; font-size: 0.95rem; color: #c3ccda; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: #e8edf5; font-weight: 600; }
+    ul { margin: 0 0 0.85rem 1.15rem; }
+    li { margin-bottom: 0.4rem; font-size: 0.95rem; color: #c3ccda; }
+    a { color: #d4a853; }
+    .disclaimer {
+      font-size: 0.8rem; color: #8b95a7; line-height: 1.6;
     }
-    .highlight p { color: #a7f3d0; margin: 0; font-size: 0.875rem; }
-    hr { border: none; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 1.5rem 0; }
-    @media (max-width: 640px) {
-      body::before { background-attachment: scroll; }
+    .generated {
+      margin-top: 2.5rem; font-size: 0.75rem; color: #5d6675; text-align: center;
     }
   </style>
 </head>
@@ -106,66 +66,103 @@
   <a class="back-link" href="index.html">← Back to Portal Card Scanner</a>
 
   <h1>Privacy Policy</h1>
-  <p class="updated">Last updated: March 30, 2026</p>
-
-  <p>Welcome to <strong>Portal Card Scanner</strong>. Your privacy is fundamental to us. This policy explains how we collect, use, and protect your data when you use our card identification services, including both the current version and future features planned for Version 2.0.</p>
+  <p class="updated">Last Updated: August 27, 2026</p>
 
   <div class="section-card">
-    <h2>1. Data We Collect and Purposes</h2>
+      <h2>Introduction</h2>
 
-    <p><strong>Card Images:</strong> When you scan a card (Pokémon, One Piece, and — in Version 2.0 — Dragon Ball, Yu-Gi-Oh!, and Football cards), the image is sent to our systems. We use Artificial Intelligence exclusively to identify the card model and provide you with real-time market prices.</p>
-
-    <p><strong>Usage Data:</strong> We collect anonymous data on the most used features to improve the accuracy of our recognition algorithm.</p>
-
-    <p><strong>Device Identifiers:</strong> Used by advertising partners (Google AdMob) to display relevant ads.</p>
+      <p>Welcome to Portal Card Scanner. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application. Please read this privacy policy carefully.</p>
   </div>
 
   <div class="section-card">
-    <h2>2. Data Retention</h2>
+      <h2>Information We Collect</h2>
 
-    <p>We are proponents of "Data Minimization":</p>
-    <ul>
-      <li><strong>Images:</strong> We do not permanently store your images. Once identification is complete, the image is deleted from our temporary servers.</li>
-      <li><strong>Statistical Data:</strong> Anonymized data on scan accuracy may be retained to train our computer vision models.</li>
-    </ul>
+      <h3>Information Automatically Collected</h3>
+
+      <p><strong>Device Information:</strong> We collect limited technical information about your mobile device, such as the operating system version and general device model, so that the App works correctly and so we can diagnose problems. We do not collect advertising identifiers, hardware serial numbers, or any other persistent device identifier.</p>
+
+      <p><strong>Install ID:</strong> When you first open the App we generate a random install ID and store it on your device. It is sent to our servers so that a subscription you have purchased can be verified and applied to this installation. It is not derived from your device or your Google account, it is not an advertising identifier, and it tells us nothing about you personally. Clearing the App's data or reinstalling creates a new install ID; restoring your purchases links the new one.</p>
+
+      <p><strong>Usage Data:</strong> We collect information about how you interact with the app, including features used, scan frequency, and session duration.</p>
+
+      <p><strong>Camera Access:</strong> The app requires camera access to scan trading cards. Photos taken are processed locally on your device and sent to our AI service provider for card recognition. We do not store these images on our servers.</p>
+
+      <h3>Information You Provide</h3>
+
+      <p><strong>Collection Data:</strong> When you add cards to your collection, we store this information locally on your device. This includes card names, set information, prices, and scan timestamps.</p>
+
+      <p><strong>Premium Subscription:</strong> Payment processing is handled by Apple App Store or Google Play Store. We do not collect or store your payment information directly.</p>
   </div>
 
   <div class="section-card">
-    <h2>3. Third-Party Services and Affiliations</h2>
+      <h2>How We Use Your Information</h2>
 
-    <p><strong>Advertising:</strong> We use Google AdMob. AdMob may collect and use personal data (such as device advertising ID) to personalize ads.</p>
-
-    <p><strong>Existing Affiliate Links:</strong> The app contains links to TCGPlayer, Amazon, and eBay. If you purchase through these links, we may receive a commission. This does not incur additional costs for you, and we do not share your personal data with these vendors.</p>
-
-    <div class="highlight">
-      <p>🆕 <strong>Version 2.0 — Sports Accessories Affiliate Programme:</strong><br>
-      In Version 2.0, the Football Card mode will include links to sports accessories from partner brands including <strong>Nike, Adidas, Puma, Decathlon, New Balance</strong>, and others via the <strong>Awin affiliate network</strong>. When you tap "Buy Sports Accessories" after scanning a Football card, you may be redirected to partner stores. If you make a purchase through these links, we may receive a commission at no extra cost to you. We do not share your personal data with these retailers beyond what is standard for affiliate link tracking (anonymised click data).</p>
-    </div>
-
-    <p>All affiliate relationships are disclosed transparently within the app and on this page.</p>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li>Provide core functionality (process card scans, retrieve card and market data)</li>
+        <li>AI-powered card recognition</li>
+        <li>Improve user experience and app performance</li>
+        <li>Display advertisements (for free users)</li>
+        <li>Provide customer support</li>
+        <li>Verify and apply subscription purchases</li>
+      </ul>
   </div>
 
   <div class="section-card">
-    <h2>4. Security</h2>
-    <p>We adopt standard encryption protocols to protect data during transfer between your device and our servers. However, remember that no internet transmission system is 100% secure.</p>
+      <h2>Third-Party Services</h2>
+
+      <p><strong>Card Recognition:</strong> We use third-party AI services to analyze card images. Images are transmitted solely for recognition purposes and are not stored by Portal Card Scanner.</p>
+
+      <p><strong>Affiliate Links:</strong> Purchase links in the App may include affiliate tracking parameters. We may earn a commission when you make purchases through these links at no additional cost to you.</p>
+
+      <p><strong>Google AdMob:</strong> For free users, we display advertisements through Google AdMob. AdMob may also serve advertisements supplied by its mediation partners, currently Meta Audience Network, Unity Ads and AppLovin. These partners may collect device and usage data in accordance with their own privacy policies.</p>
   </div>
 
   <div class="section-card">
-    <h2>5. Your Rights</h2>
-    <p>Depending on your jurisdiction, you may have the right to:</p>
-    <ul>
-      <li>Access the personal data we hold about you</li>
-      <li>Request correction or deletion of your data</li>
-      <li>Object to or restrict certain processing activities</li>
-      <li>Withdraw consent where processing is based on consent</li>
-    </ul>
-    <p>To exercise these rights, contact us at <a href="mailto:portalcardscanner@gmail.com">portalcardscanner@gmail.com</a>.</p>
+      <h2>Data Storage and Security</h2>
+
+      <p><strong>Our Servers:</strong> Card recognition, price lookups and subscription checks are handled by our own backend service. Card images are sent for recognition and are not retained afterwards. When you scan a card that is missing from our catalogue, the card's public details and picture may be saved to our database so that future scans can identify it — this concerns the card, not you.</p>
+
+      <p><strong>Local Storage:</strong> Your collection data is stored locally on your device. We do not transmit or store this information on remote servers.</p>
+
+      <p><strong>Security Measures:</strong> We implement reasonable security measures to protect your information.</p>
+
+      <p><strong>Data Retention:</strong> Collection data remains on your device until you manually delete it or uninstall the app.</p>
   </div>
 
   <div class="section-card">
-    <h2>6. Contact Us</h2>
-    <p>For any questions regarding this Privacy Policy, you can contact us at: <a href="mailto:portalcardscanner@gmail.com">portalcardscanner@gmail.com</a></p>
+      <h2>Your Privacy Rights</h2>
+
+      <ul>
+        <li><strong>Access:</strong> You can access your collection data at any time within the app</li>
+        <li><strong>Deletion:</strong> You can delete your collection data from within the app</li>
+        <li><strong>Opt-Out of Ads:</strong> Premium subscribers do not see advertisements</li>
+        <li><strong>Camera Permissions:</strong> You can revoke camera access through device settings</li>
+        <li><strong>Ad Consent:</strong> If you are in the EEA or the UK, we ask for your consent before showing personalised advertisements. You can change or withdraw that consent at any time from Settings → Ad privacy choices.</li>
+      </ul>
   </div>
+
+  <div class="section-card">
+      <h2>Children's Privacy</h2>
+
+      <p>This app is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13.</p>
+  </div>
+
+  <div class="section-card">
+      <h2>Contact Us</h2>
+
+      <p>If you have questions about this Privacy Policy, please contact us at:<br>
+      Email: <a href="mailto:portalcardscanner@gmail.com">portalcardscanner@gmail.com</a></p>
+
+      <p>This document is provided in several languages for convenience. In the event of any inconsistency between a translation and the English version, the English version prevails.</p>
+
+      <p class="disclaimer">Portal Card Scanner is not affiliated with The Pokémon Company, Nintendo, Game Freak, Creatures Inc., Bandai Co., Ltd., Konami Digital Entertainment, Wizards of the Coast LLC, Hasbro, Inc., or any NBA, Soccer league, or other rights holders. All Pokémon, One Piece, Yu‑Gi‑Oh!, Dragon Ball, Magic: The Gathering, NBA, Soccer, and related trademarks are property of their respective owners.</p>
+  </div>
+
+  <p class="generated">
+    This page is generated from the same source as the matching screen inside the app, so the two
+    cannot drift apart. Do not edit it by hand — edit the app's string catalogue and regenerate.
+  </p>
 </div>
 </body>
 </html>

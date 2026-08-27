@@ -15,80 +15,49 @@
       background: #05080f;
       color: #e8edf5;
       min-height: 100vh;
-      position: relative;
-      isolation: isolate;
       padding: 2.5rem 1.25rem 4rem;
-    }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background-image:
-        linear-gradient(180deg, rgba(5, 8, 15, 0.94) 0%, rgba(5, 8, 15, 0.88) 50%, rgba(5, 8, 15, 0.95) 100%),
-        url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=2000&q=80');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      line-height: 1.65;
     }
     .doc { max-width: 720px; width: 100%; margin: 0 auto; }
     .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      color: #d4a853;
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      transition: opacity 0.2s;
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      color: #d4a853; text-decoration: none;
+      font-size: 0.875rem; font-weight: 500; margin-bottom: 2rem;
     }
     .back-link:hover { opacity: 0.85; }
     h1 {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(2rem, 5vw, 2.75rem);
-      font-weight: 400;
-      letter-spacing: 0.03em;
-      color: #fff;
-      margin-bottom: 0.35rem;
-      line-height: 1;
+      font-weight: 400; letter-spacing: 0.03em;
+      color: #fff; margin-bottom: 0.35rem; line-height: 1;
     }
-    .updated { font-size: 0.8125rem; color: #5c677a; margin-bottom: 2rem; }
-    h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      color: #d4a853;
-      margin-top: 0;
-      margin-bottom: 0.85rem;
-    }
-    p { font-size: 0.9375rem; line-height: 1.75; margin-bottom: 0.75rem; color: #cbd5e1; }
-    ul { padding-left: 1.25rem; margin-bottom: 0.75rem; }
-    li { font-size: 0.9375rem; line-height: 1.75; color: #cbd5e1; margin-bottom: 0.25rem; }
-    strong { color: #e8edf5; }
-    a { color: #d4a853; text-decoration: none; font-weight: 500; }
-    a:hover { opacity: 0.9; }
+    .updated { color: #8b95a7; font-size: 0.875rem; margin-bottom: 2rem; }
     .section-card {
-      background: rgba(12, 17, 28, 0.82);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 1.5rem 1.35rem;
-      margin-bottom: 1rem;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
     }
-    .highlight {
-      background: rgba(26, 127, 74, 0.12);
-      border: 1px solid rgba(34, 197, 94, 0.28);
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      margin: 1rem 0;
+    h2 {
+      font-size: 1.125rem; font-weight: 600; color: #fff;
+      margin-bottom: 0.85rem; letter-spacing: 0.01em;
     }
-    .highlight p { color: #a7f3d0; margin: 0; font-size: 0.875rem; }
-    @media (max-width: 640px) {
-      body::before { background-attachment: scroll; }
+    h3 {
+      font-size: 0.95rem; font-weight: 600; color: #d4a853;
+      margin: 1.25rem 0 0.6rem;
+    }
+    p { margin-bottom: 0.85rem; font-size: 0.95rem; color: #c3ccda; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: #e8edf5; font-weight: 600; }
+    ul { margin: 0 0 0.85rem 1.15rem; }
+    li { margin-bottom: 0.4rem; font-size: 0.95rem; color: #c3ccda; }
+    a { color: #d4a853; }
+    .disclaimer {
+      font-size: 0.8rem; color: #8b95a7; line-height: 1.6;
+    }
+    .generated {
+      margin-top: 2.5rem; font-size: 0.75rem; color: #5d6675; text-align: center;
     }
   </style>
 </head>
@@ -97,63 +66,233 @@
   <a class="back-link" href="index.html">← Back to Portal Card Scanner</a>
 
   <h1>Terms of Service</h1>
-  <p class="updated">Last updated: March 30, 2026</p>
+  <p class="updated">Last Updated: August 27, 2026</p>
 
   <div class="section-card">
-    <h2>1. Acceptance of Terms</h2>
-    <p>By accessing or using <strong>Portal Card Scanner</strong>, you agree to be bound by these Terms. If you do not agree to these terms, please do not use the application.</p>
+      <h2>Agreement to Terms</h2>
+
+      <p>By accessing or using Portal Card Scanner (&quot;the App&quot;), you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, you may not use the App.</p>
   </div>
 
   <div class="section-card">
-    <h2>2. Use of the Service</h2>
-    <p>Portal Card Scanner is provided for personal and non-commercial use. You agree not to:</p>
-    <ul>
-      <li>Use the service for data scraping or automated information collection.</li>
-      <li>Attempt to reverse engineer, decompile, or extract the source code of the artificial intelligence.</li>
-      <li>Use the app for illegal purposes or to violate intellectual property rights.</li>
-    </ul>
+      <h2>Description of Service</h2>
+
+      <p>Portal Card Scanner is a mobile application that allows users to scan, identify, and track the market value of trading cards across multiple games and sports — including Pokémon, One Piece, Yu‑Gi‑Oh!, Dragon Ball, Magic, NBA, and Soccer trading cards — using artificial intelligence and real-time pricing data. The App provides both free and premium subscription tiers.</p>
+
+      <h3>Free Tier</h3>
+
+      <p>Free users receive:</p>
+      <ul>
+        <li>10 card scans per day</li>
+        <li>Access to market pricing data</li>
+        <li>Collection management features</li>
+        <li>Ability to earn bonus scans by watching video advertisements</li>
+        <li>Advertisement-supported experience</li>
+        <li>Multi-scan batches use one scan from your daily allowance for each card that is successfully identified; cards that cannot be identified are free</li>
+      </ul>
+
+      <h3>Premium Plans</h3>
+
+      <p>Portal Card Scanner offers the following paid plans:</p>
+      <ul>
+        <li>Daily Pass (€0.99) — unlimited scans for 24 hours, no ads</li>
+        <li>Monthly Basic (€2.99 / month) — 100 scans per day, no ads</li>
+        <li>Monthly Pro (€5.99 / month) — unlimited scans, no ads, priority performance</li>
+        <li>Annual Basic (€24.99 / year) — 100 scans per day, no ads</li>
+        <li>Annual Pro (€49.99 / year) — unlimited scans, no ads</li>
+      </ul>
+
+      <p>All paid plans remove advertisements. Prices are shown in your local currency at checkout and may vary by region.</p>
   </div>
 
   <div class="section-card">
-    <h2>3. Disclaimer and Limitations</h2>
-    <p><strong>Accuracy:</strong> Card prices and data are provided for informational purposes only. We do not guarantee that prices are accurate, complete, or updated in real-time.</p>
-    <p><strong>Financial Decisions:</strong> We are not responsible for any financial losses or decisions made based on the information provided by the app.</p>
-    <p><strong>"As Is" Service:</strong> The service is provided "as is" and "as available." We do not guarantee that the app will be free from interruptions or technical errors.</p>
+      <h2>User Accounts and Subscriptions</h2>
+
+      <h3>Account Creation</h3>
+
+      <p>The App does not require account creation for basic functionality. All data is stored locally on your device.</p>
+
+      <h3>Subscription Terms</h3>
+
+      <p>The Monthly and Annual plans are auto-renewing subscriptions. They renew automatically unless canceled at least 24 hours before the end of the current period. You can manage or cancel a subscription through your device's App Store or Google Play Store settings. The Daily Pass is a one-time purchase that grants unlimited scans for 24 hours and does not auto-renew.</p>
+
+      <h3>Refund Policy</h3>
+
+      <p>Refunds for subscriptions are handled according to Apple App Store or Google Play Store policies. We do not process refunds directly.</p>
   </div>
 
   <div class="section-card">
-    <h2>4. Intellectual Property and Affiliations</h2>
-    <p>Portal Card Scanner is a fan-made tool. We are not affiliated with, endorsed, or sponsored by any of the following rights holders:</p>
-    <ul>
-      <li><strong>Nintendo / The Pokémon Company</strong> — owners of the Pokémon trademark and related IP.</li>
-      <li><strong>Bandai / Toei Animation</strong> — owners of One Piece and Dragon Ball trademarks and related IP.</li>
-      <li><strong>Konami</strong> — owner of the Yu-Gi-Oh! trademark and related IP.</li>
-      <li><strong>Panini / Topps / other Football card publishers</strong> — owners of Football card licences and imagery.</li>
-      <li><strong>TCGPlayer, Amazon, eBay</strong> — independent marketplaces referenced within the app.</li>
-    </ul>
-    <p>All trademarks, character names, card images, and logos are the property of their respective owners and are used here purely for identification and fan reference purposes.</p>
+      <h2>Acceptable Use</h2>
 
-    <div class="highlight">
-      <p>🆕 <strong>Version 2.0 — Sports Accessories Affiliate Partnerships:</strong><br>
-      In Version 2.0, the Football Card scanning mode will include affiliate links to sports accessories retailers via the <strong>Awin affiliate network</strong>. Partner brands may include <strong>Nike, Adidas, Puma, Decathlon, New Balance</strong>, and others. Portal Card Scanner is an independent affiliate and is not sponsored, endorsed, or employed by any of these brands. Affiliate commissions help support the free development of the app.</p>
-    </div>
+      <p>You agree to use the App only for lawful purposes and in accordance with these Terms. You agree NOT to:</p>
+
+      <p><strong>Misuse the Service:</strong> Attempt to interfere with, disrupt, or create an undue burden on the App or its infrastructure.</p>
+
+      <p><strong>Circumvent Limitations:</strong> Use technical measures to bypass the daily scan limit for free users.</p>
+
+      <p><strong>Violate Intellectual Property:</strong> Use the App to infringe upon the intellectual property rights of The Pokemon Company, Bandai Co., Ltd., or any other third party.</p>
+
+      <p><strong>Automated Access:</strong> Use bots, scrapers, or automated tools to access the App without our express written permission.</p>
+
+      <p><strong>Commercial Resale:</strong> Resell or redistribute data obtained from the App for commercial purposes without authorization.</p>
   </div>
 
   <div class="section-card">
-    <h2>5. Affiliate Link Disclosure</h2>
-    <p>Portal Card Scanner participates in affiliate marketing programmes. This means that when you click certain links within the app (to TCGPlayer, Amazon, eBay, or — in Version 2.0 — sports accessories retailers via Awin), we may earn a small commission if you make a purchase. <strong>This commission is at no additional cost to you.</strong></p>
-    <p>We only recommend products and services we believe are relevant and useful to our users. Affiliate partnerships do not influence the card scan results, pricing data, or app features.</p>
+      <h2>Intellectual Property Rights</h2>
+
+      <h3>Our Rights</h3>
+
+      <p>The App, including its original content, features, and functionality, is owned by Portal Card Scanner and is protected by international copyright, trademark, and other intellectual property laws.</p>
+
+      <h3>Game Trademarks</h3>
+
+      <p>Pokemon, Pokemon TCG, and all related trademarks are property of The Pokemon Company, Nintendo, Game Freak, and Creatures Inc. One Piece Card Game and related trademarks are property of their respective owners, including Bandai Co., Ltd. Yu-Gi-Oh! and related trademarks are property of Konami and related rights holders. Dragon Ball and related trademarks are property of their respective rights holders. Magic: The Gathering and related trademarks are property of Wizards of the Coast LLC and Hasbro, Inc. NBA and Football related trademarks are property of their respective leagues and rights holders. Portal Card Scanner is not affiliated with, endorsed by, or sponsored by any of these entities.</p>
+
+      <h3>User Content</h3>
+
+      <p>You retain ownership of any data you create within the App (your collection). By using the App, you grant us a limited license to process this data to provide the service.</p>
   </div>
 
   <div class="section-card">
-    <h2>6. Changes to Terms</h2>
-    <p>We reserve the right to modify these terms at any time. Continued use of the app after the publication of changes constitutes acceptance of the new Terms. We will update the "Last updated" date at the top of this page whenever changes are made.</p>
+      <h2>Third-Party Services</h2>
+
+      <p>The App uses third-party services for card recognition, data retrieval, pricing, advertising, and payment processing. Each service is subject to its own terms of service and privacy policy. We are not responsible for the availability, accuracy, or policies of these providers.</p>
+
+      <p>Card images are transmitted to third-party AI services solely for recognition purposes and are not stored by Portal Card Scanner. Some purchase links in the App include affiliate tracking parameters; we may earn a commission when you make purchases through these links at no additional cost to you.</p>
+
+      <h3>Advertising &amp; Payments</h3>
+
+      <p><strong>Google AdMob:</strong> Displays advertisements to free-tier users in accordance with Google's advertising policies.</p>
+
+      <p><strong>Apple App Store / Google Play Store:</strong> Handles payment processing and subscription management for premium tier purchases.</p>
   </div>
 
   <div class="section-card">
-    <h2>7. Contact</h2>
-    <p>For any questions regarding these Terms, you can contact us at: <a href="mailto:portalcardscanner@gmail.com">portalcardscanner@gmail.com</a></p>
+      <h2>Pricing Data Disclaimer</h2>
+
+      <p>Market prices displayed in the App are sourced from third-party data providers and are provided for informational purposes only. Prices may not reflect current market conditions and can vary significantly based on card condition, edition, and listing quality.</p>
+
+      <p>We do not guarantee:</p>
+      <ul>
+        <li>Accuracy of pricing data</li>
+        <li>Ability to buy or sell cards at displayed prices</li>
+        <li>Availability of cards at displayed prices</li>
+      </ul>
+
+      <p>You should verify prices independently before making purchase or sale decisions.</p>
   </div>
+
+  <div class="section-card">
+      <h2>AI Recognition Disclaimer</h2>
+
+      <p>Card recognition is performed using artificial intelligence and may not always be 100% accurate. Factors affecting accuracy include:</p>
+      <ul>
+        <li>Image quality and lighting conditions</li>
+        <li>Card condition and wear</li>
+        <li>Rare or obscure card editions</li>
+        <li>Camera angle and focus</li>
+      </ul>
+
+      <p>You should verify card identification before relying on the information provided.</p>
+  </div>
+
+  <div class="section-card">
+      <h2>Limitation of Liability</h2>
+
+      <p>To the maximum extent permitted by law, Portal Card Scanner and its affiliates shall not be liable for:</p>
+
+      <p><strong>Indirect Damages:</strong> Any indirect, incidental, special, consequential, or punitive damages arising from your use of the App.</p>
+
+      <p><strong>Data Loss:</strong> Loss of data, including your collection information, due to device failure, app errors, or other causes.</p>
+
+      <p><strong>Financial Decisions:</strong> Any financial losses resulting from reliance on pricing data or card identification provided by the App.</p>
+
+      <p><strong>Third-Party Services:</strong> Any damages arising from the use of third-party services integrated with the App.</p>
+
+      <p><strong>Service Interruptions:</strong> Temporary or permanent discontinuation of the App or any features.</p>
+
+      <p>In no event shall our total liability exceed the amount you paid for premium subscription fees in the 12 months preceding the claim.</p>
+  </div>
+
+  <div class="section-card">
+      <h2>Warranty Disclaimer</h2>
+
+      <p>The App is provided on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis without warranties of any kind, either express or implied, including but not limited to:</p>
+      <ul>
+        <li>Warranties of merchantability</li>
+        <li>Fitness for a particular purpose</li>
+        <li>Non-infringement</li>
+        <li>Accuracy or reliability of information</li>
+        <li>Uninterrupted or error-free operation</li>
+      </ul>
+  </div>
+
+  <div class="section-card">
+      <h2>Indemnification</h2>
+
+      <p>You agree to indemnify and hold harmless Portal Card Scanner and its affiliates from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from:</p>
+      <ul>
+        <li>Your use of the App</li>
+        <li>Your violation of these Terms</li>
+        <li>Your violation of any third-party rights</li>
+        <li>Your violation of applicable laws or regulations</li>
+      </ul>
+  </div>
+
+  <div class="section-card">
+      <h2>Termination</h2>
+
+      <p>We reserve the right to terminate or suspend your access to the App at any time, without notice, for conduct that we believe violates these Terms or is harmful to other users, us, or third parties, or for any other reason.</p>
+
+      <p>Upon termination, your right to use the App will immediately cease. All provisions of these Terms that by their nature should survive termination shall survive, including ownership provisions, warranty disclaimers, and limitations of liability.</p>
+  </div>
+
+  <div class="section-card">
+      <h2>Governing Law</h2>
+
+      <p>These Terms shall be governed by and construed in accordance with the laws of Italy, without regard to its conflict of law provisions.</p>
+  </div>
+
+  <div class="section-card">
+      <h2>Dispute Resolution</h2>
+
+      <p>Any disputes arising from these Terms or your use of the App shall be resolved through binding arbitration in accordance with Italian law, except where prohibited by law.</p>
+  </div>
+
+  <div class="section-card">
+      <h2>Changes to Terms</h2>
+
+      <p>We reserve the right to modify these Terms at any time. We will notify users of material changes by updating the &quot;Last Updated&quot; date. Your continued use of the App after changes constitutes acceptance of the modified Terms.</p>
+  </div>
+
+  <div class="section-card">
+      <h2>Severability</h2>
+
+      <p>If any provision of these Terms is found to be unenforceable or invalid, that provision shall be limited or eliminated to the minimum extent necessary, and the remaining provisions shall remain in full force and effect.</p>
+  </div>
+
+  <div class="section-card">
+      <h2>Contact Information</h2>
+
+      <p>For questions about these Terms, please contact us at:<br>
+      Email: <a href="mailto:portalcardscanner@gmail.com">portalcardscanner@gmail.com</a></p>
+  </div>
+
+  <div class="section-card">
+      <h2>Acknowledgment</h2>
+
+      <p>By using Portal Card Scanner, you acknowledge that you have read these Terms of Service and agree to be bound by them.</p>
+
+      <p>This document is provided in several languages for convenience. In the event of any inconsistency between a translation and the English version, the English version prevails.</p>
+
+      <p class="disclaimer">Portal Card Scanner — © 2026 All Rights Reserved<br>
+      Pokémon, One Piece, Yu‑Gi‑Oh!, Dragon Ball, Magic: The Gathering, NBA and Soccer names and related trademarks are the property of their respective owners, including The Pokémon Company, Nintendo, Game Freak, Creatures Inc., Bandai Co., Ltd., Konami Digital Entertainment, Wizards of the Coast LLC and Hasbro, Inc. Portal Card Scanner is not affiliated with or endorsed by these entities.</p>
+  </div>
+
+  <p class="generated">
+    This page is generated from the same source as the matching screen inside the app, so the two
+    cannot drift apart. Do not edit it by hand — edit the app's string catalogue and regenerate.
+  </p>
 </div>
 </body>
 </html>
